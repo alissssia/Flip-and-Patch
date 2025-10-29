@@ -4,7 +4,7 @@ module testbench_fallos #(
     parameter int ADDR_W  = $clog2(N_WORDS),  // ancho de dirección
 
     // ---- Parámetros de inyección de fallos ----
-    parameter int STUCK_PCT = 1,             // % de bits defectuosos
+    parameter int STUCK_PCT = 569,             // % de bits defectuosos
     parameter int SEED      = 32'hC0FFEE      // semilla
 ) (
     input  logic clk,
@@ -42,7 +42,7 @@ module testbench_fallos #(
             stuck0_mask[i] = '0;
             stuck1_mask[i] = '0;
             for (int b = 0; b < DATA_W; b++) begin
-                if ($urandom_range(0,99) < STUCK_PCT) begin
+                if ($urandom_range(0,999999) < STUCK_PCT) begin
                     if ($urandom_range(0,1) == 0)
                         stuck0_mask[i][b] = 1'b1;  // stuck-at-0
                     else
@@ -347,7 +347,7 @@ module testbench_fallos #(
         $display("Bit p (10)    : %0d", zeros_only);
         $display("%%ERR total    : %.2f%%", porcentaje_total);
         $display("  - %% Bit f  : %.2f%%", porcentaje_ones);
-        $display("  - %% Bit p  : %.2f%%", porcentaje_zeros);
+        $display("  - %% Bit p  : %.6f%%", porcentaje_zeros);
         $display("====================================================\n");
     end
 
