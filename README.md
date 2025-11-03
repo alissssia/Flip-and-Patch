@@ -3,7 +3,7 @@ This repository contains the implementation of two techniques for permanent faul
 These mechanisms are described in the paper:
 > **"Flip-and-Patch: A Fault-Tolerant Technique for On-Chip Memories of CNN Accelerators at Low Supply Voltage"**
 
-### 📚 Citation (BibTeX)
+### Citation (BibTeX)
 ```bibtex
 @article{Toca-Díaz:131704,
       author        = "Toca-Díaz, Yamilka and Hernández Palacios, Reynier and
@@ -30,6 +30,6 @@ Contains the implementation of the flipping mechanism, which can be used:
 The directory also includes different flip-flop implementations, a multiplexer and dedicated testbenches (with a Makefile to execute all of them).
 ### cache
 Implements the cache required for the patching mechanism.
-Includes all necessary modules, a C++ testbench to verify correct functionality, and a corresponding Makefile for the testbench execution.
+Includes all necessary modules, a C++ testbench to verify correct functionality and a corresponding Makefile for the testbench execution.
 
 
