@@ -4,7 +4,7 @@ module testbench_fallos #(
     parameter int ADDR_W  = $clog2(N_WORDS),  // ancho de dirección
 
     // ---- Parámetros de inyección de fallos ----
-    parameter int STUCK_PCT = 569,             // % de bits defectuosos
+    parameter int STUCK_PCT = 300000,//569,             // % de bits defectuosos
     parameter int SEED      = 32'hC0FFEE      // semilla
 ) (
     input  logic clk,
@@ -18,8 +18,8 @@ module testbench_fallos #(
     //output logic [1:0] error_0 [0:N_WORDS-1], // errores detectados en el barrido de 0s
     //output logic [1:0] error_1 [0:N_WORDS-1]  // errores detectados en el barrido de 1s
     //output logic error_map [0:N_WORDS-1],  // // indica si hay un error o no en esa direccion
-    output logic flipping_bit [0:N_WORDS-1],    // indica si hay un error de tipo high order
-    output logic patching_bit [0:N_WORDS-1]     // indica si hay un error de tipo low&high order
+    output logic flipping_bit [N_WORDS-1:0],    // indica si hay un error de tipo high order
+    output logic patching_bit [N_WORDS-1:0]     // indica si hay un error de tipo low&high order
 );
 
     // RAM

@@ -1,0 +1,78 @@
+// Verilated -*- C++ -*-
+// DESCRIPTION: Verilator output: Symbol table internal header
+//
+// Internal details; most calling programs do not need this header,
+// unless using verilator public meta comments.
+
+#ifndef VERILATED_VFINAL_INTEGRATION__SYMS_H_
+#define VERILATED_VFINAL_INTEGRATION__SYMS_H_  // guard
+
+#include "verilated.h"
+
+// INCLUDE MODEL CLASS
+
+#include "Vfinal_integration.h"
+
+// INCLUDE MODULE CLASSES
+#include "Vfinal_integration___024root.h"
+#include "Vfinal_integration_final_integration.h"
+#include "Vfinal_integration_test_mechanisms.h"
+#include "Vfinal_integration_top_patching_final__M4.h"
+#include "Vfinal_integration_cache_tfg.h"
+#include "Vfinal_integration_cache_way__Td_D10_S8.h"
+#include "Vfinal_integration_bram__D100_Wd.h"
+#include "Vfinal_integration_bram__D100_W10.h"
+
+// DPI TYPES for DPI Export callbacks (Internal use)
+
+// SYMS CLASS (contains all model state)
+class alignas(VL_CACHE_LINE_BYTES)Vfinal_integration__Syms final : public VerilatedSyms {
+  public:
+    // INTERNAL STATE
+    Vfinal_integration* const __Vm_modelp;
+    VlDeleter __Vm_deleter;
+    bool __Vm_didInit = false;
+
+    // MODULE INSTANCE STATE
+    Vfinal_integration___024root   TOP;
+    Vfinal_integration_final_integration TOP__final_integration;
+    Vfinal_integration_test_mechanisms TOP__final_integration__test_mechanisms;
+    Vfinal_integration_top_patching_final__M4 TOP__final_integration__test_mechanisms__patch_inst;
+    Vfinal_integration_cache_tfg   TOP__final_integration__test_mechanisms__patch_inst__patch_cache;
+    Vfinal_integration_cache_way__Td_D10_S8 TOP__final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__0__KET____DOT__way_instance;
+    Vfinal_integration_bram__D100_W10 TOP__final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__0__KET____DOT__way_instance__data_bram;
+    Vfinal_integration_bram__D100_Wd TOP__final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__0__KET____DOT__way_instance__tag_bram;
+    Vfinal_integration_cache_way__Td_D10_S8 TOP__final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__1__KET____DOT__way_instance;
+    Vfinal_integration_bram__D100_W10 TOP__final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__1__KET____DOT__way_instance__data_bram;
+    Vfinal_integration_bram__D100_Wd TOP__final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__1__KET____DOT__way_instance__tag_bram;
+    Vfinal_integration_cache_way__Td_D10_S8 TOP__final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__2__KET____DOT__way_instance;
+    Vfinal_integration_bram__D100_W10 TOP__final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__2__KET____DOT__way_instance__data_bram;
+    Vfinal_integration_bram__D100_Wd TOP__final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__2__KET____DOT__way_instance__tag_bram;
+    Vfinal_integration_cache_way__Td_D10_S8 TOP__final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__3__KET____DOT__way_instance;
+    Vfinal_integration_bram__D100_W10 TOP__final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__3__KET____DOT__way_instance__data_bram;
+    Vfinal_integration_bram__D100_Wd TOP__final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__3__KET____DOT__way_instance__tag_bram;
+    Vfinal_integration_cache_way__Td_D10_S8 TOP__final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__4__KET____DOT__way_instance;
+    Vfinal_integration_bram__D100_W10 TOP__final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__4__KET____DOT__way_instance__data_bram;
+    Vfinal_integration_bram__D100_Wd TOP__final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__4__KET____DOT__way_instance__tag_bram;
+
+    // SCOPE NAMES
+    VerilatedScope __Vscope_final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__0__KET____way_instance__data_bram;
+    VerilatedScope __Vscope_final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__0__KET____way_instance__tag_bram;
+    VerilatedScope __Vscope_final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__1__KET____way_instance__data_bram;
+    VerilatedScope __Vscope_final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__1__KET____way_instance__tag_bram;
+    VerilatedScope __Vscope_final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__2__KET____way_instance__data_bram;
+    VerilatedScope __Vscope_final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__2__KET____way_instance__tag_bram;
+    VerilatedScope __Vscope_final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__3__KET____way_instance__data_bram;
+    VerilatedScope __Vscope_final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__3__KET____way_instance__tag_bram;
+    VerilatedScope __Vscope_final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__4__KET____way_instance__data_bram;
+    VerilatedScope __Vscope_final_integration__test_mechanisms__patch_inst__patch_cache__ways__BRA__4__KET____way_instance__tag_bram;
+
+    // CONSTRUCTORS
+    Vfinal_integration__Syms(VerilatedContext* contextp, const char* namep, Vfinal_integration* modelp);
+    ~Vfinal_integration__Syms();
+
+    // METHODS
+    const char* name() { return TOP.name(); }
+};
+
+#endif  // guard
