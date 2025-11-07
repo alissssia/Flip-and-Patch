@@ -5,13 +5,29 @@ These mechanisms are described in the paper:
 
 ### Citation (BibTeX)
 ```bibtex
-@article{Toca-Díaz:131704,
-      author        = "Toca-Díaz, Yamilka and Hernández Palacios, Reynier and
-                       Gran Tejero, Rubén and Valero, Alejandro",
-      title         = "{Flip-and-Patch: A Fault-Tolerant Technique for On-Chip
-                       Memories of CNN Accelerators at Low Supply Voltage}",
-      year          = "2024",
+@article{TOCADIAZ2024105023,
+title = {Flip-and-Patch: A fault-tolerant technique for on-chip memories of CNN accelerators at low supply voltage},
+journal = {Microprocessors and Microsystems},
+volume = {106},
+pages = {105023},
+year = {2024},
+issn = {0141-9331},
+doi = {https://doi.org/10.1016/j.micpro.2024.105023},
+url = {https://www.sciencedirect.com/science/article/pii/S0141933124000188},
+author = {Yamilka Toca-Díaz and Reynier {Hernández Palacios} and Rubén {Gran Tejero} and Alejandro Valero}
 }
+
+
+@INPROCEEDINGS{10456839,
+  author={Toca-Díaz, Yamilka and Muñoz, Nicolás Landeros and Tejero, Rubén Gran and Valero, Alejandro},
+  booktitle={2023 26th Euromicro Conference on Digital System Design (DSD)}, 
+  title={On Fault-Tolerant Microarchitectural Techniques for Voltage Underscaling in On-Chip Memories of CNN Accelerators}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={138-145},
+  keywords={Energy consumption;Low voltage;Microarchitecture;Manufacturing processes;System performance;Memory management;Voltage;Deep learning;energy efficiency;network accuracy;permanent faults},
+  doi={10.1109/DSD60849.2023.00029}}
 ```
 
 
