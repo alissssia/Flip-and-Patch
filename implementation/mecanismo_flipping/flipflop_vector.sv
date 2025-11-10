@@ -1,7 +1,7 @@
 `ifndef FLIPFLOP_VECTOR_SV
 `define FLIPFLOP_VECTOR_SV
 
-/* flipflop de un vector de 16 componentes de 1 bit cada una*/
+/* flipflop for a vector of 16 components of 1 bit each */
 
 module flipflop_vector
         #(parameter N = 16)
@@ -11,7 +11,7 @@ module flipflop_vector
     genvar i;
     generate
         for (i = 0; i < N; i++) begin
-            flipflop_uno u0 (.clk(clk), .rst(rst), .d(d[i]), .q(q[i]));
+            flipflop_one u0 (.clk(clk), .rst(rst), .d(d[i]), .q(q[i]));
         end
     endgenerate
 

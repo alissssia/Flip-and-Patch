@@ -1,30 +1,29 @@
-#include "Vmecanismo_flipping_flipflop.h"
+#include "Vflipping_mechanism_flipflop.h"
 #include "verilated.h"
 #include <iostream>
 #include <bitset>
 
 int main (int argc, char **argv) {
     Verilated::commandArgs(argc, argv);
-    Vmecanismo_flipping_flipflop* flipping = new Vmecanismo_flipping_flipflop;
-    // comprobar si reset funciona
-    // Prueba 1: f_bit[i] = 0
+    Vflipping_mechanism_flipflop* flipping = new Vflipping_mechanism_flipflop;
+    // Test 1: f_bit[i] = 0
     for (int i = 0; i < 16; i++) {
         flipping->input_activaciones[i] = 0b1000000000000000;
         flipping->input_f_bits[i] = 0;
     }
 
     flipping->rst = 0;
-    flipping->clk = 0; // flanco 1 (ciclo 0)
+    flipping->clk = 0; // flank 1 (cycle 0)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 1)
-    flipping->clk = 0; // flanco 1 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 1)
+    flipping->clk = 0; // flank 1 (cycle 2)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 2)
 
     std::cout << "-------------------------------------------------------------" << std::endl;
-    std::cout << "Prueba 1: f_bit[i] = 0" << std::endl;
+    std::cout << "Test 1: f_bit[i] = 0" << std::endl;
     for (int i = 0; i < 16; i++) {
         std::cout << 
         "a[" << i << "]: " << (int)flipping->input_activaciones[i] <<
@@ -32,7 +31,7 @@ int main (int argc, char **argv) {
         "; b[" << i << "]: " << (int)flipping->salida_flip_flop_con_activaciones_procesadas[i] << std::endl;
     }
 
-    // Prueba 2: f_bit[i] = 1
+    // Test 2: f_bit[i] = 1
 
     for (int i = 0; i < 16; i++) {
         flipping->input_activaciones[i] = 0b1000000000000000;
@@ -40,17 +39,17 @@ int main (int argc, char **argv) {
     }
 
     flipping->rst = 0;
-    flipping->clk = 0; // flanco 1 (ciclo 0)
+    flipping->clk = 0; // flank 1 (cycle 0)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 1)
-    flipping->clk = 0; // flanco 1 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 1)
+    flipping->clk = 0; // flank 1 (cycle 2)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 2)
 
     std::cout << "-------------------------------------------------------------" << std::endl;
-    std::cout << "Prueba 2: f_bit[i] = 1" << std::endl;
+    std::cout << "Test 2: f_bit[i] = 1" << std::endl;
     for (int i = 0; i < 16; i++) {
         std::cout << 
         "a[" << i << "]: " << (int)flipping->input_activaciones[i] <<
@@ -59,7 +58,7 @@ int main (int argc, char **argv) {
     }
 
 
-    // Prueba 3: f_bit = 0b1010101010101010
+    // Test 3: f_bit = 0b1010101010101010
 
     for (int i = 0; i < 16; i++) {
         flipping->input_activaciones[i] = 0b1000000000000000;
@@ -68,17 +67,17 @@ int main (int argc, char **argv) {
     }
 
     flipping->rst = 0;
-    flipping->clk = 0; // flanco 1 (ciclo 0)
+    flipping->clk = 0; // flank 1 (cycle 0)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 1)
-    flipping->clk = 0; // flanco 1 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 1)
+    flipping->clk = 0; // flank 1 (cycle 2)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 2)
 
     std::cout << "-------------------------------------------------------------" << std::endl;
-    std::cout << "Prueba 3: f_bit = 0b1010101010101010" << std::endl;
+    std::cout << "Test 3: f_bit = 0b1010101010101010" << std::endl;
     for (int i = 0; i < 16; i++) {
         std::cout << 
         "a[" << i << "]: " << (int)flipping->input_activaciones[i] <<
@@ -87,7 +86,7 @@ int main (int argc, char **argv) {
     }
 
 
-    // Prueba 4: input_activaciones = 0b0000000000000100
+    // Test 4: input_activaciones = 0b0000000000000100
 
     for (int i = 0; i < 16; i++) {
         flipping->input_activaciones[i] = 0b0000000000000100;
@@ -96,17 +95,17 @@ int main (int argc, char **argv) {
     }
 
     flipping->rst = 0;
-    flipping->clk = 0; // flanco 1 (ciclo 0)
+    flipping->clk = 0; // flank 1 (cycle 0)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 1)
-    flipping->clk = 0; // flanco 1 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 1)
+    flipping->clk = 0; // flank 1 (cycle 2)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 2)
 
     std::cout << "-------------------------------------------------------------" << std::endl;
-    std::cout << "Prueba 4: input_activaciones = 0b0000000000000100" << std::endl;
+    std::cout << "Test 4: input_activaciones = 0b0000000000000100" << std::endl;
     for (int i = 0; i < 16; i++) {
         std::cout << 
         "a[" << i << "]: " << (int)flipping->input_activaciones[i] <<
@@ -115,7 +114,7 @@ int main (int argc, char **argv) {
     }
 
 
-    // Prueba 5: valores diferentes de input_activaciones
+    // Test 5: different values of input_activaciones
 
     flipping->input_activaciones[0] = 0b0000000000000000;
     flipping->input_activaciones[1] = 0b0000000000000001;
@@ -139,18 +138,18 @@ int main (int argc, char **argv) {
     }
 
     flipping->rst = 0;
-    flipping->clk = 0; // flanco 1 (ciclo 0)
+    flipping->clk = 0; // flank 1 (cycle 0)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 1)
-    flipping->clk = 0; // flanco 1 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 1)
+    flipping->clk = 0; // flank 1 (cycle 2)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 2)
 
 
     std::cout << "-------------------------------------------------------------" << std::endl;
-    std::cout << "Prueba 5: valores diferentes de input_activaciones" << std::endl;
+    std::cout << "Test 5: different values of input_activaciones" << std::endl;
     for (int i = 0; i < 16; i++) {
         std::cout << 
         "a[" << i << "]: " << std::bitset<16>(flipping->input_activaciones[i]) << 
@@ -158,24 +157,24 @@ int main (int argc, char **argv) {
         "; b[" << i << "]: " << std::bitset<16>(flipping->salida_flip_flop_con_activaciones_procesadas[i]) << std::endl; 
     }
 
-    // clear de los valores en b
+    // clear of values in b
     
     flipping->rst = 1;
-    flipping->clk = 0; // flanco 1 (ciclo 0)
+    flipping->clk = 0; // flank 1 (cycle 0)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 1)
+    flipping->eval(); // flank 2 (cycle 1)
 
-    // Prueba 6: comprobamos que antes del flanco 2 del ciclo 2, la salida es 0
+    // Test 6: check that before flank 2 of cycle 2, the output is 0
 
     flipping->rst = 0;
-    flipping->clk = 0; // flanco 1 (ciclo 0)
+    flipping->clk = 0; // flank 1 (cycle 0)
     flipping->eval();
 
     std::cout << "-------------------------------------------------------------" << std::endl;
-    std::cout << "Prueba 6: comprobamos que antes del flanco 2 del ciclo 2, la salida es 0" << std::endl;
+    std::cout << "Test 6: check that before flank 2 of cycle 2, the output is 0" << std::endl;
 
-    std::cout << "Flanco 1 (ciclo 0)" << std::endl;
+    std::cout << "Flank 1 (cycle 0)" << std::endl;
     for (int i = 0; i < 16; i++) {
         std::cout << 
         "a[" << i << "]: " << std::bitset<16>(flipping->input_activaciones[i]) << 
@@ -184,9 +183,9 @@ int main (int argc, char **argv) {
     }
 
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 1)
+    flipping->eval(); // flank 2 (cycle 1)
 
-    std::cout << "Flanco 2 (ciclo 1)" << std::endl;
+    std::cout << "Flank 2 (cycle 1)" << std::endl;
     for (int i = 0; i < 16; i++) {
         std::cout << 
         "a[" << i << "]: " << std::bitset<16>(flipping->input_activaciones[i]) << 
@@ -194,10 +193,10 @@ int main (int argc, char **argv) {
         "; b[" << i << "]: " << std::bitset<16>(flipping->salida_flip_flop_con_activaciones_procesadas[i]) << std::endl; 
     }
 
-    flipping->clk = 0; // flanco 1 (ciclo 2)
+    flipping->clk = 0; // flank 1 (cycle 2)
     flipping->eval();
 
-    std::cout << "Flanco 1 (ciclo 2)" << std::endl;
+    std::cout << "Flank 1 (cycle 2)" << std::endl;
     for (int i = 0; i < 16; i++) {
         std::cout << 
         "a[" << i << "]: " << std::bitset<16>(flipping->input_activaciones[i]) << 
@@ -206,9 +205,9 @@ int main (int argc, char **argv) {
     }
 
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 2)
 
-    std::cout << "Flanco 2 (ciclo 2)" << std::endl;
+    std::cout << "Flank 2 (cycle 2)" << std::endl;
     for (int i = 0; i < 16; i++) {
         std::cout << 
         "a[" << i << "]: " << std::bitset<16>(flipping->input_activaciones[i]) << 
@@ -217,7 +216,7 @@ int main (int argc, char **argv) {
     }
 
 
-    // Prueba 7: input_activaciones es todo 1s
+    // Test 7: input_activaciones is all 1s
 
     for (int i = 0; i < 16; i++) {
         flipping->input_activaciones[i] = 0b1111111111111111;
@@ -225,17 +224,17 @@ int main (int argc, char **argv) {
     }
 
     flipping->rst = 0;
-    flipping->clk = 0; // flanco 1 (ciclo 0)
+    flipping->clk = 0; // flank 1 (cycle 0)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 1)
-    flipping->clk = 0; // flanco 1 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 1)
+    flipping->clk = 0; // flank 1 (cycle 2)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 2)
 
     std::cout << "-------------------------------------------------------------" << std::endl;
-    std::cout << "Prueba 7: input_activaciones es todo 1s" << std::endl;
+    std::cout << "Test 7: input_activaciones is all 1s" << std::endl;
     for (int i = 0; i < 16; i++) {
         std::cout << 
         "a[" << i << "]: " << std::bitset<16>(flipping->input_activaciones[i]) << 
@@ -243,7 +242,7 @@ int main (int argc, char **argv) {
         "; b[" << i << "]: " << std::bitset<16>(flipping->salida_flip_flop_con_activaciones_procesadas[i]) << std::endl; 
     }
 
-    // Prueba 8: input_activaciones es un numero capicua
+    // Test 8: input_activaciones is a palindrome
 
     for (int i = 0; i < 16; i++) {
         flipping->input_activaciones[i] = 0b1010101001010101;
@@ -251,17 +250,17 @@ int main (int argc, char **argv) {
     }
 
     flipping->rst = 0;
-    flipping->clk = 0; // flanco 1 (ciclo 0)
+    flipping->clk = 0; // flank 1 (cycle 0)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 1)
-    flipping->clk = 0; // flanco 1 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 1)
+    flipping->clk = 0; // flank 1 (cycle 2)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 2)
 
     std::cout << "-------------------------------------------------------------" << std::endl;
-    std::cout << "Prueba 8: input_activaciones es un numero capicua" << std::endl;
+    std::cout << "Test 8: input_activaciones is a palindrome" << std::endl;
     for (int i = 0; i < 16; i++) {
         std::cout << 
         "a[" << i << "]: " << std::bitset<16>(flipping->input_activaciones[i]) << 
@@ -269,7 +268,7 @@ int main (int argc, char **argv) {
         "; b[" << i << "]: " << std::bitset<16>(flipping->salida_flip_flop_con_activaciones_procesadas[i]) << std::endl; 
     }
 
-    // Prueba 9: numero aleatorio en input_activaciones
+    // Test 9: random number in input_activaciones
 
     for (int i = 0; i < 16; i++) {
         flipping->input_activaciones[i] = rand() % 65536;
@@ -277,38 +276,23 @@ int main (int argc, char **argv) {
     }
 
     flipping->rst = 0;
-    flipping->clk = 0; // flanco 1 (ciclo 0)
+    flipping->clk = 0; // flank 1 (cycle 0)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 1)
-    flipping->clk = 0; // flanco 1 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 1)
+    flipping->clk = 0; // flank 1 (cycle 2)
     flipping->eval();
     flipping->clk = 1;
-    flipping->eval(); // flanco 2 (ciclo 2)
+    flipping->eval(); // flank 2 (cycle 2)
 
     std::cout << "-------------------------------------------------------------" << std::endl;
-    std::cout << "Prueba 9: numero aleatorio en input_activaciones" << std::endl;
+    std::cout << "Test 9: random number in input_activaciones" << std::endl;
     for (int i = 0; i < 16; i++) {
         std::cout << 
         "a[" << i << "]: " << std::bitset<16>(flipping->input_activaciones[i]) << 
         "; f[" << i << "]: " << (int)flipping->input_f_bits[i] <<      
         "; b[" << i << "]: " << std::bitset<16>(flipping->salida_flip_flop_con_activaciones_procesadas[i]) << std::endl; 
     }
-
-    // meter valores aleatorios check
-    // probar capicua check
-    // probar todo 1s check
-
-
-    // definir que operaciones necesita mi cache, cuantos acceso al array de datos en cada ciclo, tags..., bits de validez en 
-    // bloque de SRAM o no
-
-    //tile_cache seria como el bloque de arriba, me vienen todas la señales de entrada y de salida
-    /* 
-    -systemverilog opensource cache buscar
-    -bloques de sram son sincronos, las señales que quiero meter las tengo que tener preparadas el ciclo anterior
-    -
-    */
 
 
     delete flipping;

@@ -1,7 +1,8 @@
-`ifndef FLIPFLOP_BLOQUE_SV
-`define FLIPFLOP_BLOQUE_SV
+`ifndef FLIPFLOP_BLOCK_SV
+`define FLIPFLOP_BLOCK_SV
+/* flipflop for a block of M components of N bits */
 
-module flipflop_bloque
+module flipflop_block
         #(parameter N = 16, M = 16)
     (   input clk, rst,
         input [N - 1:0] d [M - 1:0],
@@ -9,10 +10,10 @@ module flipflop_bloque
     genvar i;
     generate
         for (i = 0; i < M; i++) begin
-            flipflop_uno_nbits #(.N(N)) u0 (.clk(clk), .rst(rst), .d(d[i]), .q(q[i]));
+            flipflop_one_nbits #(.N(N)) u0 (.clk(clk), .rst(rst), .d(d[i]), .q(q[i]));
         end
     endgenerate
 endmodule
 
-`endif // FLIPFLOP_BLOQUE_SV
+`endif // FLIPFLOP_BLOCK_SV
 

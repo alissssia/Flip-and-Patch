@@ -10,55 +10,64 @@ export VERILATOR_ROOT
 VERILATOR = $(VERILATOR_ROOT)/bin/verilator
 endif
 
-SRCS1= mux.sv mecanismo_flipping_uno.sv \
-		probar_flipping_uno.cpp
+SRCS1= mux.sv flipping_mechanism_one.sv\
+		testbench_flipping_one.cpp
 
-SRCS2= mux.sv mecanismo_flipping_uno.sv \
-		mecanismo_flipping_bloque.sv probar_flipping_bloque.cpp
+SRCS2= mux.sv flipping_mechanism_one.sv \
+		flipping_mechanism_block.sv testbench_flipping_block.cpp
 
-SRCS3= flipflop_uno.sv flipflop_uno_nbits.sv \
-		flipflop_vector.sv flipflop_bloque.sv \
-		probar_flipflops.cpp
+SRCS3= flipflop_one.sv flipflop_one_nbits.sv \
+		flipflop_vector.sv flipflop_block.sv \
+		testbench_flipflops.cpp
 
-SRCSTestbench= flipflop_uno.sv flipflop_vector.sv \
-		flipflop_bloque.sv mecanismo_flipping_bloque.sv \
-		mecanismo_flipping_flipflop.sv probar_flipping_flipflop.cpp
+SRCSTestbench= flipflop_one.sv flipflop_vector.sv \
+		flipflop_block.sv flipping_mechanism_block.sv \
+		flipping_mechanism_flipflop.sv testbench_flipping_flipflop.cpp
 
 
 v1:
-	@echo "-- Prueba de la version 1 del mecanismo flipping en la que se usa un mux para seleccionar el valor de la salida y solo se procesa una activacion"
+	@echo "-- Test of version 1 of the flipping mechanism in which a mux is used to select the output value and only one activation is processed"
 	@echo "-- VERILATE & BUILD --------"
-	$(VERILATOR) --cc --exe --build --timing -j 0 -top-module mecanismo_flipping_uno ${SRCS1} mecanismo_flipping_uno.sv probar_flipping_uno.cpp -I. -CFLAGS "-fcoroutines" 
+	$(VERILATOR) --cc --exe --build --timing -j 0 -top-module flipping_mechanism_one ${SRCS1} flipping_mechanism_one.sv testbench_flipping_one.cpp -I. -CFLAGS "-fcoroutines"
  	
 	@echo "-- RUN ---------------------"
-	obj_dir/Vmecanismo_flipping_uno
+	obj_dir/Vflipping_mechanism_one
 	@echo "-- DONE --------------------"
 
 v2:
-	@echo "-- Prueba de la version 2 del mecanismo flipping en la que se usa el modulo de flipping de una activacion para procesar un bloque"
+	@echo "-- Test of version 2 of the flipping mechanism in which the flipping module of one activation is used to process a block"
 	@echo "-- VERILATE & BUILD --------"
-	$(VERILATOR) --cc --exe --build --timing -j 0 -top-module mecanismo_flipping_bloque ${SRCS2} mecanismo_flipping_bloque.sv probar_flipping_bloque.cpp -I. -CFLAGS "-fcoroutines" 
- 	
+	$(VERILATOR) --cc --exe --build --timing -j 0 -top-module flipping_mechanism_block ${SRCS2} flipping_mechanism_block.sv testbench_flipping_block.cpp -I. -CFLAGS "-fcoroutines"
+
 	@echo "-- RUN ---------------------"
-	obj_dir/Vmecanismo_flipping_bloque
+	obj_dir/Vflipping_mechanism_block
 	@echo "-- DONE --------------------"
 
-v3:
-	@echo "-- Prueba de la version 3 del mecanismo flipping en la que se usa el modulo de flipping de una activacion para procesar un bloque y se usan flip-flops que almacenan los datos"
+flipflop:
+	@echo "-- Test of the different flip-flop modules"
 	@echo "-- VERILATE & BUILD --------"
 	$(VERILATOR) --cc --exe --build --timing -j 0 ${SRCS3} -I. -Wno-MULTITOP -CFLAGS "-fcoroutines" 
  	
 	@echo "-- RUN ---------------------"
-	obj_dir/Vprobar_flipflops
+	obj_dir/Vtestbench_flipflops
+	@echo "-- DONE --------------------"
+
+v3:
+	@echo "-- Test of version 3 of the flipping mechanism in which the flipping module of one activation is used to process a block and flip-flops that store the data are used"
+	@echo "-- VERILATE & BUILD --------"
+	$(VERILATOR) --cc --exe --build --timing -j 0 -top-module flipping_mechanism_flipflop ${SRCSTestbench} flipping_mechanism_flipflop.sv testbench_flipping_flipflop.cpp -I. -CFLAGS "-fcoroutines"
+
+	@echo "-- RUN ---------------------"
+	obj_dir/Vflipping_mechanism_flipflop
 	@echo "-- DONE --------------------"
 
 testbench:
-	@echo "-- Testbench"
+	@echo "-- Testbench of the flipping mechanism with flip-flops"
 	@echo "-- VERILATE & BUILD --------"
-	$(VERILATOR) --cc --exe --build --timing -j 0 -top-module mecanismo_flipping_flipflop ${SRCSTestbench} mecanismo_flipping_flipflop.sv probar_flipping_flipflop.cpp -I. -CFLAGS "-fcoroutines" 
- 	
+	$(VERILATOR) --cc --exe --build --timing -j 0 -top-module final_testbench_flipping ${SRCSTestbench} flipping_mechanism_flipflop.sv final_testbench_flipping.cpp -I. -CFLAGS "-fcoroutines"
+
 	@echo "-- RUN ---------------------"
-	obj_dir/Vmecanismo_flipping_flipflop
+	obj_dir/Vfinal_testbench_flipping
 	@echo "-- DONE --------------------"
 
 maintainer-copy::

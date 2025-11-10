@@ -1,8 +1,8 @@
-`ifndef FLIPFLOP_UNO_NBITS_SV
-`define FLIPFLOP_UNO_NBITS_SV
-/* una sola componente de 16 bits */
+`ifndef FLIPFLOP_ONE_NBITS_SV
+`define FLIPFLOP_ONE_NBITS_SV
+/* flipflop for one component of 16 (N) bits */
 
-module flipflop_uno_nbits
+module flipflop_one_nbits
     #(parameter N = 16)
     (   input clk, rst, [N - 1:0] d,
         output logic [N - 1:0] q);
@@ -15,4 +15,4 @@ module flipflop_uno_nbits
     end
 endmodule
 
-`endif // FLIPFLOP_UNO_NBITS_SV
+`endif // FLIPFLOP_ONE_NBITS_SV
