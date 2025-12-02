@@ -10,7 +10,7 @@ module test_ensemble #(
     // output of the ram (possibly incorrect)
     input logic [N - 1:0] activation_org [N_WORDS - 1:0],
 
-    // content of the cache (to correct the incorrect from the ram)
+    // content of the cache (if that activation is incorrect in the ram)
     input logic [N - 1:0] activation_cache_full [N_WORDS - 1:0],
 
     // f and p bits
@@ -29,11 +29,6 @@ module test_ensemble #(
     output logic finished,
     output logic [$clog2(N_WORDS)-1:0] dbg_idx [M - 1:0]
 );
-
-    // results by blocks of flipping and patching
-    /*logic [N-1:0] flipped_all  [N_WORDS-1:0];
-    logic [N-1:0] patched_all  [N_WORDS-1:0];
-    logic [N-1:0] final_all    [N_WORDS-1:0];*/
     logic [N - 1:0] flipped_out [M - 1:0];
     logic [N - 1:0] patched_out [M - 1:0];
     logic [N - 1:0] final_choice [M - 1:0];
@@ -46,25 +41,7 @@ module test_ensemble #(
     logic [N - 1:0] activation_org_block [M - 1:0];
     logic f_block [M - 1:0];
     logic p_block [M - 1:0];
-    // index
-    /*logic [FILL_AW - 1:0] idx [M - 1:0];
-    logic [FILL_AW - 1:0] addr_idx;
-
-    for (genvar ch = 0; ch < M; ch++) begin
-        always_comb begin
-            idx[ch] = FILL_AW'(block_idk * M + ch);
-            dbg_idx[ch] = idx[ch];
-            if (int'(idx[ch]) < N_WORDS) begin
-                activation_org_block[ch] = activation_org[idx[ch]];
-                f_block[ch] = f[idx[ch]];
-                p_block[ch] = p[idx[ch]];
-            end else begin
-                activation_org_block[ch] = '0;
-                f_block[ch] = 1'b0;
-                p_block[ch] = 1'b0;
-            end
-        end
-    end*/
+    
     for (genvar ch = 0; ch < M; ch++) begin : GEN_BLOCKS
         always_comb begin
             int unsigned global_idx = block_idk * M + ch;
@@ -86,24 +63,6 @@ module test_ensemble #(
     for (genvar ch = 0; ch < M; ch++) begin
         assign original_activation[ch] = activation_org_block[ch];
     end
-
-    // first we do flipping
-    /*flipping_mechanism_flipflop #(
-        .N(N),
-        .M(M)
-    ) flip_inst (
-        .clk(clk),
-        .rst(reset),
-        .input_f_bits(f_block),
-        .input_activaciones(activation_org_block),
-        .flipflop_output_processed_activations(flipped_out)
-    );*/
-
-    // to see the original activations
-
-    /*for (genvar gi = 0; gi < M; gi = gi + 1) begin
-        assign original_activation[gi] = activation_org[gi];
-    end*/
 
     // cache control
     logic request;

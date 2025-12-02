@@ -10,7 +10,7 @@ module test_ensemble #(
     // output of the ram (possibly incorrect)
     input logic [N - 1:0] activation_org [N_WORDS - 1:0],
 
-    // content of the cache (to correct the incorrect from the ram)
+    // content of the cache (if that activation is incorrect in the ram)
     input logic [N - 1:0] activation_cache_full [N_WORDS - 1:0],
 
     // f and p bits
@@ -38,46 +38,42 @@ module test_ensemble #(
     logic [N - 1:0] patched_block [M - 1:0];
     logic [N - 1:0] final_choice [M - 1:0];
 
-        // ==============================
-    // Señales de control para PATCHING (FSM independiente)
-    // ==============================
+    // cache control FSM for patching
     typedef enum logic [1:0] {
         P_ST_RESET,
         P_ST_FILL,
-        //P_ST_WAIT_READ,
         P_ST_READ
     } p_state_t;
 
     p_state_t p_state, p_next_state;
 
-    // contador para llenar la cache de patching
+    // counter to fill the patching cache
     int unsigned p_fill_addr, p_next_fill_addr;  // 0..N_WORDS-1
 
-    // contador para leer la cache de patching
+    // counter to read the patching cache
     int unsigned p_read_addr, p_next_read_addr;  // 0..N_WORDS-1
 
-    // interfaz hacia top_patching_final
+    // interface signals to top_patching_final
     logic              p_request;
     logic              p_read_write;     // 0 = write, 1 = read
     logic [ADDR_WIDTH-1:0] p_address;
     logic [N-1:0]      p_activation_in;
     logic [$clog2(M)-1:0] p_index;
     logic              p_store_enable;
-    logic              p_valid;
-    logic              p_error;
+    logic              p_valid; // indicates that the output is valid, doesn't have an output in this module but it could be added
+    logic              p_error; // error signal from patching module, doesn't have an output in this module but it could be added
 
-    // salida del patching real (DE MOMENTO NO LA USAMOS EN EL MUX)
+    // patching output
     logic [N-1:0] patched_from_cache [M - 1:0];
 
-    // Memoria interna donde guardaremos, por dirección global,
-    // el resultado "patcheado" que nos da top_patching_final
+    // internal memory to store patched activations (patching output)
     logic [N-1:0] patched_mem [N_WORDS-1:0];
 
-    // Bloque de activaciones y bits p SOLO para el patching
+    // activation block and p bits to feed the patching module
     logic [N-1:0] activation_org_patch [M - 1:0];
     logic         p_patch             [M - 1:0];
 
-
+    // assign original activation output (to help debug in testbench)
     for (genvar i = 0; i < M; i++) begin : GEN_ORIG_OUT
         assign original_activation[i] = activation_org_block[i];
     end
@@ -86,6 +82,7 @@ module test_ensemble #(
     int unsigned base_idx;
     logic reading;
 
+    // reset and control of reading process
     always_ff @(posedge clk or posedge reset) begin
         if (reset) begin
             reading <= 1'b0;
@@ -104,9 +101,7 @@ module test_ensemble #(
         end
     end
 
-    // ==============================
-    // Registros de estado PATCHING
-    // ==============================
+    // patching state registers
     always_ff @(posedge clk or posedge reset) begin
         if (reset) begin
             p_state      <= P_ST_RESET;
@@ -119,60 +114,7 @@ module test_ensemble #(
         end
     end
 
-    // fill in the cache
-    /*logic              filling;              // estamos llenando la cache
-    int unsigned       fill_addr;            // 0..N_WORDS-1
-
-    // señales del interfaz de top_patching_final
-    logic              request;
-    logic              read_write;           // 0=write, 1=read
-    logic [ADDR_WIDTH-1:0] address;
-    logic [N-1:0]      activation_in;
-    logic [$clog2(M)-1:0] index;
-    logic              store_enable;
-    logic              valid;
-    logic              error;
-
-    // salida dummy del patching (todavía no la usamos)
-    //logic [N-1:0] patched_from_cache [M-1:0];
-
-    // FSM súper simple sólo para escritura
-    always_ff @(posedge clk or posedge reset) begin
-        if (reset) begin
-            filling             <= 1'b1;
-            fill_addr           <= '0;
-            cache_write_finished <= 1'b0;
-        end else begin
-            if (filling) begin
-                if (fill_addr == N_WORDS-1) begin
-                    filling             <= 1'b0;
-                    cache_write_finished <= 1'b1;
-                end else begin
-                    fill_addr <= fill_addr + 1;
-                end
-            end
-        end
-    end
-
-    // Lógica combinacional para el interfaz de patching mientras llenamos
-    always_comb begin
-        // por defecto, interfaz desactivada
-        request       = 1'b0;
-        read_write    = 1'b0;
-        address       = '0;
-        activation_in = '0;
-        index         = '0;
-        store_enable  = 1'b0;
-
-        if (filling) begin
-            request       = 1'b1;
-            read_write    = 1'b0; // write
-            address       = fill_addr[ADDR_WIDTH-1:0];
-            activation_in = activation_cache_full[fill_addr];
-            // index/store_enable no se usan aún
-        end
-    end*/
-
+    
 
     for (genvar i = 0; i < M; i++) begin
         assign activation_org_block[i] = activation_org[base_idx + i];
