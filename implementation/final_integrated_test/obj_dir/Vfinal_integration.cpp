@@ -14,17 +14,19 @@ Vfinal_integration::Vfinal_integration(VerilatedContext* _vcontextp__, const cha
     , start_reading{vlSymsp->TOP.start_reading}
     , start_scan{vlSymsp->TOP.start_scan}
     , scan_done{vlSymsp->TOP.scan_done}
+    , cache_write_finished{vlSymsp->TOP.cache_write_finished}
+    , finished{vlSymsp->TOP.finished}
     , count_f{vlSymsp->TOP.count_f}
     , count_p{vlSymsp->TOP.count_p}
     , activation_org{vlSymsp->TOP.activation_org}
-    , activation_cache{vlSymsp->TOP.activation_cache}
+    , activation_cache_full{vlSymsp->TOP.activation_cache_full}
     , f{vlSymsp->TOP.f}
     , p{vlSymsp->TOP.p}
     , flipped_out{vlSymsp->TOP.flipped_out}
     , patched_out{vlSymsp->TOP.patched_out}
     , activation_final{vlSymsp->TOP.activation_final}
-    , f_m{vlSymsp->TOP.f_m}
-    , p_m{vlSymsp->TOP.p_m}
+    , original_activation{vlSymsp->TOP.original_activation}
+    , dbg_idx{vlSymsp->TOP.dbg_idx}
     , final_integration{vlSymsp->TOP.final_integration}
     , rootp{&(vlSymsp->TOP)}
 {

@@ -28,7 +28,8 @@ VM_CLASSES_FAST += \
 	Vfinal_integration___024root__DepSet_hf0b79f51__0 \
 	Vfinal_integration_final_integration__DepSet_h24c8f7b1__0 \
 	Vfinal_integration_final_integration__DepSet_h64b57e87__0 \
-	Vfinal_integration_test_mechanisms__DepSet_h055c041c__0 \
+	Vfinal_integration_test_ensemble__DepSet_h2eadbeea__0 \
+	Vfinal_integration_test_ensemble__DepSet_h6a923762__0 \
 	Vfinal_integration_top_patching_final__M4__DepSet_h51fe4aeb__0 \
 	Vfinal_integration_cache_tfg__DepSet_h2e3d1573__0 \
 	Vfinal_integration_bram__D100_Wd__DepSet_h340193f2__0 \
@@ -43,9 +44,8 @@ VM_CLASSES_SLOW += \
 	Vfinal_integration_final_integration__Slow \
 	Vfinal_integration_final_integration__DepSet_h24c8f7b1__0__Slow \
 	Vfinal_integration_final_integration__DepSet_h64b57e87__0__Slow \
-	Vfinal_integration_test_mechanisms__Slow \
-	Vfinal_integration_test_mechanisms__DepSet_h055c041c__0__Slow \
-	Vfinal_integration_test_mechanisms__DepSet_h86208e2c__0__Slow \
+	Vfinal_integration_test_ensemble__Slow \
+	Vfinal_integration_test_ensemble__DepSet_h6a923762__0__Slow \
 	Vfinal_integration_top_patching_final__M4__Slow \
 	Vfinal_integration_top_patching_final__M4__DepSet_hb1c2c361__0__Slow \
 	Vfinal_integration_cache_tfg__Slow \

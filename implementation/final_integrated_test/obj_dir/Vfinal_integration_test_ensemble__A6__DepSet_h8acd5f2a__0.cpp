@@ -1,0 +1,1025 @@
+// Verilated -*- C++ -*-
+// DESCRIPTION: Verilator output: Design implementation internals
+// See Vfinal_integration.h for the primary calling header
+
+#include "Vfinal_integration__pch.h"
+#include "Vfinal_integration__Syms.h"
+#include "Vfinal_integration_test_ensemble__A6.h"
+
+VL_INLINE_OPT void Vfinal_integration_test_ensemble__A6___ico_sequent__TOP__final_integration__ensemble__0(Vfinal_integration_test_ensemble__A6* vlSelf) {
+    (void)vlSelf;  // Prevent unused variable warning
+    Vfinal_integration__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+        Vfinal_integration_test_ensemble__A6___ico_sequent__TOP__final_integration__ensemble__0\n"); );
+    // Body
+    vlSelf->__PVT__next_state = vlSelf->__PVT__state;
+    vlSelf->__PVT__next_index = vlSelf->__PVT__index_counter;
+    vlSelf->__PVT__next_block_idk = vlSelf->__PVT__block_idk;
+    if ((2U & (IData)(vlSelf->__PVT__state))) {
+        if ((1U & (IData)(vlSelf->__PVT__state))) {
+            if (vlSymsp->TOP__final_integration__ensemble__patch_inst__patch_cache.__PVT__valid) {
+                vlSelf->__PVT__next_state = 3U;
+                if ((3U == (IData)(vlSelf->__PVT__index_counter))) {
+                    vlSelf->__PVT__next_index = 0U;
+                    vlSelf->__PVT__next_block_idk = 
+                        (0xfU & ((0xfU == (IData)(vlSelf->__PVT__block_idk))
+                                  ? (IData)(vlSelf->__PVT__block_idk)
+                                  : ((IData)(1U) + (IData)(vlSelf->__PVT__block_idk))));
+                } else {
+                    vlSelf->__PVT__next_index = (3U 
+                                                 & ((IData)(1U) 
+                                                    + (IData)(vlSelf->__PVT__index_counter)));
+                }
+            }
+        } else if (((IData)(vlSymsp->TOP.start_reading) 
+                    & (IData)(vlSelf->__PVT__cache_write_finished))) {
+            vlSelf->__PVT__next_state = 3U;
+            vlSelf->__PVT__next_index = 0U;
+            vlSelf->__PVT__next_block_idk = 0U;
+        }
+    } else {
+        if ((1U & (IData)(vlSelf->__PVT__state))) {
+            if ((0x3fU == (IData)(vlSelf->__PVT__fill_addr))) {
+                vlSelf->__PVT__next_state = 2U;
+            }
+        } else {
+            vlSelf->__PVT__next_state = 1U;
+        }
+        if ((1U & (~ (IData)(vlSelf->__PVT__state)))) {
+            vlSelf->__PVT__next_index = 0U;
+            vlSelf->__PVT__next_block_idk = 0U;
+        }
+    }
+}
+
+VL_INLINE_OPT void Vfinal_integration_test_ensemble__A6___nba_sequent__TOP__final_integration__ensemble__0(Vfinal_integration_test_ensemble__A6* vlSelf) {
+    (void)vlSelf;  // Prevent unused variable warning
+    Vfinal_integration__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+        Vfinal_integration_test_ensemble__A6___nba_sequent__TOP__final_integration__ensemble__0\n"); );
+    // Init
+    SData/*15:0*/ __VdlyVal__flipped_all__v4;
+    __VdlyVal__flipped_all__v4 = 0;
+    CData/*5:0*/ __VdlyDim0__flipped_all__v4;
+    __VdlyDim0__flipped_all__v4 = 0;
+    SData/*15:0*/ __VdlyVal__patched_all__v4;
+    __VdlyVal__patched_all__v4 = 0;
+    CData/*5:0*/ __VdlyDim0__patched_all__v4;
+    __VdlyDim0__patched_all__v4 = 0;
+    SData/*15:0*/ __VdlyVal__final_all__v4;
+    __VdlyVal__final_all__v4 = 0;
+    CData/*5:0*/ __VdlyDim0__final_all__v4;
+    __VdlyDim0__final_all__v4 = 0;
+    SData/*15:0*/ __VdlyVal__flipped_all__v5;
+    __VdlyVal__flipped_all__v5 = 0;
+    CData/*5:0*/ __VdlyDim0__flipped_all__v5;
+    __VdlyDim0__flipped_all__v5 = 0;
+    SData/*15:0*/ __VdlyVal__patched_all__v5;
+    __VdlyVal__patched_all__v5 = 0;
+    CData/*5:0*/ __VdlyDim0__patched_all__v5;
+    __VdlyDim0__patched_all__v5 = 0;
+    SData/*15:0*/ __VdlyVal__final_all__v5;
+    __VdlyVal__final_all__v5 = 0;
+    CData/*5:0*/ __VdlyDim0__final_all__v5;
+    __VdlyDim0__final_all__v5 = 0;
+    SData/*15:0*/ __VdlyVal__flipped_all__v6;
+    __VdlyVal__flipped_all__v6 = 0;
+    CData/*5:0*/ __VdlyDim0__flipped_all__v6;
+    __VdlyDim0__flipped_all__v6 = 0;
+    SData/*15:0*/ __VdlyVal__patched_all__v6;
+    __VdlyVal__patched_all__v6 = 0;
+    CData/*5:0*/ __VdlyDim0__patched_all__v6;
+    __VdlyDim0__patched_all__v6 = 0;
+    SData/*15:0*/ __VdlyVal__final_all__v6;
+    __VdlyVal__final_all__v6 = 0;
+    CData/*5:0*/ __VdlyDim0__final_all__v6;
+    __VdlyDim0__final_all__v6 = 0;
+    SData/*15:0*/ __VdlyVal__flipped_all__v7;
+    __VdlyVal__flipped_all__v7 = 0;
+    CData/*5:0*/ __VdlyDim0__flipped_all__v7;
+    __VdlyDim0__flipped_all__v7 = 0;
+    SData/*15:0*/ __VdlyVal__patched_all__v7;
+    __VdlyVal__patched_all__v7 = 0;
+    CData/*5:0*/ __VdlyDim0__patched_all__v7;
+    __VdlyDim0__patched_all__v7 = 0;
+    SData/*15:0*/ __VdlyVal__final_all__v7;
+    __VdlyVal__final_all__v7 = 0;
+    CData/*5:0*/ __VdlyDim0__final_all__v7;
+    __VdlyDim0__final_all__v7 = 0;
+    CData/*0:0*/ __VdlySet__flipped_all__v0;
+    __VdlySet__flipped_all__v0 = 0;
+    CData/*0:0*/ __VdlySet__flipped_all__v4;
+    __VdlySet__flipped_all__v4 = 0;
+    CData/*0:0*/ __VdlySet__flipped_all__v5;
+    __VdlySet__flipped_all__v5 = 0;
+    CData/*0:0*/ __VdlySet__flipped_all__v6;
+    __VdlySet__flipped_all__v6 = 0;
+    CData/*0:0*/ __VdlySet__flipped_all__v7;
+    __VdlySet__flipped_all__v7 = 0;
+    // Body
+    __VdlySet__flipped_all__v0 = 0U;
+    __VdlySet__flipped_all__v4 = 0U;
+    __VdlySet__flipped_all__v5 = 0U;
+    __VdlySet__flipped_all__v6 = 0U;
+    __VdlySet__flipped_all__v7 = 0U;
+    if (vlSymsp->TOP.reset) {
+        __VdlySet__flipped_all__v0 = 1U;
+        vlSelf->__PVT__finished = 0U;
+        vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q = 0U;
+        vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q = 0U;
+        vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q = 0U;
+        vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q = 0U;
+        vlSelf->flip_inst__DOT__u3__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q = 0U;
+        vlSelf->flip_inst__DOT__u3__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q = 0U;
+        vlSelf->flip_inst__DOT__u3__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q = 0U;
+        vlSelf->flip_inst__DOT__u3__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q = 0U;
+        vlSelf->__PVT__fill_addr = 0U;
+        vlSelf->__PVT__index_counter = 0U;
+        vlSelf->__PVT__cache_write_finished = 0U;
+        vlSelf->__PVT__block_idk = 0U;
+        vlSelf->__PVT__state = 0U;
+    } else {
+        if (vlSelf->__PVT__block_done) {
+            vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i 
+                = VL_SHIFTL_III(32,32,32, (IData)(vlSelf->__PVT__block_idk), 2U);
+            if (VL_GTS_III(32, 0x40U, vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i)) {
+                __VdlyVal__flipped_all__v4 = vlSelf->__PVT__flipped_out
+                    [0U];
+                __VdlyDim0__flipped_all__v4 = (0x3fU 
+                                               & vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i);
+                __VdlySet__flipped_all__v4 = 1U;
+                __VdlyVal__patched_all__v4 = vlSelf->__PVT__patched_out
+                    [0U];
+                __VdlyDim0__patched_all__v4 = (0x3fU 
+                                               & vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i);
+                __VdlyVal__final_all__v4 = vlSelf->__PVT__final_choice
+                    [0U];
+                __VdlyDim0__final_all__v4 = (0x3fU 
+                                             & vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i);
+            }
+            vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i 
+                = ((IData)(1U) + VL_SHIFTL_III(32,32,32, (IData)(vlSelf->__PVT__block_idk), 2U));
+            if (VL_GTS_III(32, 0x40U, vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i)) {
+                __VdlyVal__flipped_all__v5 = vlSelf->__PVT__flipped_out
+                    [1U];
+                __VdlyDim0__flipped_all__v5 = (0x3fU 
+                                               & vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i);
+                __VdlySet__flipped_all__v5 = 1U;
+                __VdlyVal__patched_all__v5 = vlSelf->__PVT__patched_out
+                    [1U];
+                __VdlyDim0__patched_all__v5 = (0x3fU 
+                                               & vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i);
+                __VdlyVal__final_all__v5 = vlSelf->__PVT__final_choice
+                    [1U];
+                __VdlyDim0__final_all__v5 = (0x3fU 
+                                             & vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i);
+            }
+            vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i 
+                = ((IData)(2U) + VL_SHIFTL_III(32,32,32, (IData)(vlSelf->__PVT__block_idk), 2U));
+            if (VL_GTS_III(32, 0x40U, vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i)) {
+                __VdlyVal__flipped_all__v6 = vlSelf->__PVT__flipped_out
+                    [2U];
+                __VdlyDim0__flipped_all__v6 = (0x3fU 
+                                               & vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i);
+                __VdlySet__flipped_all__v6 = 1U;
+                __VdlyVal__patched_all__v6 = vlSelf->__PVT__patched_out
+                    [2U];
+                __VdlyDim0__patched_all__v6 = (0x3fU 
+                                               & vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i);
+                __VdlyVal__final_all__v6 = vlSelf->__PVT__final_choice
+                    [2U];
+                __VdlyDim0__final_all__v6 = (0x3fU 
+                                             & vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i);
+            }
+            vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i 
+                = ((IData)(3U) + VL_SHIFTL_III(32,32,32, (IData)(vlSelf->__PVT__block_idk), 2U));
+            if (VL_GTS_III(32, 0x40U, vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i)) {
+                __VdlyVal__flipped_all__v7 = vlSelf->__PVT__flipped_out
+                    [3U];
+                __VdlyDim0__flipped_all__v7 = (0x3fU 
+                                               & vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i);
+                __VdlySet__flipped_all__v7 = 1U;
+                __VdlyVal__patched_all__v7 = vlSelf->__PVT__patched_out
+                    [3U];
+                __VdlyDim0__patched_all__v7 = (0x3fU 
+                                               & vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i);
+                __VdlyVal__final_all__v7 = vlSelf->__PVT__final_choice
+                    [3U];
+                __VdlyDim0__final_all__v7 = (0x3fU 
+                                             & vlSelf->__PVT__unnamedblk2__DOT__unnamedblk3__DOT__idx_i);
+            }
+        }
+        if (vlSelf->__PVT__finished_everything) {
+            vlSelf->__PVT__finished = 1U;
+        }
+        vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q 
+            = vlSelf->__PVT__activation_org_block[3U];
+        vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q 
+            = vlSelf->__PVT__activation_org_block[2U];
+        vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q 
+            = vlSelf->__PVT__activation_org_block[1U];
+        vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q 
+            = vlSelf->__PVT__activation_org_block[0U];
+        vlSelf->flip_inst__DOT__u3__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q 
+            = vlSelf->flip_inst__DOT__u3__DOT____Vcellinp__genblk1__BRA__3__KET____DOT__u0__d;
+        vlSelf->flip_inst__DOT__u3__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q 
+            = vlSelf->flip_inst__DOT__u3__DOT____Vcellinp__genblk1__BRA__2__KET____DOT__u0__d;
+        vlSelf->flip_inst__DOT__u3__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q 
+            = vlSelf->flip_inst__DOT__u3__DOT____Vcellinp__genblk1__BRA__1__KET____DOT__u0__d;
+        vlSelf->flip_inst__DOT__u3__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q 
+            = vlSelf->flip_inst__DOT__u3__DOT____Vcellinp__genblk1__BRA__0__KET____DOT__u0__d;
+        vlSelf->__PVT__fill_addr = vlSelf->__PVT__next_fill_addr;
+        vlSelf->__PVT__index_counter = vlSelf->__PVT__next_index;
+        if (((1U == (IData)(vlSelf->__PVT__state)) 
+             & (2U == (IData)(vlSelf->__PVT__next_state)))) {
+            vlSelf->__PVT__cache_write_finished = 1U;
+        }
+        vlSelf->__PVT__block_idk = vlSelf->__PVT__next_block_idk;
+        vlSelf->__PVT__state = vlSelf->__PVT__next_state;
+    }
+    vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q 
+        = ((1U & (~ (IData)(vlSymsp->TOP.reset))) && 
+           vlSelf->__PVT__f_block[3U]);
+    vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q 
+        = ((1U & (~ (IData)(vlSymsp->TOP.reset))) && 
+           vlSelf->__PVT__f_block[2U]);
+    vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q 
+        = ((1U & (~ (IData)(vlSymsp->TOP.reset))) && 
+           vlSelf->__PVT__f_block[1U]);
+    vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q 
+        = ((1U & (~ (IData)(vlSymsp->TOP.reset))) && 
+           vlSelf->__PVT__f_block[0U]);
+    if (__VdlySet__flipped_all__v0) {
+        vlSelf->__PVT__final_all[0U] = 0U;
+        vlSelf->__PVT__final_all[1U] = 0U;
+        vlSelf->__PVT__final_all[2U] = 0U;
+        vlSelf->__PVT__final_all[3U] = 0U;
+        vlSelf->__PVT__patched_all[0U] = 0U;
+        vlSelf->__PVT__patched_all[1U] = 0U;
+        vlSelf->__PVT__patched_all[2U] = 0U;
+        vlSelf->__PVT__patched_all[3U] = 0U;
+        vlSelf->__PVT__flipped_all[0U] = 0U;
+        vlSelf->__PVT__flipped_all[1U] = 0U;
+        vlSelf->__PVT__flipped_all[2U] = 0U;
+        vlSelf->__PVT__flipped_all[3U] = 0U;
+    }
+    if (__VdlySet__flipped_all__v4) {
+        vlSelf->__PVT__final_all[__VdlyDim0__final_all__v4] 
+            = __VdlyVal__final_all__v4;
+        vlSelf->__PVT__patched_all[__VdlyDim0__patched_all__v4] 
+            = __VdlyVal__patched_all__v4;
+        vlSelf->__PVT__flipped_all[__VdlyDim0__flipped_all__v4] 
+            = __VdlyVal__flipped_all__v4;
+    }
+    if (__VdlySet__flipped_all__v5) {
+        vlSelf->__PVT__final_all[__VdlyDim0__final_all__v5] 
+            = __VdlyVal__final_all__v5;
+        vlSelf->__PVT__patched_all[__VdlyDim0__patched_all__v5] 
+            = __VdlyVal__patched_all__v5;
+        vlSelf->__PVT__flipped_all[__VdlyDim0__flipped_all__v5] 
+            = __VdlyVal__flipped_all__v5;
+    }
+    if (__VdlySet__flipped_all__v6) {
+        vlSelf->__PVT__final_all[__VdlyDim0__final_all__v6] 
+            = __VdlyVal__final_all__v6;
+        vlSelf->__PVT__patched_all[__VdlyDim0__patched_all__v6] 
+            = __VdlyVal__patched_all__v6;
+        vlSelf->__PVT__flipped_all[__VdlyDim0__flipped_all__v6] 
+            = __VdlyVal__flipped_all__v6;
+    }
+    if (__VdlySet__flipped_all__v7) {
+        vlSelf->__PVT__final_all[__VdlyDim0__final_all__v7] 
+            = __VdlyVal__final_all__v7;
+        vlSelf->__PVT__patched_all[__VdlyDim0__patched_all__v7] 
+            = __VdlyVal__patched_all__v7;
+        vlSelf->__PVT__flipped_all[__VdlyDim0__flipped_all__v7] 
+            = __VdlyVal__flipped_all__v7;
+    }
+    IData/*31:0*/ __Vilp1;
+    __Vilp1 = 0U;
+    while ((__Vilp1 <= 0x3fU)) {
+        vlSelf->__PVT__final_global[__Vilp1] = vlSelf->__PVT__final_all
+            [__Vilp1];
+        __Vilp1 = ((IData)(1U) + __Vilp1);
+    }
+    IData/*31:0*/ __Vilp2;
+    __Vilp2 = 0U;
+    while ((__Vilp2 <= 0x3fU)) {
+        vlSelf->__PVT__patched_global[__Vilp2] = vlSelf->__PVT__patched_all
+            [__Vilp2];
+        __Vilp2 = ((IData)(1U) + __Vilp2);
+    }
+    IData/*31:0*/ __Vilp3;
+    __Vilp3 = 0U;
+    while ((__Vilp3 <= 0x3fU)) {
+        vlSelf->__PVT__flipped_global[__Vilp3] = vlSelf->__PVT__flipped_all
+            [__Vilp3];
+        __Vilp3 = ((IData)(1U) + __Vilp3);
+    }
+    vlSelf->flip_inst__DOT__u3__DOT____Vcellinp__genblk1__BRA__3__KET____DOT__u0__d 
+        = ((0x8000U & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                         ? (IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                         : ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                            >> 0xfU)) << 0xfU)) | (
+                                                   (0x4000U 
+                                                    & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                                                         ? 
+                                                        ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                         >> 1U)
+                                                         : 
+                                                        ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                         >> 0xeU)) 
+                                                       << 0xeU)) 
+                                                   | ((0x2000U 
+                                                       & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                                                            ? 
+                                                           ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                            >> 2U)
+                                                            : 
+                                                           ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                            >> 0xdU)) 
+                                                          << 0xdU)) 
+                                                      | ((0x1000U 
+                                                          & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                                                               ? 
+                                                              ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                               >> 3U)
+                                                               : 
+                                                              ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                               >> 0xcU)) 
+                                                             << 0xcU)) 
+                                                         | ((0x800U 
+                                                             & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                                                                  ? 
+                                                                 ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                  >> 4U)
+                                                                  : 
+                                                                 ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                  >> 0xbU)) 
+                                                                << 0xbU)) 
+                                                            | ((0x400U 
+                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                                                                     ? 
+                                                                    ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                     >> 5U)
+                                                                     : 
+                                                                    ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                     >> 0xaU)) 
+                                                                   << 0xaU)) 
+                                                               | ((0x200U 
+                                                                   & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                                                                        ? 
+                                                                       ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                        >> 6U)
+                                                                        : 
+                                                                       ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                        >> 9U)) 
+                                                                      << 9U)) 
+                                                                  | ((0x100U 
+                                                                      & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                                                                           ? 
+                                                                          ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                           >> 7U)
+                                                                           : 
+                                                                          ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                           >> 8U)) 
+                                                                         << 8U)) 
+                                                                     | ((0x80U 
+                                                                         & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                                                                              ? 
+                                                                             ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                              >> 8U)
+                                                                              : 
+                                                                             ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                              >> 7U)) 
+                                                                            << 7U)) 
+                                                                        | ((0x40U 
+                                                                            & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                                >> 9U)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                                >> 6U)) 
+                                                                               << 6U)) 
+                                                                           | ((0x20U 
+                                                                               & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                                >> 0xaU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                                >> 5U)) 
+                                                                                << 5U)) 
+                                                                              | ((0x10U 
+                                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                                >> 0xbU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                                >> 4U)) 
+                                                                                << 4U)) 
+                                                                                | ((8U 
+                                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                                >> 0xcU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                                >> 3U)) 
+                                                                                << 3U)) 
+                                                                                | ((4U 
+                                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                                >> 0xdU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                                >> 2U)) 
+                                                                                << 2U)) 
+                                                                                | ((2U 
+                                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                                >> 0xeU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                                >> 1U)) 
+                                                                                << 1U)) 
+                                                                                | (1U 
+                                                                                & ((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q) 
+                                                                                >> 0xfU)
+                                                                                 : (IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q))))))))))))))))));
+    vlSelf->flip_inst__DOT__u3__DOT____Vcellinp__genblk1__BRA__2__KET____DOT__u0__d 
+        = ((0x8000U & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                         ? (IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                         : ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                            >> 0xfU)) << 0xfU)) | (
+                                                   (0x4000U 
+                                                    & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                                                         ? 
+                                                        ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                         >> 1U)
+                                                         : 
+                                                        ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                         >> 0xeU)) 
+                                                       << 0xeU)) 
+                                                   | ((0x2000U 
+                                                       & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                                                            ? 
+                                                           ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                            >> 2U)
+                                                            : 
+                                                           ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                            >> 0xdU)) 
+                                                          << 0xdU)) 
+                                                      | ((0x1000U 
+                                                          & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                                                               ? 
+                                                              ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                               >> 3U)
+                                                               : 
+                                                              ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                               >> 0xcU)) 
+                                                             << 0xcU)) 
+                                                         | ((0x800U 
+                                                             & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                                                                  ? 
+                                                                 ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                  >> 4U)
+                                                                  : 
+                                                                 ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                  >> 0xbU)) 
+                                                                << 0xbU)) 
+                                                            | ((0x400U 
+                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                                                                     ? 
+                                                                    ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                     >> 5U)
+                                                                     : 
+                                                                    ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                     >> 0xaU)) 
+                                                                   << 0xaU)) 
+                                                               | ((0x200U 
+                                                                   & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                                                                        ? 
+                                                                       ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                        >> 6U)
+                                                                        : 
+                                                                       ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                        >> 9U)) 
+                                                                      << 9U)) 
+                                                                  | ((0x100U 
+                                                                      & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                                                                           ? 
+                                                                          ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                           >> 7U)
+                                                                           : 
+                                                                          ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                           >> 8U)) 
+                                                                         << 8U)) 
+                                                                     | ((0x80U 
+                                                                         & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                                                                              ? 
+                                                                             ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                              >> 8U)
+                                                                              : 
+                                                                             ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                              >> 7U)) 
+                                                                            << 7U)) 
+                                                                        | ((0x40U 
+                                                                            & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                                >> 9U)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                                >> 6U)) 
+                                                                               << 6U)) 
+                                                                           | ((0x20U 
+                                                                               & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                                >> 0xaU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                                >> 5U)) 
+                                                                                << 5U)) 
+                                                                              | ((0x10U 
+                                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                                >> 0xbU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                                >> 4U)) 
+                                                                                << 4U)) 
+                                                                                | ((8U 
+                                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                                >> 0xcU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                                >> 3U)) 
+                                                                                << 3U)) 
+                                                                                | ((4U 
+                                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                                >> 0xdU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                                >> 2U)) 
+                                                                                << 2U)) 
+                                                                                | ((2U 
+                                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                                >> 0xeU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                                >> 1U)) 
+                                                                                << 1U)) 
+                                                                                | (1U 
+                                                                                & ((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q) 
+                                                                                >> 0xfU)
+                                                                                 : (IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q))))))))))))))))));
+    vlSelf->flip_inst__DOT__u3__DOT____Vcellinp__genblk1__BRA__1__KET____DOT__u0__d 
+        = ((0x8000U & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                         ? (IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                         : ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                            >> 0xfU)) << 0xfU)) | (
+                                                   (0x4000U 
+                                                    & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                                                         ? 
+                                                        ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                         >> 1U)
+                                                         : 
+                                                        ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                         >> 0xeU)) 
+                                                       << 0xeU)) 
+                                                   | ((0x2000U 
+                                                       & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                                                            ? 
+                                                           ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                            >> 2U)
+                                                            : 
+                                                           ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                            >> 0xdU)) 
+                                                          << 0xdU)) 
+                                                      | ((0x1000U 
+                                                          & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                                                               ? 
+                                                              ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                               >> 3U)
+                                                               : 
+                                                              ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                               >> 0xcU)) 
+                                                             << 0xcU)) 
+                                                         | ((0x800U 
+                                                             & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                                                                  ? 
+                                                                 ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                  >> 4U)
+                                                                  : 
+                                                                 ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                  >> 0xbU)) 
+                                                                << 0xbU)) 
+                                                            | ((0x400U 
+                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                                                                     ? 
+                                                                    ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                     >> 5U)
+                                                                     : 
+                                                                    ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                     >> 0xaU)) 
+                                                                   << 0xaU)) 
+                                                               | ((0x200U 
+                                                                   & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                                                                        ? 
+                                                                       ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                        >> 6U)
+                                                                        : 
+                                                                       ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                        >> 9U)) 
+                                                                      << 9U)) 
+                                                                  | ((0x100U 
+                                                                      & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                                                                           ? 
+                                                                          ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                           >> 7U)
+                                                                           : 
+                                                                          ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                           >> 8U)) 
+                                                                         << 8U)) 
+                                                                     | ((0x80U 
+                                                                         & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                                                                              ? 
+                                                                             ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                              >> 8U)
+                                                                              : 
+                                                                             ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                              >> 7U)) 
+                                                                            << 7U)) 
+                                                                        | ((0x40U 
+                                                                            & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                                >> 9U)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                                >> 6U)) 
+                                                                               << 6U)) 
+                                                                           | ((0x20U 
+                                                                               & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                                >> 0xaU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                                >> 5U)) 
+                                                                                << 5U)) 
+                                                                              | ((0x10U 
+                                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                                >> 0xbU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                                >> 4U)) 
+                                                                                << 4U)) 
+                                                                                | ((8U 
+                                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                                >> 0xcU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                                >> 3U)) 
+                                                                                << 3U)) 
+                                                                                | ((4U 
+                                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                                >> 0xdU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                                >> 2U)) 
+                                                                                << 2U)) 
+                                                                                | ((2U 
+                                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                                >> 0xeU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                                >> 1U)) 
+                                                                                << 1U)) 
+                                                                                | (1U 
+                                                                                & ((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q) 
+                                                                                >> 0xfU)
+                                                                                 : (IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q))))))))))))))))));
+    vlSelf->flip_inst__DOT__u3__DOT____Vcellinp__genblk1__BRA__0__KET____DOT__u0__d 
+        = ((0x8000U & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                         ? (IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                         : ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                            >> 0xfU)) << 0xfU)) | (
+                                                   (0x4000U 
+                                                    & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                                                         ? 
+                                                        ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                         >> 1U)
+                                                         : 
+                                                        ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                         >> 0xeU)) 
+                                                       << 0xeU)) 
+                                                   | ((0x2000U 
+                                                       & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                                                            ? 
+                                                           ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                            >> 2U)
+                                                            : 
+                                                           ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                            >> 0xdU)) 
+                                                          << 0xdU)) 
+                                                      | ((0x1000U 
+                                                          & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                                                               ? 
+                                                              ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                               >> 3U)
+                                                               : 
+                                                              ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                               >> 0xcU)) 
+                                                             << 0xcU)) 
+                                                         | ((0x800U 
+                                                             & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                                                                  ? 
+                                                                 ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                  >> 4U)
+                                                                  : 
+                                                                 ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                  >> 0xbU)) 
+                                                                << 0xbU)) 
+                                                            | ((0x400U 
+                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                                                                     ? 
+                                                                    ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                     >> 5U)
+                                                                     : 
+                                                                    ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                     >> 0xaU)) 
+                                                                   << 0xaU)) 
+                                                               | ((0x200U 
+                                                                   & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                                                                        ? 
+                                                                       ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                        >> 6U)
+                                                                        : 
+                                                                       ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                        >> 9U)) 
+                                                                      << 9U)) 
+                                                                  | ((0x100U 
+                                                                      & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                                                                           ? 
+                                                                          ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                           >> 7U)
+                                                                           : 
+                                                                          ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                           >> 8U)) 
+                                                                         << 8U)) 
+                                                                     | ((0x80U 
+                                                                         & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                                                                              ? 
+                                                                             ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                              >> 8U)
+                                                                              : 
+                                                                             ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                              >> 7U)) 
+                                                                            << 7U)) 
+                                                                        | ((0x40U 
+                                                                            & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                                >> 9U)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                                >> 6U)) 
+                                                                               << 6U)) 
+                                                                           | ((0x20U 
+                                                                               & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                                >> 0xaU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                                >> 5U)) 
+                                                                                << 5U)) 
+                                                                              | ((0x10U 
+                                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                                >> 0xbU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                                >> 4U)) 
+                                                                                << 4U)) 
+                                                                                | ((8U 
+                                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                                >> 0xcU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                                >> 3U)) 
+                                                                                << 3U)) 
+                                                                                | ((4U 
+                                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                                >> 0xdU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                                >> 2U)) 
+                                                                                << 2U)) 
+                                                                                | ((2U 
+                                                                                & (((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                                >> 0xeU)
+                                                                                 : 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                                >> 1U)) 
+                                                                                << 1U)) 
+                                                                                | (1U 
+                                                                                & ((IData)(vlSelf->flip_inst__DOT__u1__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                                                                                 ? 
+                                                                                ((IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q) 
+                                                                                >> 0xfU)
+                                                                                 : (IData)(vlSelf->flip_inst__DOT__u0__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q))))))))))))))))));
+    vlSelf->__PVT__flipped_out[3U] = vlSelf->flip_inst__DOT__u3__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q;
+    vlSelf->__PVT__flipped_out[2U] = vlSelf->flip_inst__DOT__u3__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q;
+    vlSelf->__PVT__flipped_out[1U] = vlSelf->flip_inst__DOT__u3__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q;
+    vlSelf->__PVT__flipped_out[0U] = vlSelf->flip_inst__DOT__u3__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q;
+    vlSelf->__PVT__next_fill_addr = vlSelf->__PVT__fill_addr;
+    vlSelf->__PVT__activation_in = 0U;
+    if ((1U & (~ ((IData)(vlSelf->__PVT__state) >> 1U)))) {
+        if ((1U & (IData)(vlSelf->__PVT__state))) {
+            vlSelf->__PVT__next_fill_addr = (0x3fU 
+                                             & ((0x3fU 
+                                                 == (IData)(vlSelf->__PVT__fill_addr))
+                                                 ? (IData)(vlSelf->__PVT__fill_addr)
+                                                 : 
+                                                ((IData)(1U) 
+                                                 + (IData)(vlSelf->__PVT__fill_addr))));
+            vlSelf->__PVT__activation_in = vlSelf->__PVT__activation_cache_full
+                [vlSelf->__PVT__fill_addr];
+        } else {
+            vlSelf->__PVT__next_fill_addr = 0U;
+        }
+    }
+    vlSelf->__PVT__request = 0U;
+    vlSelf->__PVT__read_write = 1U;
+    if ((2U & (IData)(vlSelf->__PVT__state))) {
+        if ((1U & (IData)(vlSelf->__PVT__state))) {
+            vlSelf->__PVT__request = 1U;
+            vlSelf->__PVT__read_write = 1U;
+        }
+    } else if ((1U & (IData)(vlSelf->__PVT__state))) {
+        vlSelf->__PVT__request = 1U;
+        vlSelf->__PVT__read_write = 0U;
+    }
+}
+
+VL_INLINE_OPT void Vfinal_integration_test_ensemble__A6___nba_sequent__TOP__final_integration__ensemble__2(Vfinal_integration_test_ensemble__A6* vlSelf) {
+    (void)vlSelf;  // Prevent unused variable warning
+    Vfinal_integration__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+        Vfinal_integration_test_ensemble__A6___nba_sequent__TOP__final_integration__ensemble__2\n"); );
+    // Body
+    vlSelf->__PVT__store_enable = 0U;
+    vlSelf->__PVT__index = vlSelf->__PVT__index_counter;
+    vlSelf->__PVT__block_done = 0U;
+    vlSelf->__PVT__finished_everything = 0U;
+    vlSelf->__PVT__next_state = vlSelf->__PVT__state;
+    vlSelf->__PVT__next_index = vlSelf->__PVT__index_counter;
+    vlSelf->__PVT__next_block_idk = vlSelf->__PVT__block_idk;
+    if ((2U & (IData)(vlSelf->__PVT__state))) {
+        if ((1U & (IData)(vlSelf->__PVT__state))) {
+            if (vlSymsp->TOP__final_integration__ensemble__patch_inst__patch_cache.__PVT__valid) {
+                vlSelf->__PVT__store_enable = 1U;
+                vlSelf->__PVT__index = vlSelf->__PVT__index_counter;
+                if ((3U == (IData)(vlSelf->__PVT__index_counter))) {
+                    vlSelf->__PVT__block_done = 1U;
+                    if ((0xfU == (IData)(vlSelf->__PVT__block_idk))) {
+                        vlSelf->__PVT__finished_everything = 1U;
+                        vlSelf->__PVT__next_block_idk 
+                            = (0xfU & (IData)(vlSelf->__PVT__block_idk));
+                    } else {
+                        vlSelf->__PVT__next_block_idk 
+                            = (0xfU & ((IData)(1U) 
+                                       + (IData)(vlSelf->__PVT__block_idk)));
+                    }
+                    vlSelf->__PVT__next_index = 0U;
+                } else {
+                    vlSelf->__PVT__next_index = (3U 
+                                                 & ((IData)(1U) 
+                                                    + (IData)(vlSelf->__PVT__index_counter)));
+                }
+                vlSelf->__PVT__next_state = 3U;
+            }
+        } else if (((IData)(vlSymsp->TOP.start_reading) 
+                    & (IData)(vlSelf->__PVT__cache_write_finished))) {
+            vlSelf->__PVT__next_state = 3U;
+            vlSelf->__PVT__next_index = 0U;
+            vlSelf->__PVT__next_block_idk = 0U;
+        }
+    } else {
+        if ((1U & (IData)(vlSelf->__PVT__state))) {
+            if ((0x3fU == (IData)(vlSelf->__PVT__fill_addr))) {
+                vlSelf->__PVT__next_state = 2U;
+            }
+        } else {
+            vlSelf->__PVT__next_state = 1U;
+        }
+        if ((1U & (~ (IData)(vlSelf->__PVT__state)))) {
+            vlSelf->__PVT__next_index = 0U;
+            vlSelf->__PVT__next_block_idk = 0U;
+        }
+    }
+}
+
+VL_INLINE_OPT void Vfinal_integration_test_ensemble__A6___nba_comb__TOP__final_integration__ensemble__0(Vfinal_integration_test_ensemble__A6* vlSelf) {
+    (void)vlSelf;  // Prevent unused variable warning
+    Vfinal_integration__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+        Vfinal_integration_test_ensemble__A6___nba_comb__TOP__final_integration__ensemble__0\n"); );
+    // Body
+    vlSelf->__PVT__patched_out[3U] = vlSymsp->TOP__final_integration__ensemble__patch_inst.__PVT__chosen_activation
+        [3U];
+    vlSelf->__PVT__patched_out[2U] = vlSymsp->TOP__final_integration__ensemble__patch_inst.__PVT__chosen_activation
+        [2U];
+    vlSelf->__PVT__patched_out[1U] = vlSymsp->TOP__final_integration__ensemble__patch_inst.__PVT__chosen_activation
+        [1U];
+    vlSelf->__PVT__patched_out[0U] = vlSymsp->TOP__final_integration__ensemble__patch_inst.__PVT__chosen_activation
+        [0U];
+    vlSelf->__PVT__final_choice[0U] = (vlSelf->__PVT__p_block
+                                       [0U] ? vlSelf->__PVT__patched_out
+                                       [0U] : (vlSelf->__PVT__f_block
+                                               [0U]
+                                                ? (IData)(vlSelf->flip_inst__DOT__u3__DOT____Vcellout__genblk1__BRA__0__KET____DOT__u0__q)
+                                                : (
+                                                   (vlSelf->__PVT__f_block
+                                                    [0U] 
+                                                    | vlSelf->__PVT__p_block
+                                                    [0U])
+                                                    ? 0xffffU
+                                                    : 
+                                                   vlSelf->__PVT__activation_org_block
+                                                   [0U])));
+    vlSelf->__PVT__final_choice[1U] = (vlSelf->__PVT__p_block
+                                       [1U] ? vlSelf->__PVT__patched_out
+                                       [1U] : (vlSelf->__PVT__f_block
+                                               [1U]
+                                                ? (IData)(vlSelf->flip_inst__DOT__u3__DOT____Vcellout__genblk1__BRA__1__KET____DOT__u0__q)
+                                                : (
+                                                   (vlSelf->__PVT__f_block
+                                                    [1U] 
+                                                    | vlSelf->__PVT__p_block
+                                                    [1U])
+                                                    ? 0xffffU
+                                                    : 
+                                                   vlSelf->__PVT__activation_org_block
+                                                   [1U])));
+    vlSelf->__PVT__final_choice[2U] = (vlSelf->__PVT__p_block
+                                       [2U] ? vlSelf->__PVT__patched_out
+                                       [2U] : (vlSelf->__PVT__f_block
+                                               [2U]
+                                                ? (IData)(vlSelf->flip_inst__DOT__u3__DOT____Vcellout__genblk1__BRA__2__KET____DOT__u0__q)
+                                                : (
+                                                   (vlSelf->__PVT__f_block
+                                                    [2U] 
+                                                    | vlSelf->__PVT__p_block
+                                                    [2U])
+                                                    ? 0xffffU
+                                                    : 
+                                                   vlSelf->__PVT__activation_org_block
+                                                   [2U])));
+    vlSelf->__PVT__final_choice[3U] = (vlSelf->__PVT__p_block
+                                       [3U] ? vlSelf->__PVT__patched_out
+                                       [3U] : (vlSelf->__PVT__f_block
+                                               [3U]
+                                                ? (IData)(vlSelf->flip_inst__DOT__u3__DOT____Vcellout__genblk1__BRA__3__KET____DOT__u0__q)
+                                                : (
+                                                   (vlSelf->__PVT__f_block
+                                                    [3U] 
+                                                    | vlSelf->__PVT__p_block
+                                                    [3U])
+                                                    ? 0xffffU
+                                                    : 
+                                                   vlSelf->__PVT__activation_org_block
+                                                   [3U])));
+}

@@ -15,14 +15,14 @@ module test_mechanisms #(
 );
 
     // instancia del mecanismo de flipping
-    mecanismo_flipping_flipflop #(
+    flipping_mechanism_flipflop #(
         .N(N), .M(M)
     ) flip_inst (
         .clk(clk),
         .rst(reset),
         .input_f_bits(f),
         .input_activaciones(activation_org),
-        .salida_flip_flop_con_activaciones_procesadas(flipped_out)
+        .flipflop_output_processed_activations(flipped_out)
     );
 
     // Control de la cache

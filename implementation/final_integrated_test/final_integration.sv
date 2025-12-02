@@ -1,6 +1,7 @@
 module final_integration #(
     parameter N_WORDS = 64,//(1 << 20),
     parameter DATA_W = 16,
+    parameter int ADDR_WIDTH = 21,
     parameter int ADDR_W = $clog2(N_WORDS),
     parameter M = 4
 ) (
@@ -9,9 +10,9 @@ module final_integration #(
 
     //input logic [ADDR_W-1:0] addr [M-1:0],
 
-    // activation inputs (M at a time)
-    input  logic [DATA_W-1:0] activation_org    [M-1:0],
-    input  logic [DATA_W-1:0] activation_cache  [M-1:0], // esto habra que cambiarlo
+    // activation inputs (original and cache)
+    input  logic [DATA_W-1:0] activation_org    [N_WORDS-1:0],
+    input  logic [DATA_W-1:0] activation_cache_full  [N_WORDS-1:0], // to be introduced in the cache
 
 
     input logic start_reading,
@@ -24,15 +25,17 @@ module final_integration #(
     output logic p [N_WORDS-1:0], // too see p bits
 
     // mechanisms outputs
-    output logic [DATA_W-1:0] flipped_out [M-1:0],
-    output logic [DATA_W-1:0] patched_out [M-1:0],
-    output logic [DATA_W-1:0] activation_final [M-1:0],
-    output logic f_m [M-1:0],
-    output logic p_m [M-1:0],
+    output logic [DATA_W-1:0] flipped_out [N_WORDS-1:0],
+    output logic [DATA_W-1:0] patched_out [N_WORDS-1:0],
+    output logic [DATA_W-1:0] activation_final [N_WORDS-1:0],
+    output logic [DATA_W-1:0] original_activation [M-1:0],
+    output logic cache_write_finished,
+    output logic finished,
 
     // counters
     output int unsigned count_f,
-    output int unsigned count_p
+    output int unsigned count_p,
+    output logic [$clog2(N_WORDS) - 1:0] dbg_idx [M - 1:0]
 );
 
 logic [1:0] rd_data;
@@ -67,7 +70,7 @@ always_comb begin
   count_p = cp;
 end
 
-// f y p de tamaño m
+// f y p assignment
 genvar i;
     generate
         for (i = 0; i < N_WORDS; i++) begin
@@ -77,50 +80,42 @@ genvar i;
     endgenerate
 
 
-// to manage mechanisms in groups of M
-logic [ADDR_W:0] addr_mechanism;
-always_ff @(posedge clk or posedge reset) begin
-    if (reset) begin
-        addr_mechanism <= '0;
-    end else if (!scan_done) begin
-        addr_mechanism <= '0;
-    end else if (start_reading) begin
-        if (addr_mechanism + M < N_WORDS) begin
-            addr_mechanism <= addr_mechanism + M;
-        end else begin
-            addr_mechanism <= '0;
-        end
-    end
-end
+// debug
+/*generate
+  genvar w;
+  for (w = 0; w < N_WORDS; w++) begin
+    assign flipped_out[w] = activation_org[w];   // por probar
+    assign patched_out[w] = activation_org[w];
+    assign activation_final[w] = activation_org[w];
+  end
+endgenerate*/
 
-// f and p in groups of M to feed mechanisms
-logic f_mechanism [M-1:0];
-logic p_mechanism [M-1:0];
+// Para que el C++ no se quede esperando:
+assign cache_write_finished = 1'b1;
+assign finished = 1'b1;
 
-generate
-    for (i = 0; i < M; i++) begin
-        assign f_mechanism[i] = f[addr_mechanism + i];
-        assign p_mechanism[i] = p[addr_mechanism + i];
-    end
-endgenerate
 
-assign f_m = f_mechanism;
-assign p_m = p_mechanism;
 
-test_mechanisms #(
+test_ensemble #(
     .N(DATA_W),
-    .M(M)
-) test_mechanisms (
+    .M(M),
+    .ADDR_WIDTH(ADDR_WIDTH),
+    .N_WORDS(N_WORDS)
+) ensemble (
     .clk(clk),
     .reset(reset),
     .activation_org(activation_org),
-    .activation_cache(activation_cache),
-    .f(f_mechanism),
-    .p(p_mechanism),
+    .activation_cache_full(activation_cache_full),
+    .f(f),
+    .p(p),
     .start_reading(start_reading),
-    .flipped_out(flipped_out),
-    .patched_out(patched_out),
-    .activation_final(activation_final)
+    .flipped_global(flipped_out),
+    .patched_global(patched_out),
+    .final_global(activation_final),
+    .original_activation(original_activation),
+    .cache_write_finished(cache_write_finished),
+    .finished(finished),
+    .dbg_idx(dbg_idx)
 );
 
 

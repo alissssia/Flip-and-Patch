@@ -1,10 +1,10 @@
-#include "Vmecanismo_flipping_uno.h"
+#include "Vflipping_mechanism_one.h"
 #include "verilated.h"
 #include <iostream>
 
 int main(int argc, char **argv) {
     Verilated::commandArgs(argc, argv);
-    Vmecanismo_flipping_uno* flip = new Vmecanismo_flipping_uno;
+    Vflipping_mechanism_one* flip = new Vflipping_mechanism_one;
 
     flip->a = 0b1000000000000000;
     flip->f = 1;

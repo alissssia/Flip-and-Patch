@@ -5,10 +5,10 @@
 #include "Vfinal_integration__pch.h"
 #include "Vfinal_integration_final_integration.h"
 
-VL_INLINE_OPT void Vfinal_integration_final_integration___nba_sequent__TOP__final_integration__2(Vfinal_integration_final_integration* vlSelf) {
+VL_INLINE_OPT void Vfinal_integration_final_integration___nba_sequent__TOP__final_integration__0(Vfinal_integration_final_integration* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vfinal_integration__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+      Vfinal_integration_final_integration___nba_sequent__TOP__final_integration__2\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+      Vfinal_integration_final_integration___nba_sequent__TOP__final_integration__0\n"); );
     // Init
     SData/*15:0*/ __VdlyVal__rellenar_fallos__DOT__memory__v0;
     __VdlyVal__rellenar_fallos__DOT__memory__v0 = 0;

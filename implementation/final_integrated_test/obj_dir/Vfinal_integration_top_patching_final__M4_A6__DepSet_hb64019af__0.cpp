@@ -4,12 +4,12 @@
 
 #include "Vfinal_integration__pch.h"
 #include "Vfinal_integration__Syms.h"
-#include "Vfinal_integration_top_patching_final__M4.h"
+#include "Vfinal_integration_top_patching_final__M4_A6.h"
 
-VL_INLINE_OPT void Vfinal_integration_top_patching_final__M4___ico_sequent__TOP__final_integration__ensemble__patch_inst__0(Vfinal_integration_top_patching_final__M4* vlSelf) {
+VL_INLINE_OPT void Vfinal_integration_top_patching_final__M4_A6___ico_sequent__TOP__final_integration__ensemble__patch_inst__0(Vfinal_integration_top_patching_final__M4_A6* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vfinal_integration__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          Vfinal_integration_top_patching_final__M4___ico_sequent__TOP__final_integration__ensemble__patch_inst__0\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+          Vfinal_integration_top_patching_final__M4_A6___ico_sequent__TOP__final_integration__ensemble__patch_inst__0\n"); );
     // Init
     SData/*15:0*/ patching_unit__DOT____Vcellout__patching_units__BRA__0__KET____DOT__u0__b;
     patching_unit__DOT____Vcellout__patching_units__BRA__0__KET____DOT__u0__b = 0;
@@ -32,7 +32,7 @@ VL_INLINE_OPT void Vfinal_integration_top_patching_final__M4___ico_sequent__TOP_
     patching_unit__DOT____Vcellout__patching_units__BRA__3__KET____DOT__u0__b 
         = (vlSelf->__PVT__p[3U] ? vlSelf->__PVT__activation_cache
            [3U] : vlSelf->__PVT__activation_org[3U]);
-    if (vlSymsp->TOP__final_integration__ensemble.__PVT__p_read_write) {
+    if (vlSymsp->TOP__final_integration__ensemble.__PVT__read_write) {
         vlSelf->__PVT__chosen_activation[0U] = patching_unit__DOT____Vcellout__patching_units__BRA__0__KET____DOT__u0__b;
         vlSelf->__PVT__chosen_activation[1U] = patching_unit__DOT____Vcellout__patching_units__BRA__1__KET____DOT__u0__b;
         vlSelf->__PVT__chosen_activation[2U] = patching_unit__DOT____Vcellout__patching_units__BRA__2__KET____DOT__u0__b;
@@ -45,10 +45,10 @@ VL_INLINE_OPT void Vfinal_integration_top_patching_final__M4___ico_sequent__TOP_
     }
 }
 
-VL_INLINE_OPT void Vfinal_integration_top_patching_final__M4___nba_sequent__TOP__final_integration__ensemble__patch_inst__0(Vfinal_integration_top_patching_final__M4* vlSelf) {
+VL_INLINE_OPT void Vfinal_integration_top_patching_final__M4_A6___nba_sequent__TOP__final_integration__ensemble__patch_inst__0(Vfinal_integration_top_patching_final__M4_A6* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vfinal_integration__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          Vfinal_integration_top_patching_final__M4___nba_sequent__TOP__final_integration__ensemble__patch_inst__0\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+          Vfinal_integration_top_patching_final__M4_A6___nba_sequent__TOP__final_integration__ensemble__patch_inst__0\n"); );
     // Init
     SData/*15:0*/ __VdlyVal__activation_cache__v0;
     __VdlyVal__activation_cache__v0 = 0;
@@ -58,9 +58,9 @@ VL_INLINE_OPT void Vfinal_integration_top_patching_final__M4___nba_sequent__TOP_
     __VdlySet__activation_cache__v0 = 0;
     // Body
     __VdlySet__activation_cache__v0 = 0U;
-    if (vlSymsp->TOP__final_integration__ensemble.__PVT__p_store_enable) {
-        __VdlyVal__activation_cache__v0 = vlSymsp->TOP__final_integration__ensemble.__PVT__p_activation_in;
-        __VdlyDim0__activation_cache__v0 = vlSymsp->TOP__final_integration__ensemble.__PVT__p_index;
+    if (vlSymsp->TOP__final_integration__ensemble.__PVT__store_enable) {
+        __VdlyVal__activation_cache__v0 = vlSymsp->TOP__final_integration__ensemble.__PVT__activation_in;
+        __VdlyDim0__activation_cache__v0 = vlSymsp->TOP__final_integration__ensemble.__PVT__index;
         __VdlySet__activation_cache__v0 = 1U;
     }
     if (__VdlySet__activation_cache__v0) {

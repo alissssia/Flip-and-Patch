@@ -9,10 +9,10 @@
 extern const VlUnpacked<CData/*2:0*/, 128> Vfinal_integration__ConstPool__TABLE_he4111221_0;
 extern const VlUnpacked<CData/*0:0*/, 128> Vfinal_integration__ConstPool__TABLE_h599c0850_0;
 
-VL_INLINE_OPT void Vfinal_integration_cache_tfg___ico_sequent__TOP__final_integration__test_mechanisms__patch_inst__patch_cache__0(Vfinal_integration_cache_tfg* vlSelf) {
+VL_INLINE_OPT void Vfinal_integration_cache_tfg___ico_sequent__TOP__final_integration__ensemble__patch_inst__patch_cache__0(Vfinal_integration_cache_tfg* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vfinal_integration__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+            Vfinal_integration_cache_tfg___ico_sequent__TOP__final_integration__test_mechanisms__patch_inst__patch_cache__0\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+            Vfinal_integration_cache_tfg___ico_sequent__TOP__final_integration__ensemble__patch_inst__patch_cache__0\n"); );
     // Init
     CData/*0:0*/ __PVT__enable_write;
     __PVT__enable_write = 0;
@@ -25,16 +25,15 @@ VL_INLINE_OPT void Vfinal_integration_cache_tfg___ico_sequent__TOP__final_integr
     CData/*6:0*/ __Vtableidx1;
     __Vtableidx1 = 0;
     // Body
-    __Vtableidx1 = (0x10U | (((IData)((0U != (0x1fU 
-                                              & (~ 
-                                                 vlSelf->__PVT__valid_bits_array
-                                                 [(0xffU 
-                                                   & (IData)(vlSymsp->TOP__final_integration__test_mechanisms.__PVT__index_counter))])))) 
-                              << 6U) | (((IData)(vlSymsp->TOP__final_integration__test_mechanisms.__PVT__read_write) 
-                                         << 5U) | (
-                                                   ((IData)(vlSymsp->TOP.reset) 
-                                                    << 3U) 
-                                                   | (IData)(vlSelf->__PVT__state)))));
+    __Vtableidx1 = (((IData)((0U != (0x1fU & (~ vlSelf->__PVT__valid_bits_array
+                                              [(0xffU 
+                                                & vlSymsp->TOP__final_integration__ensemble.__PVT__p_address)])))) 
+                     << 6U) | (((IData)(vlSymsp->TOP__final_integration__ensemble.__PVT__p_read_write) 
+                                << 5U) | (((IData)(vlSymsp->TOP__final_integration__ensemble.__PVT__p_request) 
+                                           << 4U) | 
+                                          (((IData)(vlSymsp->TOP.reset) 
+                                            << 3U) 
+                                           | (IData)(vlSelf->__PVT__state)))));
     vlSelf->__PVT__next_state = Vfinal_integration__ConstPool__TABLE_he4111221_0
         [__Vtableidx1];
     __PVT__enable_write = Vfinal_integration__ConstPool__TABLE_h599c0850_0
@@ -96,10 +95,10 @@ VL_INLINE_OPT void Vfinal_integration_cache_tfg___ico_sequent__TOP__final_integr
     }
 }
 
-VL_INLINE_OPT void Vfinal_integration_cache_tfg___nba_sequent__TOP__final_integration__test_mechanisms__patch_inst__patch_cache__0(Vfinal_integration_cache_tfg* vlSelf) {
+VL_INLINE_OPT void Vfinal_integration_cache_tfg___nba_sequent__TOP__final_integration__ensemble__patch_inst__patch_cache__0(Vfinal_integration_cache_tfg* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vfinal_integration__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+            Vfinal_integration_cache_tfg___nba_sequent__TOP__final_integration__test_mechanisms__patch_inst__patch_cache__0\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+            Vfinal_integration_cache_tfg___nba_sequent__TOP__final_integration__ensemble__patch_inst__patch_cache__0\n"); );
     // Init
     CData/*7:0*/ __VdlyDim0__valid_bits_array__v0;
     __VdlyDim0__valid_bits_array__v0 = 0;
@@ -119,7 +118,7 @@ VL_INLINE_OPT void Vfinal_integration_cache_tfg___nba_sequent__TOP__final_integr
         }
     } else if (vlSelf->__PVT__enable_write_valid) {
         __VdlyVal__valid_bits_array__v1 = vlSelf->__PVT__valid_bits_next;
-        __VdlyDim0__valid_bits_array__v1 = (0xffU & (IData)(vlSymsp->TOP__final_integration__test_mechanisms.__PVT__index_counter));
+        __VdlyDim0__valid_bits_array__v1 = (0xffU & vlSymsp->TOP__final_integration__ensemble.__PVT__p_address);
         vlSelf->__VdlyCommitQueue__valid_bits_array__v0.enqueue(__VdlyVal__valid_bits_array__v1, (IData)(__VdlyDim0__valid_bits_array__v1));
     }
     vlSelf->__PVT__state = ((IData)(vlSymsp->TOP.reset)
@@ -127,10 +126,10 @@ VL_INLINE_OPT void Vfinal_integration_cache_tfg___nba_sequent__TOP__final_integr
     vlSelf->__VdlyCommitQueue__valid_bits_array__v0.commit(vlSelf->__PVT__valid_bits_array);
 }
 
-VL_INLINE_OPT void Vfinal_integration_cache_tfg___nba_sequent__TOP__final_integration__test_mechanisms__patch_inst__patch_cache__1(Vfinal_integration_cache_tfg* vlSelf) {
+VL_INLINE_OPT void Vfinal_integration_cache_tfg___nba_sequent__TOP__final_integration__ensemble__patch_inst__patch_cache__1(Vfinal_integration_cache_tfg* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vfinal_integration__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+            Vfinal_integration_cache_tfg___nba_sequent__TOP__final_integration__test_mechanisms__patch_inst__patch_cache__1\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+            Vfinal_integration_cache_tfg___nba_sequent__TOP__final_integration__ensemble__patch_inst__patch_cache__1\n"); );
     // Init
     CData/*0:0*/ __PVT__enable_write;
     __PVT__enable_write = 0;
@@ -144,17 +143,16 @@ VL_INLINE_OPT void Vfinal_integration_cache_tfg___nba_sequent__TOP__final_integr
     __Vtableidx1 = 0;
     // Body
     vlSelf->__PVT__valid_bits_out = vlSelf->__PVT__valid_bits_array
-        [(0xffU & (IData)(vlSymsp->TOP__final_integration__test_mechanisms.__PVT__index_counter))];
-    __Vtableidx1 = (0x10U | (((IData)((0U != (0x1fU 
-                                              & (~ 
-                                                 vlSelf->__PVT__valid_bits_array
-                                                 [(0xffU 
-                                                   & (IData)(vlSymsp->TOP__final_integration__test_mechanisms.__PVT__index_counter))])))) 
-                              << 6U) | (((IData)(vlSymsp->TOP__final_integration__test_mechanisms.__PVT__read_write) 
-                                         << 5U) | (
-                                                   ((IData)(vlSymsp->TOP.reset) 
-                                                    << 3U) 
-                                                   | (IData)(vlSelf->__PVT__state)))));
+        [(0xffU & vlSymsp->TOP__final_integration__ensemble.__PVT__p_address)];
+    __Vtableidx1 = (((IData)((0U != (0x1fU & (~ vlSelf->__PVT__valid_bits_array
+                                              [(0xffU 
+                                                & vlSymsp->TOP__final_integration__ensemble.__PVT__p_address)])))) 
+                     << 6U) | (((IData)(vlSymsp->TOP__final_integration__ensemble.__PVT__p_read_write) 
+                                << 5U) | (((IData)(vlSymsp->TOP__final_integration__ensemble.__PVT__p_request) 
+                                           << 4U) | 
+                                          (((IData)(vlSymsp->TOP.reset) 
+                                            << 3U) 
+                                           | (IData)(vlSelf->__PVT__state)))));
     vlSelf->__PVT__next_state = Vfinal_integration__ConstPool__TABLE_he4111221_0
         [__Vtableidx1];
     __PVT__enable_write = Vfinal_integration__ConstPool__TABLE_h599c0850_0

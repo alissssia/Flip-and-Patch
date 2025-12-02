@@ -17,6 +17,10 @@ VL_ATTR_COLD void Vfinal_integration_final_integration___stl_sequent__TOP__final
     __PVT__unnamedblk1__DOT__cf = 0;
     IData/*31:0*/ __PVT__unnamedblk1__DOT__cp;
     __PVT__unnamedblk1__DOT__cp = 0;
+    CData/*0:0*/ __PVT__rellenar_fallos__DOT__write_enable1;
+    __PVT__rellenar_fallos__DOT__write_enable1 = 0;
+    CData/*0:0*/ __PVT__rellenar_fallos__DOT__write_enable0;
+    __PVT__rellenar_fallos__DOT__write_enable0 = 0;
     SData/*15:0*/ __PVT__rellenar_fallos__DOT__barrido_1s__DOT__not_expected_value;
     __PVT__rellenar_fallos__DOT__barrido_1s__DOT__not_expected_value = 0;
     CData/*0:0*/ __PVT__rellenar_fallos__DOT__barrido_0s__DOT__has_high_order;
@@ -410,8 +414,8 @@ VL_ATTR_COLD void Vfinal_integration_final_integration___stl_sequent__TOP__final
                                    + (vlSelf->__PVT__flipping_bit
                                       [0x3fU] ? 1U : 0U));
     vlSelf->count_f = __PVT__unnamedblk1__DOT__cf;
-    vlSelf->__PVT__rellenar_fallos__DOT__write_enable1 = 0U;
-    vlSelf->__PVT__rellenar_fallos__DOT__write_enable0 = 0U;
+    __PVT__rellenar_fallos__DOT__write_enable1 = 0U;
+    __PVT__rellenar_fallos__DOT__write_enable0 = 0U;
     vlSelf->__PVT__rellenar_fallos__DOT__done_read1 = 0U;
     if ((2U & (IData)(vlSelf->__PVT__rellenar_fallos__DOT__barrido_1s__DOT__current_state))) {
         vlSelf->__PVT__rellenar_fallos__DOT__barrido_1s__DOT__next_state 
@@ -420,7 +424,7 @@ VL_ATTR_COLD void Vfinal_integration_final_integration___stl_sequent__TOP__final
                     ? 3U : 0U) : ((0x3fU == (IData)(vlSelf->__PVT__rellenar_fallos__DOT__barrido_1s__DOT__addr_counter))
                                    ? 3U : 2U));
         if ((1U & (~ (IData)(vlSelf->__PVT__rellenar_fallos__DOT__barrido_1s__DOT__current_state)))) {
-            vlSelf->__PVT__rellenar_fallos__DOT__write_enable1 = 0U;
+            __PVT__rellenar_fallos__DOT__write_enable1 = 0U;
             if ((0x3fU == (IData)(vlSelf->__PVT__rellenar_fallos__DOT__barrido_1s__DOT__addr_counter))) {
                 vlSelf->__PVT__rellenar_fallos__DOT__done_read1 = 1U;
             }
@@ -429,7 +433,7 @@ VL_ATTR_COLD void Vfinal_integration_final_integration___stl_sequent__TOP__final
         vlSelf->__PVT__rellenar_fallos__DOT__barrido_1s__DOT__next_state 
             = ((0x3fU == (IData)(vlSelf->__PVT__rellenar_fallos__DOT__barrido_1s__DOT__addr_counter))
                 ? 2U : 1U);
-        vlSelf->__PVT__rellenar_fallos__DOT__write_enable1 = 1U;
+        __PVT__rellenar_fallos__DOT__write_enable1 = 1U;
     } else {
         vlSelf->__PVT__rellenar_fallos__DOT__barrido_1s__DOT__next_state 
             = ((1U == (IData)(vlSelf->__PVT__rellenar_fallos__DOT__current_state))
@@ -443,7 +447,7 @@ VL_ATTR_COLD void Vfinal_integration_final_integration___stl_sequent__TOP__final
                     ? 3U : 0U) : ((0x3fU == (IData)(vlSelf->__PVT__rellenar_fallos__DOT__barrido_0s__DOT__addr_counter))
                                    ? 3U : 2U));
         if ((1U & (~ (IData)(vlSelf->__PVT__rellenar_fallos__DOT__barrido_0s__DOT__current_state)))) {
-            vlSelf->__PVT__rellenar_fallos__DOT__write_enable0 = 0U;
+            __PVT__rellenar_fallos__DOT__write_enable0 = 0U;
             if ((0x3fU == (IData)(vlSelf->__PVT__rellenar_fallos__DOT__barrido_0s__DOT__addr_counter))) {
                 vlSelf->__PVT__rellenar_fallos__DOT__done_read0 = 1U;
             }
@@ -452,7 +456,7 @@ VL_ATTR_COLD void Vfinal_integration_final_integration___stl_sequent__TOP__final
         vlSelf->__PVT__rellenar_fallos__DOT__barrido_0s__DOT__next_state 
             = ((0x3fU == (IData)(vlSelf->__PVT__rellenar_fallos__DOT__barrido_0s__DOT__addr_counter))
                 ? 2U : 1U);
-        vlSelf->__PVT__rellenar_fallos__DOT__write_enable0 = 1U;
+        __PVT__rellenar_fallos__DOT__write_enable0 = 1U;
     } else {
         vlSelf->__PVT__rellenar_fallos__DOT__barrido_0s__DOT__next_state 
             = ((2U == (IData)(vlSelf->__PVT__rellenar_fallos__DOT__current_state))
@@ -462,7 +466,7 @@ VL_ATTR_COLD void Vfinal_integration_final_integration___stl_sequent__TOP__final
         vlSelf->__PVT__rellenar_fallos__DOT__mem_addr 
             = vlSelf->__PVT__rellenar_fallos__DOT__barrido_1s__DOT__addr_counter;
         vlSelf->__PVT__rellenar_fallos__DOT__mem_write_enable 
-            = vlSelf->__PVT__rellenar_fallos__DOT__write_enable1;
+            = __PVT__rellenar_fallos__DOT__write_enable1;
     } else {
         vlSelf->__PVT__rellenar_fallos__DOT__mem_addr 
             = ((2U == (IData)(vlSelf->__PVT__rellenar_fallos__DOT__current_state))
@@ -470,46 +474,65 @@ VL_ATTR_COLD void Vfinal_integration_final_integration___stl_sequent__TOP__final
                 : 0U);
         vlSelf->__PVT__rellenar_fallos__DOT__mem_write_enable 
             = ((2U == (IData)(vlSelf->__PVT__rellenar_fallos__DOT__current_state)) 
-               && (IData)(vlSelf->__PVT__rellenar_fallos__DOT__write_enable0));
+               && (IData)(__PVT__rellenar_fallos__DOT__write_enable0));
     }
+    vlSelf->dbg_idx[3U] = vlSymsp->TOP__final_integration__ensemble.__PVT__dbg_idx
+        [3U];
+    vlSelf->dbg_idx[2U] = vlSymsp->TOP__final_integration__ensemble.__PVT__dbg_idx
+        [2U];
+    vlSelf->dbg_idx[1U] = vlSymsp->TOP__final_integration__ensemble.__PVT__dbg_idx
+        [1U];
+    vlSelf->dbg_idx[0U] = vlSymsp->TOP__final_integration__ensemble.__PVT__dbg_idx
+        [0U];
     IData/*31:0*/ __Vilp1;
     __Vilp1 = 0U;
     while ((__Vilp1 <= 0x3fU)) {
-        vlSelf->f[__Vilp1] = vlSelf->__PVT__flipping_bit
+        vlSelf->activation_final[__Vilp1] = vlSymsp->TOP__final_integration__ensemble.__PVT__final_global
             [__Vilp1];
         __Vilp1 = ((IData)(1U) + __Vilp1);
     }
     IData/*31:0*/ __Vilp2;
     __Vilp2 = 0U;
     while ((__Vilp2 <= 0x3fU)) {
-        vlSelf->p[__Vilp2] = vlSelf->__PVT__patching_bit
+        vlSelf->patched_out[__Vilp2] = vlSymsp->TOP__final_integration__ensemble.__PVT__patched_global
             [__Vilp2];
         __Vilp2 = ((IData)(1U) + __Vilp2);
     }
-    vlSymsp->TOP__final_integration__test_mechanisms.__PVT__activation_cache[3U] 
-        = vlSelf->activation_cache[3U];
-    vlSymsp->TOP__final_integration__test_mechanisms.__PVT__activation_cache[2U] 
-        = vlSelf->activation_cache[2U];
-    vlSymsp->TOP__final_integration__test_mechanisms.__PVT__activation_cache[1U] 
-        = vlSelf->activation_cache[1U];
-    vlSymsp->TOP__final_integration__test_mechanisms.__PVT__activation_cache[0U] 
-        = vlSelf->activation_cache[0U];
-    vlSymsp->TOP__final_integration__test_mechanisms.__PVT__activation_org[3U] 
-        = vlSelf->activation_org[3U];
-    vlSymsp->TOP__final_integration__test_mechanisms.__PVT__activation_org[2U] 
-        = vlSelf->activation_org[2U];
-    vlSymsp->TOP__final_integration__test_mechanisms.__PVT__activation_org[1U] 
-        = vlSelf->activation_org[1U];
-    vlSymsp->TOP__final_integration__test_mechanisms.__PVT__activation_org[0U] 
-        = vlSelf->activation_org[0U];
-    vlSelf->flipped_out[3U] = vlSymsp->TOP__final_integration__test_mechanisms.__PVT__flipped_out
-        [3U];
-    vlSelf->flipped_out[2U] = vlSymsp->TOP__final_integration__test_mechanisms.__PVT__flipped_out
-        [2U];
-    vlSelf->flipped_out[1U] = vlSymsp->TOP__final_integration__test_mechanisms.__PVT__flipped_out
-        [1U];
-    vlSelf->flipped_out[0U] = vlSymsp->TOP__final_integration__test_mechanisms.__PVT__flipped_out
-        [0U];
+    IData/*31:0*/ __Vilp3;
+    __Vilp3 = 0U;
+    while ((__Vilp3 <= 0x3fU)) {
+        vlSelf->flipped_out[__Vilp3] = vlSymsp->TOP__final_integration__ensemble.__PVT__flipped_global
+            [__Vilp3];
+        __Vilp3 = ((IData)(1U) + __Vilp3);
+    }
+    IData/*31:0*/ __Vilp4;
+    __Vilp4 = 0U;
+    while ((__Vilp4 <= 0x3fU)) {
+        vlSelf->f[__Vilp4] = vlSelf->__PVT__flipping_bit
+            [__Vilp4];
+        __Vilp4 = ((IData)(1U) + __Vilp4);
+    }
+    IData/*31:0*/ __Vilp5;
+    __Vilp5 = 0U;
+    while ((__Vilp5 <= 0x3fU)) {
+        vlSelf->p[__Vilp5] = vlSelf->__PVT__patching_bit
+            [__Vilp5];
+        __Vilp5 = ((IData)(1U) + __Vilp5);
+    }
+    IData/*31:0*/ __Vilp6;
+    __Vilp6 = 0U;
+    while ((__Vilp6 <= 0x3fU)) {
+        vlSymsp->TOP__final_integration__ensemble.__PVT__activation_cache_full[__Vilp6] 
+            = vlSelf->activation_cache_full[__Vilp6];
+        __Vilp6 = ((IData)(1U) + __Vilp6);
+    }
+    IData/*31:0*/ __Vilp7;
+    __Vilp7 = 0U;
+    while ((__Vilp7 <= 0x3fU)) {
+        vlSymsp->TOP__final_integration__ensemble.__PVT__activation_org[__Vilp7] 
+            = vlSelf->activation_org[__Vilp7];
+        __Vilp7 = ((IData)(1U) + __Vilp7);
+    }
     __Vtableidx1 = (((IData)(vlSymsp->TOP.start_scan) 
                      << 6U) | (((IData)(vlSelf->__PVT__rellenar_fallos__DOT__done_read1) 
                                 << 5U) | (((IData)(vlSelf->__PVT__rellenar_fallos__DOT__done_read0) 
@@ -530,28 +553,20 @@ VL_ATTR_COLD void Vfinal_integration_final_integration___stl_sequent__TOP__final
         = (0U != (0xffU & (vlSelf->__PVT__rellenar_fallos__DOT__memory
                            [vlSelf->__PVT__rellenar_fallos__DOT__mem_addr] 
                            >> 8U)));
-    vlSelf->__PVT__f_mechanism[0U] = vlSelf->f[(0x3fU 
-                                                & (IData)(vlSelf->__PVT__addr_mechanism))];
-    vlSelf->__PVT__f_mechanism[1U] = vlSelf->f[(0x3fU 
-                                                & ((IData)(1U) 
-                                                   + (IData)(vlSelf->__PVT__addr_mechanism)))];
-    vlSelf->__PVT__f_mechanism[2U] = vlSelf->f[(0x3fU 
-                                                & ((IData)(2U) 
-                                                   + (IData)(vlSelf->__PVT__addr_mechanism)))];
-    vlSelf->__PVT__f_mechanism[3U] = vlSelf->f[(0x3fU 
-                                                & ((IData)(3U) 
-                                                   + (IData)(vlSelf->__PVT__addr_mechanism)))];
-    vlSelf->__PVT__p_mechanism[0U] = vlSelf->p[(0x3fU 
-                                                & (IData)(vlSelf->__PVT__addr_mechanism))];
-    vlSelf->__PVT__p_mechanism[1U] = vlSelf->p[(0x3fU 
-                                                & ((IData)(1U) 
-                                                   + (IData)(vlSelf->__PVT__addr_mechanism)))];
-    vlSelf->__PVT__p_mechanism[2U] = vlSelf->p[(0x3fU 
-                                                & ((IData)(2U) 
-                                                   + (IData)(vlSelf->__PVT__addr_mechanism)))];
-    vlSelf->__PVT__p_mechanism[3U] = vlSelf->p[(0x3fU 
-                                                & ((IData)(3U) 
-                                                   + (IData)(vlSelf->__PVT__addr_mechanism)))];
+    IData/*31:0*/ __Vilp8;
+    __Vilp8 = 0U;
+    while ((__Vilp8 <= 0x3fU)) {
+        vlSymsp->TOP__final_integration__ensemble.__PVT__f[__Vilp8] 
+            = vlSelf->f[__Vilp8];
+        __Vilp8 = ((IData)(1U) + __Vilp8);
+    }
+    IData/*31:0*/ __Vilp9;
+    __Vilp9 = 0U;
+    while ((__Vilp9 <= 0x3fU)) {
+        vlSymsp->TOP__final_integration__ensemble.__PVT__p[__Vilp9] 
+            = vlSelf->p[__Vilp9];
+        __Vilp9 = ((IData)(1U) + __Vilp9);
+    }
     vlSelf->__PVT__rellenar_fallos__DOT__error_type1 
         = (((~ (IData)((0U != (0xffU & (IData)(__PVT__rellenar_fallos__DOT__barrido_1s__DOT__not_expected_value))))) 
             & (0U != (0xffU & ((IData)(__PVT__rellenar_fallos__DOT__barrido_1s__DOT__not_expected_value) 
@@ -572,28 +587,4 @@ VL_ATTR_COLD void Vfinal_integration_final_integration___stl_sequent__TOP__final
             ? 1U : (((IData)(__PVT__rellenar_fallos__DOT__barrido_0s__DOT__has_high_order) 
                      & (IData)(__PVT__rellenar_fallos__DOT__barrido_0s__DOT__has_low_order))
                      ? 2U : 0U));
-    vlSelf->f_m[3U] = vlSelf->__PVT__f_mechanism[3U];
-    vlSelf->f_m[2U] = vlSelf->__PVT__f_mechanism[2U];
-    vlSelf->f_m[1U] = vlSelf->__PVT__f_mechanism[1U];
-    vlSelf->f_m[0U] = vlSelf->__PVT__f_mechanism[0U];
-    vlSymsp->TOP__final_integration__test_mechanisms.__PVT__f[3U] 
-        = vlSelf->__PVT__f_mechanism[3U];
-    vlSymsp->TOP__final_integration__test_mechanisms.__PVT__f[2U] 
-        = vlSelf->__PVT__f_mechanism[2U];
-    vlSymsp->TOP__final_integration__test_mechanisms.__PVT__f[1U] 
-        = vlSelf->__PVT__f_mechanism[1U];
-    vlSymsp->TOP__final_integration__test_mechanisms.__PVT__f[0U] 
-        = vlSelf->__PVT__f_mechanism[0U];
-    vlSelf->p_m[3U] = vlSelf->__PVT__p_mechanism[3U];
-    vlSelf->p_m[2U] = vlSelf->__PVT__p_mechanism[2U];
-    vlSelf->p_m[1U] = vlSelf->__PVT__p_mechanism[1U];
-    vlSelf->p_m[0U] = vlSelf->__PVT__p_mechanism[0U];
-    vlSymsp->TOP__final_integration__test_mechanisms.__PVT__p[3U] 
-        = vlSelf->__PVT__p_mechanism[3U];
-    vlSymsp->TOP__final_integration__test_mechanisms.__PVT__p[2U] 
-        = vlSelf->__PVT__p_mechanism[2U];
-    vlSymsp->TOP__final_integration__test_mechanisms.__PVT__p[1U] 
-        = vlSelf->__PVT__p_mechanism[1U];
-    vlSymsp->TOP__final_integration__test_mechanisms.__PVT__p[0U] 
-        = vlSelf->__PVT__p_mechanism[0U];
 }

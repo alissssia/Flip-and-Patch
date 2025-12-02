@@ -1,7 +1,7 @@
-`ifndef MECANISMO_FLIPPING_UNO_SV
-`define MECANISMO_FLIPPING_UNO_SV
+`ifndef FLIPPING_MECHANISM_ONE_SV
+`define FLIPPING_MECHANISM_ONE_SV
 
-module mecanismo_flipping_uno 
+module flipping_mechanism_one 
     #(parameter N = 16)
         (   input [N - 1:0] a, input f,
             output [N - 1:0] b);
@@ -16,4 +16,4 @@ module mecanismo_flipping_uno
 
 endmodule
 
-`endif // MECANISMO_FLIPPING_UNO_SV
+`endif // FLIPPING_MECHANISM_ONE_SV

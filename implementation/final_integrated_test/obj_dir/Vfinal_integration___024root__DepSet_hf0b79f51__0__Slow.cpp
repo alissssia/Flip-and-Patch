@@ -11,6 +11,15 @@ VL_ATTR_COLD void Vfinal_integration___024root___eval_static(Vfinal_integration_
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vfinal_integration___024root___eval_static\n"); );
 }
 
+VL_ATTR_COLD void Vfinal_integration___024root___eval_initial__TOP(Vfinal_integration___024root* vlSelf) {
+    (void)vlSelf;  // Prevent unused variable warning
+    Vfinal_integration__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vfinal_integration___024root___eval_initial__TOP\n"); );
+    // Body
+    vlSelf->finished = 1U;
+    vlSelf->cache_write_finished = 1U;
+}
+
 #ifdef VL_DEBUG
 VL_ATTR_COLD void Vfinal_integration___024root___dump_triggers__stl(Vfinal_integration___024root* vlSelf);
 #endif  // VL_DEBUG
@@ -101,10 +110,10 @@ VL_ATTR_COLD void Vfinal_integration___024root___dump_triggers__act(Vfinal_integ
         VL_DBG_MSGF("         No triggers active\n");
     }
     if ((1ULL & vlSelf->__VactTriggered.word(0U))) {
-        VL_DBG_MSGF("         'act' region trigger index 0 is active: @(posedge clk or posedge reset)\n");
+        VL_DBG_MSGF("         'act' region trigger index 0 is active: @(posedge clk)\n");
     }
     if ((2ULL & vlSelf->__VactTriggered.word(0U))) {
-        VL_DBG_MSGF("         'act' region trigger index 1 is active: @(posedge clk)\n");
+        VL_DBG_MSGF("         'act' region trigger index 1 is active: @(posedge clk or posedge reset)\n");
     }
 }
 #endif  // VL_DEBUG
@@ -119,10 +128,10 @@ VL_ATTR_COLD void Vfinal_integration___024root___dump_triggers__nba(Vfinal_integ
         VL_DBG_MSGF("         No triggers active\n");
     }
     if ((1ULL & vlSelf->__VnbaTriggered.word(0U))) {
-        VL_DBG_MSGF("         'nba' region trigger index 0 is active: @(posedge clk or posedge reset)\n");
+        VL_DBG_MSGF("         'nba' region trigger index 0 is active: @(posedge clk)\n");
     }
     if ((2ULL & vlSelf->__VnbaTriggered.word(0U))) {
-        VL_DBG_MSGF("         'nba' region trigger index 1 is active: @(posedge clk)\n");
+        VL_DBG_MSGF("         'nba' region trigger index 1 is active: @(posedge clk or posedge reset)\n");
     }
 }
 #endif  // VL_DEBUG
@@ -134,11 +143,11 @@ VL_ATTR_COLD void Vfinal_integration___024root___ctor_var_reset(Vfinal_integrati
     // Body
     vlSelf->clk = VL_RAND_RESET_I(1);
     vlSelf->reset = VL_RAND_RESET_I(1);
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
+    for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
         vlSelf->activation_org[__Vi0] = VL_RAND_RESET_I(16);
     }
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
-        vlSelf->activation_cache[__Vi0] = VL_RAND_RESET_I(16);
+    for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
+        vlSelf->activation_cache_full[__Vi0] = VL_RAND_RESET_I(16);
     }
     vlSelf->start_reading = VL_RAND_RESET_I(1);
     vlSelf->start_scan = VL_RAND_RESET_I(1);
@@ -149,23 +158,25 @@ VL_ATTR_COLD void Vfinal_integration___024root___ctor_var_reset(Vfinal_integrati
     for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
         vlSelf->p[__Vi0] = VL_RAND_RESET_I(1);
     }
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
+    for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
         vlSelf->flipped_out[__Vi0] = VL_RAND_RESET_I(16);
     }
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
+    for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
         vlSelf->patched_out[__Vi0] = VL_RAND_RESET_I(16);
     }
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
+    for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
         vlSelf->activation_final[__Vi0] = VL_RAND_RESET_I(16);
     }
     for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
-        vlSelf->f_m[__Vi0] = VL_RAND_RESET_I(1);
+        vlSelf->original_activation[__Vi0] = VL_RAND_RESET_I(16);
     }
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
-        vlSelf->p_m[__Vi0] = VL_RAND_RESET_I(1);
-    }
+    vlSelf->cache_write_finished = VL_RAND_RESET_I(1);
+    vlSelf->finished = VL_RAND_RESET_I(1);
     vlSelf->count_f = 0;
     vlSelf->count_p = 0;
+    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
+        vlSelf->dbg_idx[__Vi0] = VL_RAND_RESET_I(6);
+    }
     vlSelf->__Vtrigprevexpr___TOP__clk__0 = VL_RAND_RESET_I(1);
     vlSelf->__Vtrigprevexpr___TOP__reset__0 = VL_RAND_RESET_I(1);
 }

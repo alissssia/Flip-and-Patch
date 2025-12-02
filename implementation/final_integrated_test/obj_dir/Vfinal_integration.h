@@ -36,17 +36,19 @@ class alignas(VL_CACHE_LINE_BYTES) Vfinal_integration VL_NOT_FINAL : public Veri
     VL_IN8(&start_reading,0,0);
     VL_IN8(&start_scan,0,0);
     VL_OUT8(&scan_done,0,0);
+    VL_OUT8(&cache_write_finished,0,0);
+    VL_OUT8(&finished,0,0);
     VL_OUT(&count_f,31,0);
     VL_OUT(&count_p,31,0);
-    VL_IN16((&activation_org)[4],15,0);
-    VL_IN16((&activation_cache)[4],15,0);
+    VL_IN16((&activation_org)[64],15,0);
+    VL_IN16((&activation_cache_full)[64],15,0);
     VL_OUT8((&f)[64],0,0);
     VL_OUT8((&p)[64],0,0);
-    VL_OUT16((&flipped_out)[4],15,0);
-    VL_OUT16((&patched_out)[4],15,0);
-    VL_OUT16((&activation_final)[4],15,0);
-    VL_OUT8((&f_m)[4],0,0);
-    VL_OUT8((&p_m)[4],0,0);
+    VL_OUT16((&flipped_out)[64],15,0);
+    VL_OUT16((&patched_out)[64],15,0);
+    VL_OUT16((&activation_final)[64],15,0);
+    VL_OUT16((&original_activation)[4],15,0);
+    VL_OUT8((&dbg_idx)[4],5,0);
 
     // CELLS
     // Public to allow access to /* verilator public */ items.

@@ -1318,11 +1318,11 @@ VL_ATTR_COLD void Vfinal_integration_final_integration___ctor_var_reset(Vfinal_i
     // Body
     vlSelf->clk = VL_RAND_RESET_I(1);
     vlSelf->reset = VL_RAND_RESET_I(1);
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
+    for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
         vlSelf->activation_org[__Vi0] = VL_RAND_RESET_I(16);
     }
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
-        vlSelf->activation_cache[__Vi0] = VL_RAND_RESET_I(16);
+    for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
+        vlSelf->activation_cache_full[__Vi0] = VL_RAND_RESET_I(16);
     }
     vlSelf->start_reading = VL_RAND_RESET_I(1);
     vlSelf->start_scan = VL_RAND_RESET_I(1);
@@ -1333,36 +1333,31 @@ VL_ATTR_COLD void Vfinal_integration_final_integration___ctor_var_reset(Vfinal_i
     for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
         vlSelf->p[__Vi0] = VL_RAND_RESET_I(1);
     }
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
+    for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
         vlSelf->flipped_out[__Vi0] = VL_RAND_RESET_I(16);
     }
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
+    for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
         vlSelf->patched_out[__Vi0] = VL_RAND_RESET_I(16);
     }
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
+    for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
         vlSelf->activation_final[__Vi0] = VL_RAND_RESET_I(16);
     }
     for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
-        vlSelf->f_m[__Vi0] = VL_RAND_RESET_I(1);
+        vlSelf->original_activation[__Vi0] = VL_RAND_RESET_I(16);
     }
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
-        vlSelf->p_m[__Vi0] = VL_RAND_RESET_I(1);
-    }
+    vlSelf->__PVT__cache_write_finished = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__finished = VL_RAND_RESET_I(1);
     vlSelf->count_f = 0;
     vlSelf->count_p = 0;
+    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
+        vlSelf->dbg_idx[__Vi0] = VL_RAND_RESET_I(6);
+    }
     vlSelf->__PVT__all_done = VL_RAND_RESET_I(1);
     for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
         vlSelf->__PVT__flipping_bit[__Vi0] = VL_RAND_RESET_I(1);
     }
     for (int __Vi0 = 0; __Vi0 < 64; ++__Vi0) {
         vlSelf->__PVT__patching_bit[__Vi0] = VL_RAND_RESET_I(1);
-    }
-    vlSelf->__PVT__addr_mechanism = VL_RAND_RESET_I(7);
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
-        vlSelf->__PVT__f_mechanism[__Vi0] = VL_RAND_RESET_I(1);
-    }
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
-        vlSelf->__PVT__p_mechanism[__Vi0] = VL_RAND_RESET_I(1);
     }
     vlSelf->__PVT__rellenar_fallos__DOT__mem_write_enable = VL_RAND_RESET_I(1);
     vlSelf->__PVT__rellenar_fallos__DOT__mem_addr = VL_RAND_RESET_I(6);
@@ -1376,10 +1371,8 @@ VL_ATTR_COLD void Vfinal_integration_final_integration___ctor_var_reset(Vfinal_i
         vlSelf->__PVT__rellenar_fallos__DOT__stuck1_mask[__Vi0] = VL_RAND_RESET_I(16);
     }
     vlSelf->__PVT__rellenar_fallos__DOT__done_read1 = VL_RAND_RESET_I(1);
-    vlSelf->__PVT__rellenar_fallos__DOT__write_enable1 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__rellenar_fallos__DOT__error_type1 = VL_RAND_RESET_I(2);
     vlSelf->__PVT__rellenar_fallos__DOT__done_read0 = VL_RAND_RESET_I(1);
-    vlSelf->__PVT__rellenar_fallos__DOT__write_enable0 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__rellenar_fallos__DOT__error_type0 = VL_RAND_RESET_I(2);
     vlSelf->__PVT__rellenar_fallos__DOT__current_state = VL_RAND_RESET_I(3);
     vlSelf->__PVT__rellenar_fallos__DOT__next_state = VL_RAND_RESET_I(3);

@@ -1,10 +1,10 @@
-#include "Vmecanismo_flipping_bloque.h"
+#include "Vflipping_mechanism_block.h"
 #include "verilated.h"
 #include <iostream>
 
 int main(int argc, char **argv) {
     Verilated::commandArgs(argc, argv);
-    Vmecanismo_flipping_bloque* flip = new Vmecanismo_flipping_bloque;
+    Vflipping_mechanism_block* flip = new Vflipping_mechanism_block;
 
     for (int i = 0; i < 16; i++) {
         flip->a[i] = 0b1000000000000000;

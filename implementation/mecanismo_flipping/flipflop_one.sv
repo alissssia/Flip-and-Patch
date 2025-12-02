@@ -2,7 +2,7 @@
 `define FLIPFLOP_UNO_SV
 /* flipflop for one component of 1 bit */
 
-module flipflop_uno (input clk, rst, d,
+module flipflop_one (input clk, rst, d,
                      output reg q);
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin
