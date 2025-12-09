@@ -20,7 +20,7 @@ SRCS = mux_selector_final.sv \
 	   test_top_mechanisms.cpp
 
 integration:
-	@echo "-- Integracion de la clasificacion de memoria con los mecanismos"
+	@echo "-- Integration of memory classification with the mechanisms"
 	@echo "-- VERILATE & BUILD --------"
 	$(VERILATOR) --cc --exe --build --timing -j 0 -top-module final_integration final_integration.sv main_integration.cpp $(INCLUDES) -CFLAGS "-fcoroutines" 
 	

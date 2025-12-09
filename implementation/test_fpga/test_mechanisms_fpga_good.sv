@@ -1,19 +1,19 @@
 module test_mechanisms_fpga_bueno #(
-    parameter N = 16 // tamaño activaciones
-    // parameter M = 2 // numero de activaciones
+    parameter N = 16 // size of activations
+    // parameter M = 2 // number of activations
 ) (
     input  logic clk,
     input  logic reset,
 
-    // Activacion de entrada
+    // Input activation
     input  logic [N-1:0] activation_org,
     input  logic [N-1:0] activation_cache,
 
-    // Bits de control
+    // Control bits
     input  logic f,
     input  logic p,
 
-    // Señales externas de control de patching
+    // External control signals for patching
     input  logic request,
     input  logic read_write,
     input  logic [20:0] address,
@@ -22,7 +22,7 @@ module test_mechanisms_fpga_bueno #(
     /*input  logic [$clog2(M)-1:0] index,
     input  logic store_enable,*/
 
-    // Salidas
+    // Outputs
     output logic [N-1:0] flipped_out,
     output logic [N-1:0] patched_out,
     output logic [N-1:0] activation_final,
@@ -30,7 +30,7 @@ module test_mechanisms_fpga_bueno #(
     output logic error
 );
 
-    // Instancia del mecanismo de flipping
+    // Instance of the flipping mechanism
     mecanismo_flipping_uno_flipflop #(
         .N(N)
     ) flip_inst (
@@ -38,11 +38,11 @@ module test_mechanisms_fpga_bueno #(
         .rst(reset),
         .input_f_bits(f),
         .input_activaciones(activation_org),
-        .salida_flip_flop_con_activaciones_procesadas(flipped_out)
+        .flipflop_output_processed_activations(flipped_out)
     );
 
-    // Instancia del mecanismo de patching final
-    top_patching_uno #(
+    // Instance of the final patching mechanism
+    top_patching_one #(
         .N(N)
     ) patch_inst (
         .clk(clk),
@@ -58,8 +58,8 @@ module test_mechanisms_fpga_bueno #(
         .error(error)
     );
 
-    // Instancia del selector final
-    mux_selector_uno #(
+    // final selector instance
+    mux_selector_one #(
         .N(N)
     ) selector_inst (
         .a_original(activation_org),

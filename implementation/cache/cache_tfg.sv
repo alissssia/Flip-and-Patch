@@ -10,10 +10,10 @@
 `include "write_way_selector.sv"
 
 /*
-* Modulo de cache
+* cache module
 */
-`define TAG [20:8]      // posicion de los bits de tag en la direccion
-`define SET [7:0]    // posicion de los bits de set en la direccion
+`define TAG [20:8]      // position of the tag bits in the address
+`define SET [7:0]    // position of the set bits in the address
 
 module cache_tfg
     #(
@@ -26,19 +26,19 @@ module cache_tfg
         input wire clk,
         input wire reset,
         input wire [ADDRESS_WIDTH - 1:0] address,
-        input wire read_write, // 1 lectura, 0 escritura
-        input wire [15:0] activation_in, // para cuando se escribe
-        input wire request, // si se quiere realizar o no la accion
-        output wire [15:0] activation_out, // para cuando se lee
+        input wire read_write, // 1 read, 0 write
+        input wire [15:0] activation_in, // for when writing
+        input wire request, // whether to perform the action or not
+        output wire [15:0] activation_out, // for when reading
         output wire valid,
-        output logic error // por si ha llegado al estado de error
+        output logic error // in case it has reached the error state
     );
 
     //localparam int unsigned ADDR_ = ;
     
     logic enable_read, enable_write;
     
-    // direccion dividida
+    // divided address
     wire [12:0] tag;
     wire [7:0] set_index;
     address_decoder addr_decoder_inst (
@@ -47,16 +47,16 @@ module cache_tfg
         .set_index(set_index)
     );
 
-    // salida de los tag / datos de cada via
+    // output of the tags / data of each way
     logic [TAG_WIDTH - 1:0] tag_out [NWAYS - 1:0];
     logic [WORD_SIZE - 1:0] data_out [NWAYS - 1:0];
     //logic valid_bits_out [NWAYS - 1:0];
 
-    // mascara con la via a escribir
+    // mask with the way to write
     logic [NWAYS - 1:0] write_enable_tag;
     logic [NWAYS - 1:0] write_enable_data;
 
-    // instancia de las brams para cada via (tags + datos)
+    // instance of the brams for each way (tags + data)
     generate;
         genvar i;
         for (i = 0; i < NWAYS; i++) begin : ways
@@ -79,10 +79,10 @@ module cache_tfg
         end
     endgenerate
 
-    // para los bits de valido
+    // for the valid bits
     /*logic [NWAYS - 1:0] valid_bits_in;
     logic [NWAYS - 1:0] valid_bits_out;
-    // instanciamos la bram para los bits de valido
+    // we instantiate the bram for the valid bits
     bram #(
         .DEPTH(256),
         .WIDTH_BITS(NWAYS)
@@ -96,12 +96,12 @@ module cache_tfg
         .data_in(valid_bits_in),
         .data_out(valid_bits_out)
     );*/
-    // para los bits de valido
-    logic [NWAYS - 1:0] valid_bits_array [0:255]; // 256 sets, NWAYS bits por set
+    // for the valid bits
+    logic [NWAYS - 1:0] valid_bits_array [0:255]; // 256 sets, NWAYS bits per set
     logic [NWAYS - 1:0] valid_bits_out;
     logic [NWAYS - 1:0] valid_bits_in;
 
-        // para la seleccion de via a escribir y la escritura de los nuevos bits de valido
+    // for the selection of the way to write and the writing of the new valid bits
     logic [$clog2(NWAYS)-1:0] way_to_write;
     logic [NWAYS-1:0] valid_bits_next;
     write_way_selector #(
@@ -116,12 +116,12 @@ module cache_tfg
     assign valid_bits_out = valid_bits_array[set_index];
     assign valid_bits_in = valid_bits_next;
 
-    // salida de valido
-    assign valid = |(~valid_bits_array[set_index]);  // si 1 queda al menos una via libre
+    // output of valid
+    assign valid = |(~valid_bits_array[set_index]);  // if 1 there is at least one free way
 
 
 
-    // para la seleccion de la salida de la via correcta
+    // for the selection of the output of the correct way
     logic [2:0] valid_way;
     logic [NWAYS - 1:0] hit_mask;
 
@@ -137,7 +137,7 @@ module cache_tfg
     );
 
 
-    // escritura del tag y del dato en la via correcta
+    // writing of the tag and data in the correct way
     write_enable_generator #(
         .NWAYS(NWAYS)
     ) write_enable_generator_inst (
@@ -147,7 +147,7 @@ module cache_tfg
         .write_enable_data(write_enable_data)
     );
 
-    // salida de datos de la via correcta
+    // output of data from the correct way
     activation_output_selector #(
         .NWAYS(NWAYS),
         .WORD_SIZE(WORD_SIZE)
@@ -162,7 +162,7 @@ module cache_tfg
         .activation_out(activation_out)
     );
 
-    // ESTADOS
+    // STATE MACHINE
     typedef enum logic [2:0] {
         RESET,
         ERROR,
@@ -174,7 +174,7 @@ module cache_tfg
     } state_t;
     state_t state, next_state;
 
-    // salidas del automata
+    // outputs of the state machine
     logic enable_read_valid, enable_write_valid;
     logic enable_address, enable_address_valid;
     logic enable_ram_output;
@@ -186,7 +186,7 @@ module cache_tfg
     assign error = error_reg;
 
 
-    // automata
+    // state machine logic
     always_comb begin
         next_state = state;
         enable_read = 0;
@@ -262,7 +262,7 @@ module cache_tfg
                         enable_address_valid = 1;
                         next_state = READING;
                     end else if (!request) begin
-                        // nada
+                        // nothing
                         next_state = NOTHING;
                     end
                 end
@@ -277,7 +277,7 @@ module cache_tfg
                             next_state = ERROR;
                         end
                     end else begin
-                        // nada
+                        // nothing
                         next_state = NOTHING;
                     end
                 end
@@ -295,12 +295,12 @@ module cache_tfg
                             next_state = ERROR;
                         end
                     end else begin
-                        // nada
+                        // nothing
                         next_state = NOTHING;
                     end
                 end
 
-                NOTHING: begin // estado por defecto, no se hace nada, se espera a que llegue una peticion de lectura/escritura.
+                NOTHING: begin // default state, do nothing, wait for a read/write request.
                     if (request) begin
                         if (read_write) begin
                             enable_read = 1;
@@ -321,7 +321,7 @@ module cache_tfg
                 end
 
                 default: begin
-                    next_state = ERROR; // si llega a un estado no definido, se pasa al estado de error.
+                    next_state = ERROR; // if an undefined state is reached, go to the error state.
                 end
 
             endcase

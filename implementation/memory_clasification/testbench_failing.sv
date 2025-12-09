@@ -1,25 +1,25 @@
-module testbench_fallos #(
-    parameter int N_WORDS = (1 << 20),               // nº de palabras de la RAM
-    parameter int DATA_W  = 16,               // ancho de palabra
-    parameter int ADDR_W  = $clog2(N_WORDS),  // ancho de dirección
+module testbench_failing #(
+    parameter int N_WORDS = (1 << 20), // number of words in RAM
+    parameter int DATA_W  = 16, // word width
+    parameter int ADDR_W  = $clog2(N_WORDS), // address width
 
-    // ---- Parámetros de inyección de fallos ----
-    parameter int STUCK_PCT = 300000,//569,             // % de bits defectuosos
-    parameter int SEED      = 32'hC0FFEE      // semilla
+    // ---- Fault injection parameters ----
+    parameter int STUCK_PCT = 300000,//569,             // % of defective bits
+    parameter int SEED      = 32'hC0FFEE      // seed
 ) (
     input  logic clk,
     input  logic reset,
     input  logic start,
 
-    output logic [1:0] rd_data,   // error (solo informativo)
+    output logic [1:0] rd_data,   // error (informative only)
     output logic       all_done,
 
-    // memorias de error (salidas para inspección)
-    //output logic [1:0] error_0 [0:N_WORDS-1], // errores detectados en el barrido de 0s
-    //output logic [1:0] error_1 [0:N_WORDS-1]  // errores detectados en el barrido de 1s
-    //output logic error_map [0:N_WORDS-1],  // // indica si hay un error o no en esa direccion
-    output logic flipping_bit [N_WORDS-1:0],    // indica si hay un error de tipo high order
-    output logic patching_bit [N_WORDS-1:0]     // indica si hay un error de tipo low&high order
+    // error memories (outputs for inspection)
+    //output logic [1:0] error_0 [0:N_WORDS-1], // errors detected in the sweep of 0s
+    //output logic [1:0] error_1 [0:N_WORDS-1]  // errors detected in the sweep of 1s
+    //output logic error_map [0:N_WORDS-1],  // // indicates if there is an error or not at that address
+    output logic flipping_bit [N_WORDS-1:0],    // indicates if there is a high order type error
+    output logic patching_bit [N_WORDS-1:0]     // indicates if there is a low&high order type error
 );
 
     // RAM
@@ -30,11 +30,11 @@ module testbench_fallos #(
 
     logic [DATA_W-1:0] memory [0:N_WORDS-1];
 
-    // Máscaras de fallos por bit: 1 = bit defectuoso
+    // Fault masks per bit: 1 = defective bit
     logic [DATA_W-1:0] stuck0_mask [0:N_WORDS-1];  // bits stucked a 0
     logic [DATA_W-1:0] stuck1_mask [0:N_WORDS-1];  // bits stucked a 1
 
-    // inicializacion de bits defectuosos en cada bit de cada direccion de memoria
+    // initialization of defective bits in each bit of each memory address
     initial begin
         void'($urandom(SEED));
         foreach (memory[i]) memory[i] = '0;
@@ -52,18 +52,18 @@ module testbench_fallos #(
         end
     end
 
-    // para que en la escritura los bits defectuosos ignoren lo que se escribe
+    // so that defective bits ignore what is written during write
     always_ff @(posedge clk) begin
         if (mem_write_enable) begin
             logic [DATA_W-1:0] keep_mask = ~(stuck0_mask[mem_addr] | stuck1_mask[mem_addr]);
-            logic [DATA_W-1:0] forced1   =  stuck1_mask[mem_addr]; // los stuck-at-1 fuerzan 1
+            logic [DATA_W-1:0] forced1   =  stuck1_mask[mem_addr]; // stuck-at-1 bits force 1
             memory[mem_addr] <= (mem_wdata & keep_mask) | forced1;
         end
     end
 
     assign mem_rdata = memory[mem_addr];
 
-    // instancia del barrido de 1s
+    // instance of the sweep of 1s
     logic start1, done_write1, done_read1;
     logic write_enable1;
     logic [ADDR_W-1:0] addr1, addr_out1;
@@ -96,7 +96,7 @@ module testbench_fallos #(
         .error_type(error_type1)
     );
 
-    // instancia del barrido de 0s
+    // instance of the sweep of 0s
     logic start0, done_write0, done_read0;
     logic write_enable0;
     logic [ADDR_W-1:0] addr0, addr_out0;
@@ -129,7 +129,7 @@ module testbench_fallos #(
         .error_type(error_type0)
     );
 
-    // estados
+    // states
     typedef enum logic [2:0] {
         IDLE,
         RUN_ONES,
@@ -138,7 +138,7 @@ module testbench_fallos #(
     } state_t;
     state_t current_state, next_state;
 
-    // control de la ram
+    // control of the RAM
     always_comb begin
         if (current_state == RUN_ONES) begin
             mem_write_enable = write_enable1;
@@ -155,31 +155,17 @@ module testbench_fallos #(
         end
     end
 
-    // gestion de starts
+    // management of starts
     always_comb begin
         start1 = (current_state == RUN_ONES);
         start0 = (current_state == RUN_ZEROS);
     end
 
-    // captura de errores en las lecturas
-    // cambiar a una sola memoria cuando funcione
-    /*always_ff @(posedge clk or posedge reset) begin
-        if (reset) begin
-            // inicializamos las memorias de error a 0 (sin error)
-            foreach (error_0[i]) error_0[i] <= 2'b00;
-            foreach (error_1[i]) error_1[i] <= 2'b00;
-        end else begin
-            if (current_state == RUN_ONES && read_phase1) begin
-                error_1[addr_out1] <= error_type1;
-            end else if (current_state == RUN_ZEROS && read_phase0) begin
-                error_0[addr_out0] <= error_type0;
-            end
-        end
-    end*/
-    // en una sola memoria + bits flipping y patching
+    // capture of errors in the readings
+    // in a single memory + bits flipping and patching
     always_ff @(posedge clk or posedge reset) begin
         if (reset) begin
-            // inicializamos las memorias de error a 0 (sin error)
+            // we initialize the error memories to 0 (no error)
             //foreach (error_map[i]) error_map[i] <= 2'b00;
             foreach (flipping_bit[i]) flipping_bit[i] <= 1'b0;
             foreach (patching_bit[i]) patching_bit[i] <= 1'b0;
@@ -216,7 +202,7 @@ module testbench_fallos #(
         end
     end
 
-    // contadores de errores (para memorias mas grandes)
+    // error counters (for larger memories)
     int unsigned ok_ones, high_only_ones, both_ones;
     int unsigned ok_zeros, high_only_zeros, both_zeros;
 
@@ -225,36 +211,35 @@ module testbench_fallos #(
             ok_ones <= 0; high_only_ones <= 0; both_ones <= 0;
             ok_zeros <= 0; high_only_zeros <= 0; both_zeros <= 0;
         end else begin
-            // PASADA 1s
+            // SWEEP 1s
             if (current_state == RUN_ONES && read_phase1) begin
-            // 11 no debería ocurrir
+            // 11 shouldn't happen
             assert (error_type1 != 2'b11)
-                else $error("barrido_1s: error_type=11 en addr %0d", addr_out1);
-
+                else $error("sweep_1s: error_type=11 at addr %0d", addr_out1);
             unique case (error_type1)
                 2'b00: ok_ones         <= ok_ones         + 1;
-                2'b01: high_only_ones  <= high_only_ones  + 1; // solo alta
-                2'b10: both_ones       <= both_ones       + 1; // alta y baja
+                2'b01: high_only_ones  <= high_only_ones  + 1; // high only
+                2'b10: both_ones       <= both_ones       + 1; // high and low
                 default: ; // 11
             endcase
             end
 
-            // PASADA 0s
+            // SWEEP 0s
             if (current_state == RUN_ZEROS && read_phase0) begin
             assert (error_type0 != 2'b11)
-                else $error("barrido_0s: error_type=11 en addr %0d", addr_out0);
+                else $error("sweep_0s: error_type=11 at addr %0d", addr_out0);
 
             unique case (error_type0)
                 2'b00: ok_zeros        <= ok_zeros        + 1;
-                2'b01: high_only_zeros <= high_only_zeros + 1; // solo alta
-                2'b10: both_zeros      <= both_zeros      + 1; // alta y baja
+                2'b01: high_only_zeros <= high_only_zeros + 1; // high only
+                2'b10: both_zeros      <= both_zeros      + 1; // high and low
                 default: ; // 11
             endcase
             end
         end
     end
 
-    // estado siguiente
+    // next state
     always_ff @(posedge clk or posedge reset) begin
         if (reset) begin
             current_state <= IDLE;
@@ -305,7 +290,7 @@ module testbench_fallos #(
     end
 
 
-    // tipo de error en cada ciclo
+    // error type in each cycle
     always_comb begin
         case (current_state)
             RUN_ONES: rd_data = error_type1;
@@ -314,7 +299,7 @@ module testbench_fallos #(
         endcase
     end
 
-    // impresion de resumen de errores
+    // error summary printout
     final begin
         int unsigned ok_total = 0, ones_only = 0, zeros_only = 0;
         int unsigned err_words;
@@ -328,9 +313,9 @@ module testbench_fallos #(
 
             unique case ({pi,fi}) // {p,f}
                 2'b00: ok_total++;
-                2'b01: ones_only++;   // solo f
-                2'b10: zeros_only++;  // solo p
-                2'b11: ;  // no se puede dar
+                2'b01: ones_only++;   // only f
+                2'b10: zeros_only++;  // only p
+                2'b11: ; // can't happen
             endcase
         end
 
@@ -340,7 +325,7 @@ module testbench_fallos #(
         porcentaje_ones  = (ones_only  * 100.0) / N_WORDS;
         porcentaje_zeros = (zeros_only * 100.0) / N_WORDS;
 
-        $display("\n================= RESULTADOS (p/f) =================");
+        $display("\n================= RESULTS (p/f) =================");
         $display("N_WORDS        : %0d", N_WORDS);
         $display("OK             : %0d", ok_total);
         $display("Bit f (01)    : %0d", ones_only);

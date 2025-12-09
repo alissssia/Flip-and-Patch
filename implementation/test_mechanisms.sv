@@ -5,16 +5,16 @@ module test_mechanisms #(
     input  logic clk,
     input  logic reset,
     input  logic [N-1:0] activation_org    [M-1:0],
-    input  logic [N-1:0] activation_cache  [M-1:0], // datos a meter en la cache
+    input  logic [N-1:0] activation_cache  [M-1:0], // data to load into the cache
     input  logic f [M-1:0],
     input  logic p [M-1:0],
-    input  logic start_reading, // para cargar otro bloque de M elementos en la cache
+    input  logic start_reading, // to load another block of M elements into the cache
     output logic [N-1:0] flipped_out [M-1:0],
     output logic [N-1:0] patched_out [M-1:0],
     output logic [N-1:0] activation_final  [M-1:0]
 );
 
-    // instancia del mecanismo de flipping
+    // instance of the flipping mechanism
     flipping_mechanism_flipflop #(
         .N(N), .M(M)
     ) flip_inst (
@@ -25,7 +25,7 @@ module test_mechanisms #(
         .flipflop_output_processed_activations(flipped_out)
     );
 
-    // Control de la cache
+    // Control of the cache
     logic request;
     logic read_write;
     logic [20:0] address;
@@ -80,7 +80,7 @@ module test_mechanisms #(
 
             LOAD_CACHE: begin
                 store_enable  = 1'b1;
-                read_write    = 1'b0; // escritura
+                read_write    = 1'b0; // write
                 activation_in = activation_cache[index_counter];
 
                 if (index_counter < $clog2(M)'(LAST_INDEX)) begin
@@ -98,7 +98,7 @@ module test_mechanisms #(
             end
 
             READ_CACHE: begin
-                read_write    = 1'b1; // lectura
+                read_write    = 1'b1; // read
                 store_enable  = 1'b0;
 
                 if (index_counter < $clog2(M)'(LAST_INDEX))
@@ -116,7 +116,7 @@ module test_mechanisms #(
         endcase
     end
 
-    // Instancia del mecanismo de patching final
+    // Instance of the final patching mechanism
     top_patching_final #(
         .N(N), .M(M)
     ) patch_inst (
@@ -135,7 +135,7 @@ module test_mechanisms #(
         .error(error)
     );
 
-    // Selector final
+    // Final selector
     mux_selector_final #(
         .N(N),
         .M(M)

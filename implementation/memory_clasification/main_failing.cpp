@@ -1,4 +1,4 @@
-#include "Vtestbench_fallos.h"
+#include "Vtestbench_failing.h"
 #include "verilated.h"
 #include <iostream>
 #include <cstdio>
@@ -6,39 +6,39 @@
 
 static constexpr int N_WORDS = (1 << 20);
 
-void clock_tick(Vtestbench_fallos* tb) {
+void clock_tick(Vtestbench_failing* tb) {
     tb->clk = 0;
     tb->eval();
     tb->clk = 1;
     tb->eval();
 }
 
-// convierte el codigo de error a string para mas claridad
+// converts the error code to string for clarity
 auto err_to_str = [](uint32_t e)->const char* {
     switch (e & 0x3) {
         case 0b00: return "OK";
-        case 0b01: return "HighOrder (solo byte alto)";
-        case 0b10: return "High&Low (alto y bajo)";
-        case 0b11: return "Algo raro ha pasado";
+        case 0b01: return "HighOrder (an error in high order bits)";
+        case 0b10: return "High&Low (an error in both high and low order bits)";
+        case 0b11: return "Isn't supposed to happen";
         default:   return "??";
     }
 };
 
 int main(int argc, char **argv) {
     Verilated::commandArgs(argc, argv);
-    Vtestbench_fallos* tb = new Vtestbench_fallos;
+    Vtestbench_failing* tb = new Vtestbench_failing;
 
-    //inicializacion
+    //initialization
     tb->reset = 1;
     tb->start = 0;
 
-    clock_tick(tb); // ciclo 0
+    clock_tick(tb); // cycle 0
 
     for (int i = 0; i < 4; ++i) {
-        clock_tick(tb); // 4 ciclos en reset
+        clock_tick(tb); // 4 cycles in reset
     }
 
-    // quitamos el reset y arrancamos
+    // release reset and start
     tb->reset = 0;
     tb->start = 1;
     clock_tick(tb); 
@@ -48,14 +48,14 @@ int main(int argc, char **argv) {
         clock_tick(tb);
     }
 
-    /*std::printf("\n== Resultados barrido 1s ==\n");
+    /*std::printf("\n== Results sweep 1s ==\n");
     for (int i = 0; i < N_WORDS; ++i) {
 
         uint32_t e = tb->error_1[i];
         std::printf("addr %02d -> err %02x  (%s)\n", i, e, err_to_str(e));
     }
 
-    std::printf("\n== Resultados barrido 0s ==\n");
+    std::printf("\n== Results sweep 0s ==\n");
     for (int i = 0; i < N_WORDS; ++i) {
         uint32_t e = tb->error_0[i];
         std::printf("addr %02d -> err %02x  (%s)\n", i, e, err_to_str(e));

@@ -23,36 +23,36 @@ int main(int argc, char **argv) {
     Verilated::commandArgs(argc, argv);
     Vfinal_integration* tb = new Vfinal_integration;
 
-    //inicializacion
+    //initialization
     tb->reset = 1;
     tb->start_scan = 0;
     tb->start_reading = 0;
 
-    //clock_tick(tb); // ciclo 0
+    //clock_tick(tb); // cycle 0
 
     for (int i = 0; i < N_WORDS; ++i) {
         tb->activation_org[i] = 0x7000 + i;
         tb->activation_cache_full[i] = 0x0000 + i;
     }
-    // ciclos de reset
+    // reset cycles
 
     for (int i = 0; i < 4; ++i) {
-        clock_tick(tb); // 4 ciclos en reset
+        clock_tick(tb); // 4 cycles in reset
     }
 
-    // quitamos el reset
+    // release reset
     tb->reset = 0;
     clock_tick(tb);
     tb->start_scan = 1;
     clock_tick(tb); 
     tb->start_scan = 0;
 
-    // esperamos a que termine el escaneo
+    // wait for the scan to complete
     while (!tb->scan_done) {
         clock_tick(tb);
     }
 
-    std::printf("Escaneo de la memoria completado. f y p obtenidos\n");
+    std::printf("Memory scan completed. f and p obtained\n");
     std::printf("count_f=%u, count_p=%u\n", tb->count_f, tb->count_p);
 
     // activations
@@ -81,7 +81,7 @@ int main(int argc, char **argv) {
 
         for (int ch = 0; ch < M; ++ch) {
             int word_idx = tb->dbg_idx[ch]; 
-            // usamos las salidas del conjunto (ensemble)
+            // we use the outputs from the ensemble
             uint16_t orig_val = tb->original_activation[ch];
             uint16_t final_val = tb->activation_final[word_idx];
             uint16_t flip_val = tb->flipped_out[word_idx];
@@ -116,9 +116,9 @@ int main(int argc, char **argv) {
                     i, (int)tb->f[i], i, (int)tb->p[i]);
     }*/
 
-    /*for (int cyc = 0; cyc < 4; ++cyc) {  // pocos ciclos
+    /*for (int cyc = 0; cyc < 4; ++cyc) {  // few cycles
         clock_tick(tb);
-        for (int i = 0; i < 8; ++i) {    // primeras 8 palabras
+        for (int i = 0; i < 8; ++i) {    // first 8 words
             uint16_t val = tb->activation_final[i];
             std::cout << "word " << i << " = "
                     << std::bitset<DATA_W>(val) << std::endl;
@@ -128,41 +128,3 @@ int main(int argc, char **argv) {
     delete tb;
     return 0;
 }
-
-
-
-/*
-int main(int argc, char **argv) {
-    Verilated::commandArgs(argc, argv);
-    Vfinal_integration* tb = new Vfinal_integration;
-
-    tb->clk = 0;
-    tb->reset = 1;
-    tb->eval();
-
-    // Unos ciclos en reset
-    for (int i = 0; i < 4; ++i) clock_tick(tb);
-
-    tb->reset = 0;
-    clock_tick(tb);
-
-    // Rellenamos activaciones
-    for (int i = 0; i < N_WORDS; ++i) {
-        tb->activation_org[i]        = 0x1000 + i;
-        tb->activation_cache_full[i] = 0x0000 + i; // ahora da igual
-    }
-
-    // Un par de ciclos para que se estabilice todo
-    for (int i = 0; i < 2; ++i) clock_tick(tb);
-
-    // Imprimimos SOLO las primeras palabras de activation_final
-    std::printf("Dump de activation_final (bypass activado):\n");
-    for (int i = 0; i < 16; ++i) {
-        uint16_t val = tb->activation_final[i];
-        std::string bits = std::bitset<DATA_W>(val).to_string();
-        std::printf("word %2d = 0x%04x = %s\n", i, val, bits.c_str());
-    }
-
-    delete tb;
-    return 0;
-}*/

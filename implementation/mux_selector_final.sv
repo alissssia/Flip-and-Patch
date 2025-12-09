@@ -5,9 +5,9 @@ module mux_selector_final #(
     input logic [N-1:0] a_original [M-1:0],
     input logic [N-1:0] a_flipped [M-1:0],
     input logic [N-1:0] a_patched [M-1:0],
-    input logic f [M-1:0], // bit de flipping
-    input logic p [M-1:0], // bit de patching
-    output logic [N-1:0] selected [M-1:0]// salida seleccionada
+    input logic f [M-1:0], // flipping bit
+    input logic p [M-1:0], // patching bit
+    output logic [N-1:0] selected [M-1:0]// selected output
 );
 
     genvar i;

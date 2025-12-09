@@ -1,11 +1,11 @@
 `ifndef CACHE_WAY_SV
 `define CACHE_WAY_SV
 /*
-* Módulo cache_way: encapsula las BRAM de tag y data para cada vía
+* MModule cache_way: encapsulates the tag and data BRAMs for each way
 */
 module cache_way #(
-    parameter TAG_WIDTH = 13, // Ancho del tag
-    parameter DATA_WIDTH = 16, // Ancho de los datos
+    parameter TAG_WIDTH = 13, // Width of the tag
+    parameter DATA_WIDTH = 16, // Width of the data
     parameter SET_WIDTH = 8
 ) (
     input wire clk,
@@ -19,7 +19,7 @@ module cache_way #(
     output wire [TAG_WIDTH-1:0] tag_out,
     output wire [DATA_WIDTH-1:0] data_out
 );
-    // Declaración de la BRAM de tag
+    // Declaration of the tag BRAM
     bram #(
         .DEPTH(1 << SET_WIDTH),
         .WIDTH_BITS(TAG_WIDTH)
@@ -34,7 +34,7 @@ module cache_way #(
         .data_out(tag_out)
     );
 
-    // Declaración de la BRAM de datos
+    // Declaration of the data BRAM
     bram #(
         .DEPTH(1 << SET_WIDTH),
         .WIDTH_BITS(DATA_WIDTH)

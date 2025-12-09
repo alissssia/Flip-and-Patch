@@ -28,7 +28,7 @@ int main (int argc, char** argv) {
     Verilated::commandArgs(argc, argv);
     Vcache_tfg* cache = new Vcache_tfg;
 
-    // inicializacion
+    // initialization
     cache->clk = 0;
     cache->reset = 1;
     cache->request = 0;
@@ -41,11 +41,11 @@ int main (int argc, char** argv) {
         tick(cache);
     }
 
-    // quitamos reset
+    // we release reset
     cache->reset = 0;
 
-    int j = 0; // variable para el set, que cambia cada 5 escrituras
-    // escribimos 20 entradas para llenar 4 lineas de cache
+    int j = 0; // variable for the set, which changes every 5 writes
+    // we write 20 entries to fill 4 cache lines
     for (int i = 0; i < 20; i++) {
         uint16_t tag = i;
         uint8_t set = j;
@@ -63,11 +63,11 @@ int main (int argc, char** argv) {
         cache->request = 1;
         cache->read_write = 0;
 
-        // dos ciclos
+        // two cycles
         tick(cache);
         tick(cache);
         if ((i + 1) % 5 == 0) {
-            j++; // cambiamos de set cada 5 escrituras
+            j++; // we change the set every 5 writes
         }
 
 
@@ -78,8 +78,8 @@ int main (int argc, char** argv) {
     std::cout << "=== Writing Complete ===" << std::endl;
 
 
-    j = 0; // reiniciamos j para las lecturas
-    // leemos las entradas
+    j = 0; // we reset j for the reads
+    // we read the entries
     std::cout << "\n=== Reading Activations ===" << std::endl;
     for (int i = 0; i < 20; i++) {
         uint16_t tag = i;
@@ -87,15 +87,15 @@ int main (int argc, char** argv) {
         uint32_t address = make_address(tag, set);
 
         cache->address = address;
-        cache->activation_in = 0; // no importa el valor de activacion al leer
+        cache->activation_in = 0; // activation value does not matter when reading
         cache->request = 1;
         cache->read_write = 1;
 
-        // dos ciclos
+        // two cycles
         tick(cache);
         tick(cache);
 
-        // mostramos el valor leido
+        // we show the read value
 
         std::cout << "Reading tag = " << tag 
                   << ", set = " << static_cast<int>(set) 
@@ -106,28 +106,28 @@ int main (int argc, char** argv) {
         std::cout << "====================" << std::endl;
 
         if ((i + 1) % 5 == 0) {
-            j++; // cambiamos de set cada 5 lecturas
+            j++; // we change the set every 5 reads
         }
     }
-    std::cout << "Estado de error: " << static_cast<int>(cache->error) << std::endl;
+    std::cout << "Error state: " << static_cast<int>(cache->error) << std::endl;
     std::cout << "=== Reading Complete ===" << std::endl;
 
-    // probamos a escribir despues de leer
+    // we test writing after reading
     std::cout << "\n=== Writing After Reading ===" << std::endl;
     cache->request = 1;
     cache->read_write = 0;
     tick(cache);
-    std::cout << "Estado de error: " << static_cast<int>(cache->error) << std::endl;
+    std::cout << "Error state: " << static_cast<int>(cache->error) << std::endl;
 
-    // intentamos volver a leer
+    // we try to read again
     std::cout << "\n=== Reading After Error ===" << std::endl;
     cache->request = 1;
     cache->read_write = 1;
     tick(cache);
-    std::cout << "Estado de error: " << static_cast<int>(cache->error) << std::endl;
+    std::cout << "Error state: " << static_cast<int>(cache->error) << std::endl;
 
 
-    // intentamos escribir
+    // we try to write
     std::cout << "\n=== Writing After Error ===" << std::endl;
     cache->request = 1;
     cache->read_write = 0;
@@ -135,28 +135,28 @@ int main (int argc, char** argv) {
     cache->activation_in = 97;
     tick(cache);
     tick(cache);
-    std::cout << "Estado de error: " << static_cast<int>(cache->error) << std::endl;
+    std::cout << "Error state: " << static_cast<int>(cache->error) << std::endl;
 
-    // intentamos leer
+    // we try to read
     std::cout << "\n=== Reading After Error ===" << std::endl;
     cache->request = 1;
     cache->read_write = 1;
     cache->address = make_address(0, 0);
     tick(cache);
     tick(cache);
-    std::cout << "Estado de error: " << static_cast<int>(cache->error) << std::endl;
+    std::cout << "Error state: " << static_cast<int>(cache->error) << std::endl;
     std::cout << "Read value: " << cache->activation_out << std::endl;
 
 
-    // reseteamos
+    // we reset
     std::cout << "\n=== Resetting Cache ===" << std::endl;
     cache->reset = 1;
     cache->request = 0;
     tick(cache);
     tick(cache);
-    std::cout << "Estado de error: " << static_cast<int>(cache->error) << std::endl;
+    std::cout << "Error state: " << static_cast<int>(cache->error) << std::endl;
 
-    // intentamos escribir despues del reset
+    // we try to write after reset
     std::cout << "\n=== Writing After Reset ===" << std::endl;
     cache->reset = 0;
     cache->request = 1;
@@ -177,19 +177,19 @@ int main (int argc, char** argv) {
         tick(cache);
         tick(cache);
     }
-    std::cout << "Estado de error: " << static_cast<int>(cache->error) << std::endl;
+    std::cout << "Error state: " << static_cast<int>(cache->error) << std::endl;
 
-    // vamos al estado de nothing
+    // we go to the nothing state
     std::cout << "\n=== Going to Nothing State ===" << std::endl;
     cache->request = 0;
     tick(cache);
     tick(cache);
-    std::cout << "Estado de error: " << static_cast<int>(cache->error) << std::endl;
+    std::cout << "Error state: " << static_cast<int>(cache->error) << std::endl;
     tick(cache);
     tick(cache);
-    std::cout << "Estado de error: " << static_cast<int>(cache->error) << std::endl;
+    std::cout << "Error state: " << static_cast<int>(cache->error) << std::endl;
 
-    // intentamos escribir de nuevo
+    // we try to write again
     std::cout << "\n=== Writing After In Another Set After Full Set ===" << std::endl;
     cache->request = 1;
     cache->read_write = 0;
@@ -197,12 +197,12 @@ int main (int argc, char** argv) {
     cache->activation_in = 99;
     tick(cache);
     tick(cache);
-    std::cout << "Estado de error: " << static_cast<int>(cache->error) << std::endl;
+    std::cout << "Error state: " << static_cast<int>(cache->error) << std::endl;
     std::cout << "Activation in: " << cache->activation_in << std::endl;
     std::cout << "Address: 0x" << std::hex << std::setw(6) << std::setfill('0') << cache->address << std::dec << std::endl;
     std::cout << "Write completed." << std::endl;
 
-    // intentamos leer de nuevo
+    // we try to read again
     std::cout << "\n=== Reading Another Set After Writing A Whole Set ===" << std::endl;
     cache->request = 1;
     cache->read_write = 1;
@@ -213,25 +213,25 @@ int main (int argc, char** argv) {
     std::cout << "Activation out: " << cache->activation_out << std::endl;
     std::cout << "Read completed." << std::endl;
 
-    // al estado de nothing otra vez
+    // we go to the nothing state again
     std::cout << "\n=== Going to Nothing State Again ===" << std::endl;
     cache->request = 0;
     tick(cache);
     tick(cache);
-    std::cout << "Estado de error: " << static_cast<int>(cache->error) << std::endl;
+    std::cout << "Error state: " << static_cast<int>(cache->error) << std::endl;
 
-    // lectura de nuevo
+    // we try to read again
     std::cout << "\n=== Reading After Going to Nothing State Again ===" << std::endl;
     cache->request = 1;
     cache->read_write = 1;
     cache->address = make_address(0, 0);
     tick(cache);
     tick(cache);
-    std::cout << "Estado de error: " << static_cast<int>(cache->error) << std::endl;
+    std::cout << "Error state: " << static_cast<int>(cache->error) << std::endl;
     std::cout << "Activation out: " << cache->activation_out << std::endl;
     std::cout << "Read completed." << std::endl;
 
-    // vuelta a escribir
+    // we try to write again
     std::cout << "\n=== Writing After Going to Nothing State Again and Reading ===" << std::endl;
     cache->request = 1;
     cache->read_write = 0;
@@ -239,19 +239,19 @@ int main (int argc, char** argv) {
     cache->activation_in = 100;
     tick(cache);
     tick(cache);
-    std::cout << "Estado de error: " << static_cast<int>(cache->error) << std::endl;
+    std::cout << "Error state: " << static_cast<int>(cache->error) << std::endl;
     std::cout << "Activation in: " << cache->activation_in << std::endl;
 
 
-    // reseteamos de nuevo
+    // we reset again
     std::cout << "\n=== Resetting Cache Again ===" << std::endl;
     cache->reset = 1;
     cache->request = 0;
     tick(cache);
     tick(cache);
-    std::cout << "Estado de error: " << static_cast<int>(cache->error) << std::endl;
+    std::cout << "Error state: " << static_cast<int>(cache->error) << std::endl;
 
-    // intentamos leer despues del reset
+    // we try to read after reset
     std::cout << "\n=== Reading After Reset Again ===" << std::endl;
     cache->reset = 0;
     cache->request = 1;
@@ -259,11 +259,10 @@ int main (int argc, char** argv) {
     cache->address = make_address(0, 0);
     tick(cache);
     tick(cache);
-    std::cout << "Estado de error: " << static_cast<int>(cache->error) << std::endl;
+    std::cout << "Error state: " << static_cast<int>(cache->error) << std::endl;
 
-
-    // intentamos escribir en un set lleno
-    // primero reseteamos
+    // we try to write in a full set
+    // first we reset
     std::cout << "\n=== Resetting Cache for Full Set Write Test ===" << std::endl;
     cache->reset = 1;
     cache->request = 0;
@@ -275,9 +274,9 @@ int main (int argc, char** argv) {
     std::cout << "\n=== Testing Full Set Write (Expect Error) ===" << std::endl;
     cache->reset = 0;
 
-    // Llenamos el set 0 con NWAYS escrituras distintas
+    // We fill set 0 with NWAYS different writes
     for (int i = 0; i < 5; i++) {
-        uint16_t tag = i; // diferentes tags
+        uint16_t tag = i; // different tags
         uint8_t set = 0;
         uint32_t address = make_address(tag, set);
 
@@ -286,7 +285,7 @@ int main (int argc, char** argv) {
                 << ", error: " << (int)cache->error << std::endl;
 
         cache->address = address;
-        cache->activation_in = i + 10; // solo para diferenciar
+        cache->activation_in = i + 10; // just to differentiate
         cache->request = 1;
         cache->read_write = 0;
 
@@ -294,8 +293,8 @@ int main (int argc, char** argv) {
         tick(cache);
     }
 
-    // Intentamos escribir una vez más en el mismo set (ya lleno)
-    uint32_t full_address = make_address(100, 0); // nuevo tag, mismo set 0
+    // We try to write once more in the same set (already full)
+    uint32_t full_address = make_address(100, 0); // new tag, same set 0
     cache->address = full_address;
     cache->activation_in = 28147;
     cache->request = 1;
@@ -309,15 +308,15 @@ int main (int argc, char** argv) {
     std::cout << "Valid flag: " << (int)cache->valid << std::endl;
 
 
-    // leemos el set lleno
+    // we read the full set
     std::cout << "\n=== Reading Full Set ===" << std::endl;
     for (int i = 0; i < 5; i++) {
-        uint16_t tag = i; // diferentes tags
+        uint16_t tag = i; // different tags
         uint8_t set = 0;
         uint32_t address = make_address(tag, set);
 
         cache->address = address;
-        cache->activation_in = 0; // no importa el valor de activacion al leer
+        cache->activation_in = 0; // activation value doesn't matter when reading
         cache->request = 1;
         cache->read_write = 1;
 

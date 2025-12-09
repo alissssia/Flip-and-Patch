@@ -1,16 +1,16 @@
 `ifndef WRITE_WAY_SELECTOR_SV
 `define WRITE_WAY_SELECTOR_SV
 /*
-* Módulo write_way_selector: selecciona primera vía libre a escribir y marca su
-* bit de validez si se activa el bit de escritura.
+* Module write_way_selector: selects the first free way to write and marks its
+* validity bit if the write bit is enabled.
 */
 module write_way_selector #(
-    parameter NWAYS = 5 // Número de vías
+    parameter NWAYS = 5 // Number of ways
 ) (
-    input wire [NWAYS - 1:0] valid_bits_in, // Vías válidas antes de la escritura
-    input wire enable_write_way_bit, // Habilita la escritura del bit de validez
-    output logic [$clog2(NWAYS) - 1:0] way_to_write, // Vía seleccionada para escribir
-    output logic [NWAYS - 1:0] valid_bits_out // Vías válidas después de la escritura
+    input wire [NWAYS - 1:0] valid_bits_in, // Valid ways before writing
+    input wire enable_write_way_bit, // Enables writing the validity bit
+    output logic [$clog2(NWAYS) - 1:0] way_to_write, // Selected way to write
+    output logic [NWAYS - 1:0] valid_bits_out // Valid ways after writing
 );
 
    logic [NWAYS-1:0] tmp_valid_bits;

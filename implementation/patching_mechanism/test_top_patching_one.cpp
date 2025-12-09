@@ -1,10 +1,10 @@
-#include "Vtop_patching_uno.h"
+#include "Vtop_patching_one.h"
 #include "verilated.h"
 #include <iostream>
 
 int main(int argc, char** argv, char** env) {
     Verilated::commandArgs(argc, argv);
-    Vtop_patching_uno* top = new Vtop_patching_uno;
+    Vtop_patching_one* top = new Vtop_patching_one;
 
     // reset
     top->clk = 0;
@@ -22,7 +22,7 @@ int main(int argc, char** argv, char** env) {
     top->address = 0x05;
     top->activation_in = 0xDEAD;
 
-    // Escribe en cache (2 ciclos)
+    // Write to cache (2 cycles)
     top->request = 1;
     top->eval();
     top->clk = 0; top->eval();
@@ -35,7 +35,7 @@ int main(int argc, char** argv, char** env) {
     top->eval();
 
 
-    // Lee desde caché y prueba el mecanismo (2 ciclos)
+    // Read from cache and test the mechanism (2 cycles)
     top->read_write = 1;
     top->p = 1;
     top->request = 1;
@@ -45,25 +45,25 @@ int main(int argc, char** argv, char** env) {
     top->clk = 0; top->eval();
     top->clk = 1; top->eval();
 
-    std::cout << "Activación original: 0x" << std::hex << top->activation_org << std::endl;
-    std::cout << "Activación cacheada: 0x" << std::hex << top->activation_in << std::endl;
+    std::cout << "Original activation: 0x" << std::hex << top->activation_org << std::endl;
+    std::cout << "Cached activation: 0x" << std::hex << top->activation_in << std::endl;
 
 
     std::cout << " ====================================" << std::endl;
-    std::cout << "Pruebas de patching:" << std::endl;
+    std::cout << "Patching tests:" << std::endl;
 
 
 
-    std::cout << "Activación elegida con patching: 0x" << std::hex << top->chosen_activation << std::endl;
-    std::cout << "Validez: " << (int)top->valid << " | Error: " << (int)top->error << std::endl;
+    std::cout << "Chosen activation with patching: 0x" << std::hex << top->chosen_activation << std::endl;
+    std::cout << "Validity: " << (int)top->valid << " | Error: " << (int)top->error << std::endl;
 
 
-    // Desactiva patching
+    // Disable patching
     top->p = 0;
     top->clk = 0; top->eval();
     top->clk = 1; top->eval();
 
-    std::cout << "Activación elegida sin patching: 0x" << std::hex << top->chosen_activation << std::endl;
+    std::cout << "Chosen activation without patching: 0x" << std::hex << top->chosen_activation << std::endl;
 
     delete top;
     return 0;

@@ -1,5 +1,5 @@
 
-module top_patching_uno #(
+module top_patching_one #(
     parameter int N = 16,
     parameter int ADDR_WIDTH = 21
 ) (
@@ -8,17 +8,17 @@ module top_patching_uno #(
     input logic request,
     input logic read_write, // 1 = read, 0 = write
     input logic [ADDR_WIDTH-1:0] address,
-    input logic [N-1:0] activation_in, // datos de entrada para escritura
+    input logic [N-1:0] activation_in, // input data to write
     input logic p,
-    input logic [N-1:0] activation_org, // datos de cache
-    output logic [N-1:0] chosen_activation, // datos de salida para lectura
+    input logic [N-1:0] activation_org, // cache data
+    output logic [N-1:0] chosen_activation, // output data for reading
     output logic valid,
     output logic error
 );
 
     logic [N-1:0] activation_out;
 
-    // instancia cache
+    // cache instance
     cache_tfg patch_cache (
         .clk(clk),
         .reset(reset),
@@ -31,14 +31,14 @@ module top_patching_uno #(
         .error(error)
     );
 
-    // instancia mecanismo de patching
-    mecanismo_patching_uno #(
+    // patching mechanism instance
+    mecanismo_patching_one #(
         .N(N)
     ) patching_unit (
-        .a_org(activation_org), // activacion original
-        .a_cache(activation_out), // activacion cacheada
-        .p(p), // bit de patching
-        .b(chosen_activation) // devolucion de la activacion patchada
+        .a_org(activation_org), // original activation
+        .a_cache(activation_out), // cached activation
+        .p(p), // patching bit
+        .b(chosen_activation) // patched activation output
     );
 
 endmodule

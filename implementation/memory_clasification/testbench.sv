@@ -1,19 +1,19 @@
 module testbench #(
-    parameter int N_WORDS = 64, // para asegurar que funciona con un numero mas pequeño
-    parameter int DATA_W = 16, // ancho de palabra
-    parameter int ADDR_W = $clog2(N_WORDS) // ancho de direccion
+    parameter int N_WORDS = 64, // to ensure it works with a smaller number
+    parameter int DATA_W = 16, // word width
+    parameter int ADDR_W = $clog2(N_WORDS) // address width
 ) (
     input logic clk,
     input logic reset,
     input logic start,
 
     //input logic [ADDR_W-1:0] rd_addr,
-    output logic [1:0] rd_data, // para leer el tipo de error en una direccion
+    output logic [1:0] rd_data, // to read the error type at an address
 
     output logic all_done,
 
-    // memorias de error
-    output logic [1:0] error_0 [0:N_WORDS-1], // errores en el barrido de 0s
+    // error memories
+    output logic [1:0] error_0 [0:N_WORDS-1], // errors in the sweep of 0s
     output logic [1:0] error_1 [0:N_WORDS-1]
 );
 
@@ -32,12 +32,7 @@ end
 assign mem_rdata = memory[mem_addr];
 
 
-// memorias para guardar los errores
-/*logic [1:0] error_0 [0:N_WORDS-1]; 
-logic [1:0] error_1 [0:N_WORDS-1];*/
-
-
-// instancia del barrido de 1s
+// instance of the sweep of 1s
 logic start1, done_write1, done_read1;
 logic write_enable1;
 logic [ADDR_W-1:0] addr1, addr_out1;
@@ -70,7 +65,7 @@ barrido #(
     .error_type(error_type1)
 );
 
-// instancia del barrido de 0s
+// instance of the sweep of 0s
 logic start0, done_write0, done_read0;
 logic write_enable0;
 logic [ADDR_W-1:0] addr0, addr_out0;
@@ -103,7 +98,7 @@ barrido #(
     .error_type(error_type0)
 );
 
-// estados
+// states
 typedef enum logic [2:0] {
     IDLE,
     RUN_ONES,
@@ -113,7 +108,7 @@ typedef enum logic [2:0] {
 state_t current_state, next_state;
 
 
-// control de la ram
+// control of the RAM
 always_comb begin
     if (current_state == RUN_ONES) begin
         mem_write_enable = write_enable1;
@@ -130,17 +125,17 @@ always_comb begin
     end
 end
 
-// gestion de starts
+// management of starts
 always_comb begin
     start1 = (current_state == RUN_ONES);
     start0 = (current_state == RUN_ZEROS);
 end
 
-// captura de errores en las lecturas
+// capture of errors in the readings
 // cambiar a una sola memoria cuando funcione
 always_ff @(posedge clk or posedge reset) begin
     if (reset) begin
-        // inicializamos las memorias de error a 0 (sin error)
+        // we initialize the error memories to 0 (no error)
         foreach (error_0[i]) error_0[i] <= 2'b00;
         foreach (error_1[i]) error_1[i] <= 2'b00;
     end else begin
@@ -152,7 +147,7 @@ always_ff @(posedge clk or posedge reset) begin
     end
 end
 
-// estado siguiente
+// next state logic
 always_ff @(posedge clk or posedge reset) begin
     if (reset) begin
         current_state <= IDLE;

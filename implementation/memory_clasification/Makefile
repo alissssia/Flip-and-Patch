@@ -17,12 +17,13 @@ INCLUDES = -I.
 SV_SRCS  = testbench.sv \
            barrido.sv
 CPP_SRCS = main.cpp
-SV_ERR  = testbench_fallos.sv \
+SV_ERR  = testbench_failing.sv \
 		   barrido.sv
-CPP_SRCS_ERR = main_fallos.cpp
+CPP_SRCS_ERR = main_failing.cpp
 
 barridos:
 	@echo "-- Prueba doble barrido (1s y 0s) ------------"
+	@echo "-- Test double sweep (1s and 0s) ----------------"
 	@echo "-- VERILATE & BUILD ---------------------------"
 	$(VERILATOR) --cc --exe --build --timing -j 0 -top-module testbench $(SV_SRCS) $(CPP_SRCS) $(INCLUDES) -CFLAGS "-std=c++17"
 	@echo "-- RUN ----------------------------------------"
@@ -30,11 +31,11 @@ barridos:
 	@echo "-- END ----------------------------------------"
 
 errores:
-	@echo "-- Prueba de errores --------------------------"
+	@echo "-- Test of errors --------------------------"
 	@echo "-- VERILATE & BUILD ---------------------------"
-	$(VERILATOR) --cc --exe --build --timing -j 0 -top-module testbench_fallos $(SV_ERR) $(CPP_SRCS_ERR) $(INCLUDES) -CFLAGS "-std=c++17"
+	$(VERILATOR) --cc --exe --build --timing -j 0 -top-module testbench_failing $(SV_ERR) $(CPP_SRCS_ERR) $(INCLUDES) -CFLAGS "-std=c++17"
 	@echo "-- RUN ----------------------------------------"
-	./obj_dir/Vtestbench_fallos
+	./obj_dir/Vtestbench_failing
 	@echo "-- END ----------------------------------------"
 
 

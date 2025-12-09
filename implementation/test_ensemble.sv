@@ -60,7 +60,7 @@ module test_ensemble #(
     logic [N-1:0]      p_activation_in;
     logic [$clog2(M)-1:0] p_index;
     logic              p_store_enable;
-    logic              p_valid; // indicates that the output is valid, doesn't have an output in this module but it could be added
+    logic              p_valid; // indicates that the output of the patching mechanism is valid, doesn't have an output in this module but it could be added
     logic              p_error; // error signal from patching module, doesn't have an output in this module but it could be added
 
     // patching output
@@ -121,10 +121,10 @@ module test_ensemble #(
         assign f_block[i] = f[base_idx + i];
         assign p_block[i] = p[base_idx + i];
 
-        // patched_block ahora viene de la memoria interna rellenada por el patching
+        // patched_block comes from the internal memory filled by the patching mechanism
         assign patched_block[i] = patched_mem[base_idx + i];
 
-        // Salida del mecanismo -> guardamos en flipped_global
+        // output of the mechanism -> we store it in flipped_global
         always_ff @(posedge clk or posedge reset) begin
             if (reset) begin
                 flipped_global[base_idx + i] <= '0;
@@ -140,34 +140,29 @@ module test_ensemble #(
         end
     end
 
-        // ==============================
-    // FSM del patching (llena cache y luego la lee)
-    // NO afecta todavía a patched_block[] ni a las salidas globales
-    // ==============================
+    // patching FSM (it fills the cache and then reads it)
     always_comb begin
-        // valores por defecto
+        // default values
         p_next_state      = p_state;
         p_next_fill_addr  = p_fill_addr;
         p_next_read_addr  = p_read_addr;
 
         p_request       = 1'b0;
-        p_read_write    = 1'b1;      // por defecto: lectura
+        p_read_write    = 1'b1;      // default to read
         p_address       = '0;
         p_activation_in = '0;
         p_index         = '0;
         p_store_enable  = 1'b0;
 
         case (p_state)
-            // -------------------------
+            // reset state
             P_ST_RESET: begin
                 p_next_state     = P_ST_FILL;
                 p_next_fill_addr = '0;
                 p_next_read_addr = '0;
             end
 
-            // -------------------------
-            // FASE 1: llenar la cache de patching con activation_cache_full
-            // -------------------------
+            // step one: fill the patching cache with activation_cache_full
             P_ST_FILL: begin
                 p_request       = 1'b1;
                 p_read_write    = 1'b0; // write
@@ -181,59 +176,24 @@ module test_ensemble #(
                 end
             end
 
-            // -------------------------
-            // FASE 2: esperar a que empiece la lectura global
-            // -------------------------
-            /*P_ST_WAIT_READ: begin
-                if (start_reading) begin
-                    p_next_state     = P_ST_READ;
-                    p_next_read_addr = '0;
-                end
-            end*/
-
-            // -------------------------
-            // FASE 3: leer cache de patching secuencialmente
-            // (1 dirección por ciclo; cuando valid=1, indicamos index y store_enable)
-            // -------------------------
-            /*P_ST_READ: begin
-                p_request    = 1'b1;
-                p_read_write = 1'b1; // read
-                p_address    = p_read_addr[ADDR_WIDTH-1:0];
-
-                if (p_valid) begin
-                    p_store_enable = 1'b1;
-                    // asociamos esta lectura a un canal del bloque
-                    p_index        = p_read_addr[$clog2(M)-1:0]; // p_read_addr % M
-
-                    // avanzamos dirección
-                    if (p_read_addr == N_WORDS-1) begin
-                        // nos quedamos aquí "parados"
-                        p_next_state     = P_ST_READ;
-                        p_next_read_addr = p_read_addr;
-                    end else begin
-                        p_next_read_addr = p_read_addr + 1;
-                    end
-                end
-            end*/
+            // step 2: read the patching cache sequentially
             P_ST_READ: begin
                 p_request    = 1'b1;
                 p_read_write = 1'b1; // read
                 p_address    = p_read_addr[ADDR_WIDTH-1:0];
 
-                // De momento, SIEMPRE escribimos una vez por dirección
                 p_store_enable = 1'b1;
                 p_index        = p_read_addr[$clog2(M)-1:0]; // p_read_addr % M
 
                 if (p_read_addr == N_WORDS-1) begin
-                    p_next_state     = P_ST_READ;    // nos quedamos aquí congelados
+                    p_next_state     = P_ST_READ;    // we stay here frozen
                     p_next_read_addr = p_read_addr;
                 end else begin
                     p_next_read_addr = p_read_addr + 1;
                 end
             end
 
-
-
+            // default case
             default: begin
                 p_next_state      = P_ST_RESET;
                 p_next_fill_addr  = '0;
@@ -242,24 +202,22 @@ module test_ensemble #(
         endcase
     end
 
-    // ==============================
-    // Construir el bloque que ve el patching según p_read_addr
-    // ==============================
+    // build activation_org_patch and p_patch for the current p_read_addr
     always_comb begin
-        // Dirección global que estamos procesando en el patching
+        // global address we are processing in patching
         int unsigned gaddr;
         logic [$clog2(M)-1:0] lane;
 
         gaddr = p_read_addr;
-        lane  = gaddr[$clog2(M)-1:0];  // gaddr % M (M potencia de 2)
-        // Por defecto todo a 0
+        lane  = gaddr[$clog2(M)-1:0];  // gaddr % M (M power of 2) 
+        // default all to zero
         for (int ch = 0; ch < M; ch++) begin
             activation_org_patch[ch] = '0;
             p_patch[ch]             = 1'b0;
         end
 
         if (gaddr < N_WORDS) begin
-            // Solo llenamos UN lane con la palabra que toca
+            // only one lane is active at a time
             activation_org_patch[lane] = activation_org[gaddr];
             p_patch[lane]              = p[gaddr];
         end
@@ -269,23 +227,13 @@ module test_ensemble #(
     assign finished = ~reading & cache_write_finished;
 
     // first we do flipping
-    /*flipping_mechanism_flipflop #(
-        .N(N),
-        .M(M)
-    ) flip_inst (
-        .clk(clk),
-        .rst(reset),
-        .input_f_bits(f_block),
-        .input_activaciones(activation_org_block),
-        .flipflop_output_processed_activations(flipped_block)
-    );*/
     flipping_mechanism_block #(
         .N(N),
         .M(M)
     ) flip_inst (
-        .a(activation_org_block),  // activaciones de entrada por bloque
-        .f(f_block),               // bits f por bloque
-        .b(flipped_block)          // activaciones flippadas
+        .a(activation_org_block),  // input block activations 
+        .f(f_block),               // bits f per block
+        .b(flipped_block)          // flipped activations
     );
 
 
@@ -304,7 +252,7 @@ module test_ensemble #(
         .activation_org   (activation_org_patch),
         .index            (p_index),
         .store_enable     (p_store_enable),
-        .chosen_activation(patched_from_cache), // dummy por ahora
+        .chosen_activation(patched_from_cache),
         .valid            (p_valid),
         .error            (p_error)
     );
@@ -323,9 +271,7 @@ module test_ensemble #(
         .selected(final_choice)
     );
 
-        // ==========================================
-    // Escribir la memoria patched_mem desde top_patching_final
-    // ==========================================
+    // writing patched_mem from top_patching_final
     always_ff @(posedge clk or posedge reset) begin
         if (reset) begin
             for (int i = 0; i < N_WORDS; i++) begin
@@ -333,11 +279,11 @@ module test_ensemble #(
             end
         end
         else begin
-            // La FSM de patching activa p_store_enable cuando p_valid=1
+            // The patching FSM activates p_store_enable when p_valid=1
             //if (p_store_enable && p_valid) begin
             if (p_store_enable) begin
-                // p_read_addr = dirección global que estamos leyendo de la cache
-                // p_index     = lane dentro del bloque (0..M-1)
+                // p_read_addr = global address we are reading from the cache
+                // p_index     = lane within the block (0..M-1)
                 patched_mem[p_read_addr] <= patched_from_cache[p_index];
             end
         end

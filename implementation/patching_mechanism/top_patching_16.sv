@@ -3,7 +3,7 @@
 
 module top_patching_16 #(
     parameter int N = 16, // N bits
-    parameter int M = 16, // M activaciones
+    parameter int M = 16, // M activacions
     parameter int ADDR_WIDTH = 21
 ) (
     input logic clk,
@@ -11,24 +11,24 @@ module top_patching_16 #(
     input logic request,
     input logic read_write, // 1 = read, 0 = write
     input logic [ADDR_WIDTH-1:0] address,
-    input logic [N-1:0] activation_in, // datos de entrada para escritura
-    input logic p [M-1:0], // bits de patching
-    input logic [N-1:0] activation_org [M-1:0], // datos de cache
+    input logic [N-1:0] activation_in, // input data to write
+    input logic p [M-1:0], // patching bits
+    input logic [N-1:0] activation_org [M-1:0], // cache data
 
-    // señales para guardar en posicion i de  activacion_cache
+    // signals to store in position i of activation_cache
     input  logic [$clog2(M)-1:0]     index,
     input  logic                     store_enable,
 
-    output logic [N-1:0] chosen_activation [M-1:0], // datos de salida para lectura
+    output logic [N-1:0] chosen_activation [M-1:0], // output data for reading
     output logic valid,
     output logic error
 );
 
-    logic [N-1:0] activation_out; // valor leido desde la cache
-    logic [N-1:0] activation_cache [M-1:0]; // array de activaciones cacheadas
+    logic [N-1:0] activation_out; // value read from cache
+    logic [N-1:0] activation_cache [M-1:0]; // array of cached activations
 
 
-    // instancia cache
+    // cache instance
     cache_tfg patch_cache (
         .clk(clk),
         .reset(reset),
@@ -41,7 +41,7 @@ module top_patching_16 #(
         .error(error)
     );
 
-    // valor de la cache en la posicion index en el ciclo que toca
+    // value of the cache at position index in the corresponding cycle
     always_ff @(posedge clk) begin
         if (store_enable) begin
             activation_cache[index] <= activation_out;
@@ -49,15 +49,15 @@ module top_patching_16 #(
     end
 
 
-    // aplicar mecanismo de patching
+    // apply patching mechanism
     mecanismo_patching_16 #(
         .N(N),
         .M(M)
     ) patching_unit (
-        .a_org(activation_org), // activacion original
-        .a_cache(activation_cache), // activacion cacheada
-        .p(p), // bits de patching
-        .b(chosen_activation) // devolucion de la activacion patchada
+        .a_org(activation_org), // original activation
+        .a_cache(activation_cache), // cached activation
+        .p(p), // patching bits
+        .b(chosen_activation) // patched activation output
     );
 
 endmodule

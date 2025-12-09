@@ -49,15 +49,15 @@ int main(int argc, char** argv) {
         0, 1, 0, 0
     };
 
-    // Verificación de que f y p no coinciden en 1
+    // Check that f and p are not both 1
     for (int i = 0; i < M; ++i) {
         if (f[i] && p[i]) {
-            std::cerr << "ERROR: f[" << i << "] y p[" << i << "] no pueden ser 1 al mismo tiempo.\n";
+            std::cerr << "ERROR: f[" << i << "] and p[" << i << "] cannot both be 1 at the same time.\n";
             return 1;
         }
     }
 
-    // Cargar señales en el diseño
+    // Load signals into the design
     for (int i = 0; i < M; ++i) {
         top->activation_org[i]   = activation_org[i];
         top->activation_cache[i] = activation_cache[i];
@@ -72,13 +72,13 @@ int main(int argc, char** argv) {
 
     top->reset = 0;
 
-    // tiempo para cargar la cache
+    // time to load the cache
     tick(top, 16);
 
-    // activar lectura desde cache
+    // activate reading from cache
     top->start_reading = 1;
 
-    // tiempo para lectura y procesamiento
+    // time for reading and processing
     tick(top, 16);
 
     // Simular
@@ -89,7 +89,7 @@ int main(int argc, char** argv) {
     top->eval();*/
 
     // mostrar resultados
-    std::cout << "\n=== RESULTADOS COMBINADOS ===\n";
+    std::cout << "\n=== COMBINED RESULTS ===\n";
     std::cout << "Idx |     Original     |     Flipped      |     Patched      |      Final       | F | P\n";
     std::cout << "----+------------------+------------------+------------------+------------------+---+---\n";
 

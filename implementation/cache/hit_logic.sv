@@ -1,30 +1,30 @@
 `ifndef HIT_LOGIC_SV
 `define HIT_LOGIC_SV
 /*
-* Módulo hit_logic: calcula el hit_mask y la vía válida comparando tags
+* MModule hit_logic: calculates the hit_mask and the valid way by comparing tags
 */
 
 module hit_logic #(
-    parameter int NWAYS = 5, // Número de vías
-    parameter int TAG_WIDTH = 13 // Ancho del tag
+    parameter int NWAYS = 5, // Number of ways
+    parameter int TAG_WIDTH = 13 // Width of the tag
 ) (
-    input logic [NWAYS - 1:0] valid_bits, // Vías válidas
-    input logic [TAG_WIDTH - 1:0] tags_outs [NWAYS -1:0], // salidas de los tags de cada via
-    input logic [TAG_WIDTH - 1:0] address_tag, // tag de la dirección de acceso
-    output logic [NWAYS - 1:0] hit_mask, // Máscara de hit
-    output logic [$clog2(NWAYS) - 1:0] valid_way // Vía que ha hecho hit
+    input logic [NWAYS - 1:0] valid_bits, // Valid ways
+    input logic [TAG_WIDTH - 1:0] tags_outs [NWAYS -1:0], // outputs of the tags of each way
+    input logic [TAG_WIDTH - 1:0] address_tag, // tag of the access address
+    output logic [NWAYS - 1:0] hit_mask, // Hit mask
+    output logic [$clog2(NWAYS) - 1:0] valid_way // Way that hit
 );
 
     always_comb begin
-        valid_way = 3'b111; // Inicializar vía válida
+        valid_way = 3'b111; // Initialize valid way
         for (int i = 0; i < NWAYS; i++) begin
-            hit_mask[i] = valid_bits[i] && (tags_outs[i] == address_tag); // Comparar tag y vía válida
+            hit_mask[i] = valid_bits[i] && (tags_outs[i] == address_tag); // Compare tag and valid way
             if (hit_mask[i]) begin
-                valid_way = $clog2(NWAYS)'(i); // Asignar vía válida si hay hit
+                valid_way = $clog2(NWAYS)'(i); // Assign valid way if there is a hit
             end
         end
         if (valid_way == 3'b111) begin
-            // no deberia pasar nunca, pero si no hay hit, devuelve una vía inválida
+            // should never happen, but if there is no hit, return an invalid way
         end
     end
 endmodule

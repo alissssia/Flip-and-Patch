@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
     Verilated::commandArgs(argc, argv);
     Vtop_patching_16* top = new Vtop_patching_16;
 
-    // declaracion de activaciones y p_bits
+    // activation and p_bits declaration
     const int M = 16;
     std::vector<uint16_t> data_patch = {
         0xAAAA, 0xBBBB, 0xCCCC, 0xDDDD,
@@ -43,52 +43,51 @@ int main(int argc, char** argv) {
 
     // reset
     top->reset = 1;
-    tick(top, 2); // dos ciclos de reloj para reset
+    tick(top, 2); // two clock cycles for reset
     top->reset = 0;
 
-    // fase 1: escritura de activaciones en cache
+    // phase 1: writing activations to cache
     for (int i = 0; i < M; i++) {
-        top->read_write = 0; // modo escritura
-        top->request = 1; // solicitud de escritura
+        top->read_write = 0; // write mode
+        top->request = 1; // write request
         top->index = i;
-        top->address = i; // dirección de activación
-        top->activation_in = data_patch[i]; // activación a escribir
-        tick(top, 2); // dos ciclos de reloj para completar la escritura
+        top->address = i; // activation address
+        top->activation_in = data_patch[i]; // activation to write
+        tick(top, 2); // two clock cycles to complete the write
     }
 
-    // fase 2: lectura de activaciones desde cache
+    // phase 2: reading activations from cache
     for (int i = 0; i < M; i++) {
         top->index = i;
-        top->read_write = 1; // modo lectura
-        top->request = 1; // solicitud de lectura
-        top->address = i; // dirección de activación
-        tick(top, 2); // dos ciclos de reloj para completar la lectura
+        top->read_write = 1; // read mode
+        top->request = 1; // read request
+        top->address = i; // activation address
+        tick(top, 2); // two clock cycles to complete the read
         top->store_enable = 1; 
         tick(top);
-        top->store_enable = 0; // desactivar almacenamiento
+        top->store_enable = 0; // disable storage
     }
 
-    // fase 3: pruebas de patching
+    // phase 3: patching tests
     for (int i = 0; i < M; ++i) {
         top->activation_org[i] = data_original[i];
         top->p[i] = p_bits[i];
     }
     tick(top);
 
-    
-    std::cout << "\n=== RESULTADOS DE PATCHING ===\n";
+    std::cout << "\n=== PATCHING RESULTS ===\n";
     for (int i = 0; i < M; ++i) {
         uint16_t final = top->chosen_activation[i];
         std::cout << "Pos " << std::dec << i
                 << " | Original: 0x"   << std::setw(4) << std::setfill('0') << std::hex << data_original[i]
-                << " | Cacheado: 0x"   << std::setw(4) << std::setfill('0') << std::hex << data_patch[i]
+                << " | Cached: 0x"   << std::setw(4) << std::setfill('0') << std::hex << data_patch[i]
                 << " | p: "            << std::dec << p_bits[i]
                 << " | Final: 0x"      << std::setw(4) << std::setfill('0') << std::hex << final
                 << std::endl;
     }
     std::cout << "================================\n";
 
-    // limpieza
+    // cleanup
     delete top;
     return 0;
 }

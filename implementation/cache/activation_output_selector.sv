@@ -2,11 +2,11 @@
 `define ACTIVATION_OUTPUT_SELECTOR_SV
 
 /*
-* Módulo activation_output_selector: selecciona la activación de la vía correcta
+* Module activation_output_selector: selects the activation from the correct way
 */
 module activation_output_selector #(
-    parameter NWAYS = 5,            // Número de vías
-    parameter WORD_SIZE = 16        // Tamaño de palabra
+    parameter NWAYS = 5,            // NNumber of ways
+    parameter WORD_SIZE = 16        // Word size
 )(
     input wire [WORD_SIZE-1:0] data_out_0,
     input wire [WORD_SIZE-1:0] data_out_1,
@@ -33,9 +33,9 @@ module activation_output_selector #(
     );
     always_comb begin
         if (enable) begin
-            activation_out = mux_out; // Asignar salida de datos de la vía seleccionada
+            activation_out = mux_out; // assign output data from the selected way
         end else begin
-            activation_out = '1; // si no se habilita la salida, valor por defecto todos los bits a 1
+            activation_out = '1; // if the output is not enabled, default value all bits to 1
         end
     end
 endmodule

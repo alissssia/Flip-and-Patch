@@ -1,4 +1,4 @@
-#include "Vtest_mechanisms_fpga_bueno.h"
+#include "Vtest_mechanisms_fpga_good.h"
 #include "verilated.h"
 #include <iostream>
 #include <bitset>
@@ -17,7 +17,7 @@ uint16_t activation_cache_data[NUM_ACTIVATIONS] = {
 uint8_t f_data[NUM_ACTIVATIONS] = {1, 0, 0, 1, 1, 0};
 uint8_t p_data[NUM_ACTIVATIONS] = {0, 1, 1, 0, 0, 0};
 
-void tick(Vtest_mechanisms_fpga_bueno* top) {
+void tick(Vtest_mechanisms_fpga_good* top) {
     top->clk = 0;
     top->eval();
     top->clk = 1;
@@ -26,38 +26,39 @@ void tick(Vtest_mechanisms_fpga_bueno* top) {
 
 int main(int argc, char **argv) {
     Verilated::commandArgs(argc, argv);
-    Vtest_mechanisms_fpga_bueno* top = new Vtest_mechanisms_fpga_bueno;
+    Vtest_mechanisms_fpga_good* top = new Vtest_mechanisms_fpga_good;
 
-    // Reset inicial
+    // Initial reset
     top->reset = 1;
     tick(top);
     top->reset = 0;
 
-    std::cout << "\n========== FASE 1: ESCRITURA ==========\n";
+    std::cout << "\n========== PHASE 1: WRITING ==========\n";
 
-    // ========== FASE 1: Escritura de toda la cache ==========
+    // ========== PHASE 1: Writing the entire cache ==========
+    
     for (int i = 0; i < NUM_ACTIVATIONS; ++i) {
         top->request = 1;
-        top->read_write = 0; // escritura
+        top->read_write = 0; // write
         top->address = i;
         top->activation_in = activation_cache_data[i];
-        tick(top); // ciclo 1
-        tick(top); // ciclo 2
+        tick(top); // cycle 1
+        tick(top); // cycle 2
     }
 
     std::cout << "valid: " << static_cast<int>(top->valid)
          << ", error: " << static_cast<int>(top->error) << "\n";
     top->request = 0;
-    tick(top); // Separación
+    tick(top); // Separation
 
-    std::cout << "\n========== FASE 2: LECTURA Y MECANISMOS ==========\n";
+    std::cout << "\n========== PHASE 2: READING AND MECHANISMS ==========\n";
 
-    top->read_write = 1; // lectura
+    top->read_write = 1; // read
     top->request = 1;
 
-    // ========== FASE 2: Lectura y activación de mecanismos ==========
+    // ========== PHASE 2: Reading and activating mechanisms ==========
     for (int i = 0; i < NUM_ACTIVATIONS; ++i) {
-        std::cout << "\n-- Activación " << i << " --\n";
+        std::cout << "\n-- Activation " << i << " --\n";
 
         top->activation_org = activation_org_data[i];
         top->f = f_data[i];
@@ -66,13 +67,13 @@ int main(int argc, char **argv) {
         top->address = i;
         
 
-        tick(top); // ciclo 1
-        tick(top); // ciclo 2
+        tick(top); // cycle 1
+        tick(top); // cycle 2
 
         //top->request = 0;
-        tick(top); // separación
+        tick(top); // separation
 
-        // Mostrar resultados
+        // Show results
         std::cout << "f = " << static_cast<int>(top->f)
                   << ", p = " << static_cast<int>(top->p) << "\n";
 
@@ -86,7 +87,7 @@ int main(int argc, char **argv) {
                   << ", error: " << static_cast<int>(top->error) << "\n";
     }
 
-    std::cout << "\n========== FIN DE PRUEBA ==========\n";
+    std::cout << "\n========== END OF TEST ==========\n";
 
     delete top;
     return 0;

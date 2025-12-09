@@ -22,7 +22,7 @@ SRCS = mux5_1.sv \
 
 
 v1:
-	@echo "-- Prueba de la memoria cache"
+	@echo "-- Test of the cache memory --"
 	@echo "-- VERILATE & BUILD --------"
 	$(VERILATOR) --cc --exe --build --timing -j 0 -top-module cache_tfg $(SRCS) test_cache.cpp -I. -CFLAGS "-fcoroutines"
 	
