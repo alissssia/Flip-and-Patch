@@ -1,5 +1,5 @@
 module final_integration #(
-    parameter N_WORDS = 64,//(1 << 20),
+    parameter N_WORDS = (1 << 20), //64,
     parameter DATA_W = 16,
     parameter int ADDR_WIDTH = 21,
     parameter int ADDR_W = $clog2(N_WORDS),

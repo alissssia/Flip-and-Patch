@@ -6,7 +6,7 @@
 #include <bitset>
 #include <string>
 
-static constexpr int N_WORDS = 64;//(1 << 20);
+static constexpr int N_WORDS = (1 << 20); //64;
 static constexpr int M = 4;
 static constexpr int DATA_W = 16;
 //static constexpr int NUM_BLOCKS = (N_WORDS + M - 1) / M;
