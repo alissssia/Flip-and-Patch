@@ -34,7 +34,7 @@ author = {Yamilka Toca-Díaz and Reynier {Hernández Palacios} and Rubén {Gran 
 # Project organization
 ## Implementation
 This directory contains different directories with each feature necessary to make the techniques work.
-### mecanismo_flipping
+### flipping_mecanism
 Contains the implementation of the flipping mechanism, which can be used:
 
 - With a single activation,
@@ -44,8 +44,23 @@ Contains the implementation of the flipping mechanism, which can be used:
 - With flip-flops before and after the mechanism.
 
 The directory also includes different flip-flop implementations, a multiplexer and dedicated testbenches (with a Makefile to execute all of them).
+
 ### cache
 Implements the cache required for the patching mechanism.
 Includes all necessary modules, a C++ testbench to verify correct functionality and a corresponding Makefile for the testbench execution.
+
+### patching_mechanism
+Contains the implementation of the patching mechanism, which ca be used:
+
+- With a single activation,
+
+- With a block of N activations or
+
+- As a full mechanism that first fills up the whole cache and then reads.
+
+The directory also includes a multiplexer and dedicated testbenches (with a Makefile to execute all of them).
+
+### memory_classification
+
 
 
