@@ -61,6 +61,78 @@ Contains the implementation of the patching mechanism, which ca be used:
 The directory also includes a multiplexer and dedicated testbenches (with a Makefile to execute all of them).
 
 ### memory_classification
+Contains the modules used for memory fault classification. The memory is:
+
+- Written entirely with 0s to detect faulty cells
+
+- Written entirely with 1s to detect faulty cells
+
+Based on the observed errors, the f and p bits are generated so they can be used by the flipping and patching mechanisms.
+
+The directory also includes testbench to test the sweep and a testbench to test the percentage of memory fails that shows the article mencioned above.
+
+### final_integrated_test
+Contains the final integration test, where all components are evaluated together:
+
+- Memory classification
+
+- Flipping mechanism
+
+- Patching mechanism
+
+This represents the complete Flip-and-Patch workflow.
+
+### test_fpga
+Includes the FPGA-based validation of the flipping and patching mechanisms.
+
+Some modifications to the integration modules were required to adapt the design to FPGA constraints, and those changes are contained in this directory.
 
 
+## Logisim Designs (.circ files)
+In the root directory of the repository, several .circ files are provided. These files contain the Logisim designs of the cache, including:
+
+- The cache architecture
+
+- The cache architecture with BRAMs (representing how the cache would operate on an FPGA)
+
+- Test circuits used to validate the correct functionality of the cache  
+
+These schematics were used during the early design and validation stages to visually verify the behavior of the cache before its RTL implementation in SystemVerilog.
+
+They can be opened and simulated using Logisim
+
+
+## Thesis Document
+
+The root directory also includes the PDF of my Bachelor’s Thesis (TFG) **in Spanish**, which provides a more detailed explanation of the complete work.  
+
+The document describes:
+- The theoretical background and motivation
+
+- The design and implementation process of the flipping and patching mechanisms
+
+- The cache design and state machines used
+  
+- Experimental setup and results  
+
+For a deeper understanding of the design decisions and evaluation process, readers are encouraged to consult this document.
+
+
+# Tool Versions
+
+The following tools and versions were used during the design, implementation, and validation of this project:
+
+- Visual Studio Code: v1.100.2  
+
+- C++: v13.3.0  
+
+- Verilator: v5.027  
+
+- Logisim: v2.7.1  
+
+- Operating System: Ubuntu 24.04  
+
+- AMD Vivado Design Suite: v2024.2  
+
+- FPGA Platform: ZedBoard (Zynq-7000)
 
